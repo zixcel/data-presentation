@@ -84,3 +84,5 @@ __pycache__/
 
 # Ignore the temporary consumer link as well as dependency directories.
 node_modules
+
+/outgoing/
