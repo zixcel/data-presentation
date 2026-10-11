@@ -1,5 +1,5 @@
 // Hatter downstream 2026: one exact Scene, presentation-only view and relation emphasis.
-import {validateSnapshot,canonical,copy,frozen,shape,text,roles,ProjectionError} from '@hathq/projection-contracts/client'
+import {validateSnapshot,canonical,copy,frozen,shape,text,roles,ProjectionError} from '@zixcel/projection-contracts/client'
 
 const fail=code=>{throw new ProjectionError(code)}
 const check=(value,code)=>{if(!value)fail(code)}

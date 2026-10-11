@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import {Worker} from 'node:worker_threads'
 import {randomUUID} from 'node:crypto'
-import {canonical,produce,recovery,validateSnapshot} from '@hathq/projection-contracts'
+import {canonical,produce,recovery,validateSnapshot} from '@zixcel/projection-contracts'
 import {bounds,check,clone,fail,hash,shape,token} from './common.mjs'
 export {ExactSourceReader} from './exact-sources.mjs'
 
@@ -9,7 +9,7 @@ const workerUrl=new URL('./producer-worker.mjs',import.meta.url)
 const implementation=hash(Buffer.concat([
   fs.readFileSync(workerUrl),fs.readFileSync(import.meta.filename),
   fs.readFileSync(new URL('./common.mjs',import.meta.url)),
-  ...['index.mjs','contract.mjs','producer.mjs','publication.mjs','hash-node.mjs','../package.json'].map(name=>fs.readFileSync(new URL(name,import.meta.resolve('@hathq/projection-contracts')))),
+  ...['index.mjs','contract.mjs','producer.mjs','publication.mjs','hash-node.mjs','../package.json'].map(name=>fs.readFileSync(new URL(name,import.meta.resolve('@zixcel/projection-contracts')))),
 ]))
 // Explicit installed built-ins only. No request-supplied path/module/code is loaded.
 export class ProducerRegistry {

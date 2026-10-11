@@ -1,4 +1,4 @@
-import {canonical,produce} from '@hathq/projection-contracts'
+import {canonical,produce} from '@zixcel/projection-contracts'
 import {check,clone,token} from './common.mjs'
 
 // Generic lifecycle orchestration only. Owners decide visibility, exact payload,

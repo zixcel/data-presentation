@@ -1,5 +1,5 @@
 {
-  "name": "@hathq/dom-renderer",
+  "name": "@zixcel/dom-renderer",
   "version": "0.10.0",
   "type": "module",
   "license": "Apache-2.0",
@@ -21,7 +21,7 @@
   "dependencies": {
     "three": "0.186.0",
     "@zixcel/interaction": "0.10.1",
-    "@hathq/projection-client": "file:../projection-client"
+    "@zixcel/projection-client": "0.10.0"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",

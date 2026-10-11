@@ -1,4 +1,4 @@
-import type { Snapshot, PublicationTicket } from '@hathq/projection-contracts';
+import type { Snapshot, PublicationTicket } from '@zixcel/projection-contracts';
 import type { RuntimeLimits, ProjectionStore, StoreOptions, StoreInspection, StoreReceipt, RepairRecord } from './types/runtime.mjs';
 /** Linux/WSL kernel-flock adapter. Call create once inside an existing private parent. */
 export class FileProjectionStore implements ProjectionStore {

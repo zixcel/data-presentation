@@ -33,18 +33,18 @@ export const renderBounds: Readonly<{
 }>;
 export class SceneRenderer {
     /** @param {HTMLElement} root
-     * @param {(kind:string,value:string|import('@hathq/projection-client').ActionHandle|undefined)=>void} onEvent
+     * @param {(kind:string,value:string|import('@zixcel/projection-client').ActionHandle|undefined)=>void} onEvent
      * @param {{tools?:HTMLElement,details?:HTMLElement,actions?:HTMLElement}} [slots]
      * @param {ReturnType<typeof createWorldSurface>|null} [surface] */
-    constructor(root: HTMLElement, onEvent: (kind: string, value: string | import("@hathq/projection-client").ActionHandle | undefined) => void, slots?: {
+    constructor(root: HTMLElement, onEvent: (kind: string, value: string | import("@zixcel/projection-client").ActionHandle | undefined) => void, slots?: {
         tools?: HTMLElement;
         details?: HTMLElement;
         actions?: HTMLElement;
     }, surface?: ReturnType<typeof createWorldSurface> | null);
-    /** @param {import('@hathq/projection-client').RenderPlan} plan */
-    render(plan: import("@hathq/projection-client").RenderPlan): void;
-    /** @param {import('@hathq/projection-client').Camera} value */
-    camera(value: import("@hathq/projection-client").Camera): void;
+    /** @param {import('@zixcel/projection-client').RenderPlan} plan */
+    render(plan: import("@zixcel/projection-client").RenderPlan): void;
+    /** @param {import('@zixcel/projection-client').Camera} value */
+    camera(value: import("@zixcel/projection-client").Camera): void;
     speaker(value: any): void;
     garden(value: any): void;
     activity(value: any): void;

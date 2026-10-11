@@ -1,7 +1,7 @@
 // Hatter downstream 2026: exact Scene relations survive both presentation modes.
 import assert from 'node:assert/strict'
 import {test} from 'node:test'
-import {produce,scene} from '@hathq/projection-contracts'
+import {produce,scene} from '@zixcel/projection-contracts'
 import {ClientProjectionRuntime,renderPlan,projectionIdentity} from '../src/index.mjs'
 
 const source={owner:'example',ref:'subject',revision:'source:one',kind:'subject'}

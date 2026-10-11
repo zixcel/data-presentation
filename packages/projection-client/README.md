@@ -1,4 +1,4 @@
-# @hathq/projection-client
+# @zixcel/projection-client
 
 Adopt a validated display snapshot and keep updates tied to the correct revision.
 
@@ -15,7 +15,7 @@ Package distribution is not activated by this documentation. Use the checked-in 
 
 ## Getting started
 
-The manifest currently requires locally supplied package archives: `@hathq/projection-contracts`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
+The manifest currently requires locally supplied package archives: `@zixcel/projection-contracts`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
 
 Use the package manager matching the checked-in lockfile and the Node.js version declared in `package.json` or the development configuration. Run from this repository:
 

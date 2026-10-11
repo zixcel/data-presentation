@@ -1,4 +1,4 @@
-# @hathq/projection-runtime
+# @zixcel/projection-runtime
 
 Execute explicitly registered projection producers in bounded Node.js workers and
 publish disposable read-only snapshots with durable fencing and exact owner leases.
@@ -8,12 +8,12 @@ application authorization. Owner adapters decide visibility and retention.
 ## Install and use
 
 ```sh
-npm install @hathq/projection-runtime@0.10.0
+npm install @zixcel/projection-runtime@0.10.0
 ```
 
 ```ts
-import { ProducerRegistry, ProjectionRuntime, ExactSourceReader } from '@hathq/projection-runtime'
-import { FileProjectionStore } from '@hathq/projection-runtime/store'
+import { ProducerRegistry, ProjectionRuntime, ExactSourceReader } from '@zixcel/projection-runtime'
+import { FileProjectionStore } from '@zixcel/projection-runtime/store'
 
 const registry = new ProducerRegistry()
 const producer = registry.register({ id: 'review', kind: 'data' })
@@ -51,7 +51,7 @@ state. Repair leases preserve exact source identity, and cancelled or timed-out
 work must drain before protection is released. Owner IO must honor its deadline
 and AbortSignal, including independently bounded lost-response cleanup.
 
-`@hathq/projection-contracts` owns wire validation and deterministic sealing;
+`@zixcel/projection-contracts` owns wire validation and deterministic sealing;
 projection-client owns disposable browser adoption; dom-renderer owns presentation.
 This package owns execution/publication and no product-specific meaning.
 
@@ -66,3 +66,7 @@ pnpm audit --audit-level=low
 
 Production manifests use registry versions. Numeric workspace linking is only a
 local development convenience. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
+
+## Package ownership and scope migration
+
+[保守正本と移行条件](docs/package-ownership.ja.md)。The maintained source and npm scope are owned by Zixcel. New `@zixcel` names require their first registry publication before downstream dependency migration. Existing `@hathq` releases remain historical distributions.

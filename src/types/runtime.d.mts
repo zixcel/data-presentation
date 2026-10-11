@@ -1,4 +1,4 @@
-import type { ExactSource, ProjectionRequest, ProducerIdentity, SceneConfiguration, SourceRef, Snapshot, PublicationTicket, PublicationReceipt } from '@hathq/projection-contracts';
+import type { ExactSource, ProjectionRequest, ProducerIdentity, SceneConfiguration, SourceRef, Snapshot, PublicationTicket, PublicationReceipt } from '@zixcel/projection-contracts';
 export interface RuntimeLimits { concurrent: number; queued: number; inputBytes: number; executionMs: number; keys: number; snapshots: number; repairs: number; attempts: number; repairMs: number }
 export interface StoreOptions { deadline?: number | null; previousHolder?: string | null }
 export interface RepairRecord {
@@ -34,4 +34,4 @@ export interface SourceAdapter {
   releaseHolder(holder: string): void | Promise<void>;
 }
 export interface SubmissionOptions { accessRef: string; signal?: AbortSignal; id?: string }
-export type ProducerConfiguration = Readonly<Record<string, import('@hathq/projection-contracts').Json>> | SceneConfiguration;
+export type ProducerConfiguration = Readonly<Record<string, import('@zixcel/projection-contracts').Json>> | SceneConfiguration;

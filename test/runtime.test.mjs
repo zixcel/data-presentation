@@ -5,7 +5,7 @@ import os from 'node:os'
 import path from 'node:path'
 import {spawn,spawnSync} from 'node:child_process'
 import {once} from 'node:events'
-import {canonical,produce,adoptSnapshot} from '@hathq/projection-contracts'
+import {canonical,produce,adoptSnapshot} from '@zixcel/projection-contracts'
 import {FileProjectionStore} from '../src/store.mjs'
 import {ProducerRegistry,ProjectionRuntime,ExactSourceReader} from '../src/runtime.mjs'
 const code=expected=>e=>e.code===expected

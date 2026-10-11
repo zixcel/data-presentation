@@ -1,6 +1,6 @@
 // Hatter downstream 2026: relations retain the canonical owner shape.
-import type {SceneProjection,ProjectionIdentity,Action,Item,Unresolved,Relation,Region} from '@hathq/projection-contracts/client'
-export type {SceneProjection,ProjectionIdentity} from '@hathq/projection-contracts/client'
+import type {SceneProjection,ProjectionIdentity,Action,Item,Unresolved,Relation,Region} from '@zixcel/projection-contracts/client'
+export type {SceneProjection,ProjectionIdentity} from '@zixcel/projection-contracts/client'
 export interface Camera {readonly x:number;readonly y:number;readonly z:number}
 export type DisplayBinding=NonNullable<SceneProjection['data']['presentation']>[number]
 export type TemporalPlan=NonNullable<SceneProjection['data']['temporal']>&{readonly cursor:string|null}

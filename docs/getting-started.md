@@ -1,4 +1,4 @@
-# Using @hathq/projection-runtime
+# Using @zixcel/projection-runtime
 
 Generate and maintain view projections from an explicitly supplied source.
 
