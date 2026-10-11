@@ -1,0 +1,33 @@
+{
+  "repository": "zixcel/projection-runtime",
+  "packages": [
+    {
+      "name": "@zixcel/projection-contracts",
+      "version": "0.10.0",
+      "directory": "packages/projection-contracts",
+      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
+      "sha256": "fb902ec0eb79325448722dd9676797b5ba526cad813aedd6f01533c9ece68332"
+    },
+    {
+      "name": "@zixcel/projection-runtime",
+      "version": "0.10.0",
+      "directory": ".",
+      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
+      "sha256": "49c0fb2e1dd020ffb40ea9b2bc785abc4c50d5b3a4744336041eef4e8ccd0753"
+    },
+    {
+      "name": "@zixcel/projection-client",
+      "version": "0.10.0",
+      "directory": "packages/projection-client",
+      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
+      "sha256": "14f88d3915a17b97b3268c23381710039e1f7af9fbe3782ce074d6baca2e22c0"
+    },
+    {
+      "name": "@zixcel/dom-renderer",
+      "version": "0.10.0",
+      "directory": "packages/dom-renderer",
+      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
+      "sha256": "fcfdc51d6e22e6f4bc2aafd8820fe5e3a01a1d6091f10a3b4dc039dea0106175"
+    }
+  ]
+}
