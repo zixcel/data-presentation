@@ -1,5 +1,5 @@
-import { produce, scene, ProjectionSlot, pendingRepair, repair, recovery, type ProjectionRequest, type ExactSource } from '@hathq/projection-contracts';
-import { validateSnapshot } from '@hathq/projection-contracts/client';
+import { produce, scene, ProjectionSlot, pendingRepair, repair, recovery, type ProjectionRequest, type ExactSource } from '@zixcel/projection-contracts';
+import { validateSnapshot } from '@zixcel/projection-contracts/client';
 const ref = { owner: 'example', ref: 'selected', revision: 'revision-1', kind: 'example' };
 const request: ProjectionRequest = { key: 'example', producer: { id: 'builtin', version: '0.10.0', contract: 'projection/0.10.0', configuration: 'reviewed' }, sources: [ref], focus: 'example', purpose: 'review', visibilityRef: 'owner-authorized', limits: {} };
 const source: ExactSource = { source: ref, items: [], relations: [], unresolved: [], truncated: false };

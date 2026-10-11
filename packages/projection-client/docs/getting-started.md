@@ -1,4 +1,4 @@
-# Using @hathq/projection-client
+# Using @zixcel/projection-client
 
 Adopt a validated display snapshot and keep updates tied to the correct revision.
 

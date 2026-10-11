@@ -1,5 +1,5 @@
 import {createHash} from 'node:crypto'
-import {canonical,ProjectionError} from '@hathq/projection-contracts'
+import {canonical,ProjectionError} from '@zixcel/projection-contracts'
 export const fail=code=>{throw new ProjectionError(code)}
 export const hash=bytes=>createHash('sha256').update(bytes).digest('hex')
 export const clone=value=>JSON.parse(canonical(value))

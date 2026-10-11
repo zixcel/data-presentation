@@ -51,11 +51,11 @@ export function valueView(document,value,budget={nodes:0,bytes:0}){
 export class SceneRenderer{
  #root;#events;#abort=null;#actionHandles=new Map();#spatial=null;#slots;#pose=null;#poseKey=null;#speaker=null;#surface;#ownsSurface;#garden=null
  /** @param {HTMLElement} root
-  * @param {(kind:string,value:string|import('@hathq/projection-client').ActionHandle|undefined)=>void} onEvent
+  * @param {(kind:string,value:string|import('@zixcel/projection-client').ActionHandle|undefined)=>void} onEvent
   * @param {{tools?:HTMLElement,details?:HTMLElement,actions?:HTMLElement}} [slots]
   * @param {ReturnType<typeof createWorldSurface>|null} [surface] */
  constructor(root,onEvent,slots={},surface=null){this.#root=root;this.#events=onEvent;this.#slots=slots;this.#surface=surface??createWorldSurface();this.#ownsSurface=!surface}
- /** @param {import('@hathq/projection-client').RenderPlan} plan */
+ /** @param {import('@zixcel/projection-client').RenderPlan} plan */
  render(plan){
   const root=this.#root,document=root.ownerDocument,focused=document.activeElement?.dataset.control
   const previous=root.querySelector('[data-render-key]'),oldViewport=root.querySelector('.scene-viewport')
@@ -155,7 +155,7 @@ export class SceneRenderer{
   if(focused)[...root.querySelectorAll('[data-control]')].find(n=>n.dataset.control===focused)?.focus({preventScroll:true})
   if(scroll){viewport.scrollLeft=scroll.left;viewport.scrollTop=scroll.top}
  }
- /** @param {import('@hathq/projection-client').Camera} value */
+ /** @param {import('@zixcel/projection-client').Camera} value */
  camera(value){this.#spatial?.apply(value)}
  speaker(value){this.#speaker=value}
  garden(value){this.#garden=value}

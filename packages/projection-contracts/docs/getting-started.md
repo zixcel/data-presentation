@@ -1,7 +1,7 @@
-# Using @hathq/projection-contracts
+# Using @zixcel/projection-contracts
 
 Install the published npm package and import producer APIs from the root, or
-browser validation from `@hathq/projection-contracts/client`. See the
+browser validation from `@zixcel/projection-contracts/client`. See the
 [typed producer and Scene example](../README.md).
 
 The application supplies exact owner-visible revisions and accepted access

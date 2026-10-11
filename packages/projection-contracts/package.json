@@ -1,5 +1,5 @@
 {
-  "name": "@hathq/projection-contracts",
+  "name": "@zixcel/projection-contracts",
   "version": "0.10.0",
   "description": "Renderer-independent bounded projection, lineage and Scene contracts",
   "type": "module",

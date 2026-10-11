@@ -1,5 +1,5 @@
 import {parentPort,workerData} from 'node:worker_threads'
-import {produce,scene} from '@hathq/projection-contracts'
+import {produce,scene} from '@zixcel/projection-contracts'
 try{
   // A visible value alone exceeding the entire output ceiling is a resource
   // failure, before PP0's strict per-value serializer can classify its shape.

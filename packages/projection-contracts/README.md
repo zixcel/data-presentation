@@ -1,15 +1,15 @@
-# @hathq/projection-contracts
+# @zixcel/projection-contracts
 
 Validate and seal bounded, renderer-neutral Data and Scene snapshots from explicitly
 selected owner-visible source revisions. Deterministic lineage and publication
 fences keep presentation tied to the accepted source without owning its meaning.
 
 ```sh
-npm install @hathq/projection-contracts@0.10.0
+npm install @zixcel/projection-contracts@0.10.0
 ```
 
 ```ts
-import { produce, scene, ProjectionSlot } from '@hathq/projection-contracts'
+import { produce, scene, ProjectionSlot } from '@zixcel/projection-contracts'
 
 const source = { owner: 'example', ref: 'selected', revision: 'revision-1', kind: 'example' }
 const data = produce({
@@ -25,14 +25,14 @@ const view = scene(data, { key: 'scene', focus: 'resources', purpose: 'review',
 console.log(receipt.revision, view.revision)
 ```
 
-`@hathq/projection-contracts/client` exposes browser-safe validation helpers.
+`@zixcel/projection-contracts/client` exposes browser-safe validation helpers.
 Node/browser hashing uses identical SHA-256 bytes; the dependency on
 `@zixcel/interaction/input` validates explicit interaction declarations.
 
 The producer owns authorization, visible data and exact source selection. Scene
 labels and regions do not grant permissions. `ProjectionSlot` is an in-memory,
 disposable fence: it does not promise durability across restart. Use
-`@hathq/projection-runtime` for bounded execution and durable publication.
+`@zixcel/projection-runtime` for bounded execution and durable publication.
 
 ## Development
 

@@ -1,4 +1,4 @@
-# Using @hathq/dom-renderer
+# Using @zixcel/dom-renderer
 
 Render a validated display plan into native DOM elements with controlled interactions.
 

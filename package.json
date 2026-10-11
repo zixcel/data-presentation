@@ -1,5 +1,5 @@
 {
-  "name": "@hathq/projection-runtime",
+  "name": "@zixcel/projection-runtime",
   "version": "0.10.0",
   "type": "module",
   "license": "Apache-2.0",
@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@hathq/projection-contracts": "0.10.0"
+    "@zixcel/projection-contracts": "0.10.0"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",

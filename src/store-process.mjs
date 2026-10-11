@@ -3,7 +3,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import {randomUUID} from 'node:crypto'
-import {validateSnapshot,canonical,produce} from '@hathq/projection-contracts'
+import {validateSnapshot,canonical,produce} from '@zixcel/projection-contracts'
 import {bounds,check,clone,hash,shape,token} from './common.mjs'
 import {privateDirectory,privateFile,removeStaleTemporary} from './private-files.mjs'
 const directory=process.argv[2],operation=process.argv[3],image=path.join(directory,'projection.json'),temporary=path.join(directory,'projection.next')

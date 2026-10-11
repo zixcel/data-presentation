@@ -8,7 +8,7 @@ importers:
 
   .:
     dependencies:
-      '@hathq/projection-contracts':
+      '@zixcel/projection-contracts':
         specifier: 0.10.0
         version: link:packages/projection-contracts
     devDependencies:
@@ -21,12 +21,12 @@ importers:
 
   packages/dom-renderer:
     dependencies:
-      '@hathq/projection-client':
-        specifier: file:../projection-client
-        version: file:packages/projection-client
       '@zixcel/interaction':
         specifier: 0.10.1
         version: 0.10.1
+      '@zixcel/projection-client':
+        specifier: 0.10.0
+        version: link:../projection-client
       three:
         specifier: 0.186.0
         version: 0.186.0
@@ -40,7 +40,7 @@ importers:
 
   packages/projection-client:
     dependencies:
-      '@hathq/projection-contracts':
+      '@zixcel/projection-contracts':
         specifier: 0.10.0
         version: link:../projection-contracts
 
@@ -218,13 +218,6 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@hathq/projection-client@file:packages/projection-client':
-    resolution: {directory: packages/projection-client, type: directory}
-
-  '@hathq/projection-contracts@0.10.0':
-    resolution: {integrity: sha512-UJYZQLCWsiGKPA37kCIaaKcaiI0mj5wHd40rneqZ0IBTROc1QyA2+6nxrykQ8588jifk1gOCrnww/t48hWpC8w==}
-    engines: {node: '>=22'}
-
   '@playwright/test@1.62.1':
     resolution: {integrity: sha512-DTcUc8qii+cpHvtOwggMtBRMjKZHXYWdw8syRYu2vtzuq4Wxphqq4NfCs5Zt44L6mA8rfDfj+PHnxFc/FeK6mQ==}
     engines: {node: '>=20'}
@@ -349,15 +342,6 @@ snapshots:
 
   '@esbuild/win32-x64@0.28.1':
     optional: true
-
-  '@hathq/projection-client@file:packages/projection-client':
-    dependencies:
-      '@hathq/projection-contracts': 0.10.0
-
-  '@hathq/projection-contracts@0.10.0':
-    dependencies:
-      '@zixcel/interaction': 0.10.1
-      ohash: 2.0.11
 
   '@playwright/test@1.62.1':
     dependencies:

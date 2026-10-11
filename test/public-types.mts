@@ -1,5 +1,5 @@
-import { ProjectionRuntime, ProducerRegistry, ExactSourceReader, type SourceReader } from '@hathq/projection-runtime';
-import { FileProjectionStore } from '@hathq/projection-runtime/store';
+import { ProjectionRuntime, ProducerRegistry, ExactSourceReader, type SourceReader } from '@zixcel/projection-runtime';
+import { FileProjectionStore } from '@zixcel/projection-runtime/store';
 const registry = new ProducerRegistry();
 const identity = registry.register({ id: 'builtin', kind: 'data' });
 registry.exact(identity);

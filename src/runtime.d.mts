@@ -1,4 +1,4 @@
-import type { ProducerIdentity, ProjectionRequest, Snapshot } from '@hathq/projection-contracts';
+import type { ProducerIdentity, ProjectionRequest, Snapshot } from '@zixcel/projection-contracts';
 import type { RuntimeLimits, ProjectionStore, SourceAdapter, SourceReadOptions, SourceReader, ProducerConfiguration, SubmissionOptions, StoreReceipt, StoreInspection } from './types/runtime.mjs';
 export type * from './types/runtime.mjs';
 /** Register installed built-in producers; requests cannot supply executable code. */
@@ -10,7 +10,7 @@ export class ProducerRegistry {
 }
 export class ExactSourceReader implements SourceReader {
   constructor(owners: Map<string, SourceAdapter>);
-  acquireExact(refs: readonly import('@hathq/projection-contracts').SourceRef[], options: SourceReadOptions): ReturnType<SourceReader['acquireExact']>;
+  acquireExact(refs: readonly import('@zixcel/projection-contracts').SourceRef[], options: SourceReadOptions): ReturnType<SourceReader['acquireExact']>;
   release(leaseRefs: readonly string[], holder: string): Promise<void>;
 }
 /** Bounded isolated execution with explicit source ownership and publication fencing. */
