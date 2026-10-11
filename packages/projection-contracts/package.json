@@ -1,0 +1,40 @@
+{
+  "name": "@hathq/projection-contracts",
+  "version": "0.10.0",
+  "description": "Renderer-independent bounded projection, lineage and Scene contracts",
+  "type": "module",
+  "license": "Apache-2.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "files": [
+    "src",
+    "contract.json",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "LICENSE-PREVIOUS"
+  ],
+  "exports": {
+    ".": "./src/index.mjs",
+    "./client": "./src/client.mjs"
+  },
+  "imports": {
+    "#hash": {
+      "browser": "./src/hash-browser.mjs",
+      "default": "./src/hash-node.mjs"
+    }
+  },
+  "dependencies": {
+    "ohash": "2.0.11",
+    "@zixcel/interaction": "0.10.1"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zixcel/projection-runtime.git",
+    "directory": "packages/projection-contracts"
+  }
+}

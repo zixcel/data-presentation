@@ -19,7 +19,7 @@
     "./store": "./src/store.mjs"
   },
   "dependencies": {
-    "@hathq/projection-contracts": "file:../../../../../../../.artifacts/npm/a3ed9b9cd4e7bde586e156621be33713a464142b9b94bced051f745a5bf9dd26/hathq-projection-contracts-0.10.0.tgz"
+    "@hathq/projection-contracts": "0.10.0"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"
