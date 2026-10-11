@@ -1,0 +1,31 @@
+{
+  "name": "@hathq/projection-client",
+  "version": "0.10.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "Bounded renderer-independent projection adoption and presentation runtime",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "LICENSE-PREVIOUS"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.mts",
+      "import": "./src/index.mjs"
+    }
+  },
+  "dependencies": {
+    "@hathq/projection-contracts": "0.10.0"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zixcel/projection-runtime.git",
+    "directory": "packages/projection-client"
+  }
+}

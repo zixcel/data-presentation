@@ -1,0 +1,40 @@
+{
+  "name": "@hathq/dom-renderer",
+  "version": "0.10.0",
+  "type": "module",
+  "license": "Apache-2.0",
+  "description": "Trusted native DOM rendering of PP RenderPlans and Zixcel owner inputs",
+  "files": [
+    "src",
+    "README.md",
+    "LICENSE",
+    "NOTICE",
+    "LICENSE-PREVIOUS"
+  ],
+  "exports": {
+    ".": {
+      "types": "./src/index.d.mts",
+      "import": "./src/index.mjs"
+    },
+    "./style": "./src/style.css"
+  },
+  "dependencies": {
+    "three": "0.186.0",
+    "@zixcel/interaction": "0.10.1",
+    "@hathq/projection-client": "file:../projection-client"
+  },
+  "scripts": {
+    "test": "node --test test/*.test.mjs",
+    "test:browser": "node test/world-browser.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.62.1",
+    "esbuild": "0.28.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zixcel/projection-runtime.git",
+    "directory": "packages/dom-renderer"
+  },
+  "types": "./src/index.d.mts"
+}

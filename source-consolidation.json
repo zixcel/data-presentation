@@ -1,0 +1,33 @@
+{
+  "schema": "source-consolidation-v1",
+  "components": [
+    {
+      "id": "projection-contracts",
+      "owner_id": "projection-runtime",
+      "original_repository": "zixcel/projection-contracts",
+      "owner_repository": "zixcel/projection-runtime",
+      "subpath": "packages/projection-contracts",
+      "source_head": "f2f66e21d5e17db9e9faaea58dbd1e3a63f49c7b",
+      "history_ref": "refs/consolidated/projection-contracts/original-HEAD"
+    },
+    {
+      "id": "projection-client",
+      "owner_id": "projection-runtime",
+      "original_repository": "zixcel/projection-client",
+      "owner_repository": "zixcel/projection-runtime",
+      "subpath": "packages/projection-client",
+      "source_head": "ca17916a60c09bd78da138c8a2e5e589cb08574a",
+      "history_ref": "refs/consolidated/projection-client/original-HEAD"
+    },
+    {
+      "id": "dom-renderer",
+      "owner_id": "projection-runtime",
+      "original_repository": "zixcel/dom-renderer",
+      "owner_repository": "zixcel/projection-runtime",
+      "subpath": "packages/dom-renderer",
+      "source_head": "822f0ef47c6ddfeba5e1047b70b28f310b3237b7",
+      "history_ref": "refs/consolidated/dom-renderer/original-HEAD"
+    }
+  ],
+  "status": "Maintained source consolidation; Rust/Vue ports and independent registry publication remain pending."
+}
