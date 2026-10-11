@@ -1,33 +1,41 @@
 # @hathq/projection-contracts
 
-Share a precise contract for view snapshots, revisions and interactions between a producer and a renderer.
-
-## What you can do
-
-- Validate a bounded view snapshot.
-- Keep action references tied to the accepted source revision.
-
-## Current scope
-
-The producer owns application meaning and authority; these contracts describe display data and interaction references.
-
-Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
-
-## Getting started
-
-The manifest currently requires locally supplied package archives: `@zixcel/interaction`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
-
-Use the package manager matching the checked-in lockfile and the Node.js version declared in `engines` in `package.json`. Run from this repository:
+Validate and seal bounded, renderer-neutral Data and Scene snapshots from explicitly
+selected owner-visible source revisions. Deterministic lineage and publication
+fences keep presentation tied to the accepted source without owning its meaning.
 
 ```sh
-pnpm install --frozen-lockfile
-pnpm test
+npm install @hathq/projection-contracts@0.10.0
 ```
 
-## Documentation and source
+```ts
+import { produce, scene, ProjectionSlot } from '@hathq/projection-contracts'
 
-[Interface reference](docs/interface-reference.md)
+const source = { owner: 'example', ref: 'selected', revision: 'revision-1', kind: 'example' }
+const data = produce({
+  key: 'review', producer: { id: 'builtin', version: '0.10.0',
+    contract: 'projection/0.10.0', configuration: 'reviewed' },
+  sources: [source], focus: 'resources', purpose: 'review',
+  visibilityRef: 'owner-authorized', limits: {}
+}, [{ source, items: [], relations: [], unresolved: [], truncated: false }])
+const slot = new ProjectionSlot('review')
+const receipt = slot.publish(slot.begin(), data)
+const view = scene(data, { key: 'scene', focus: 'resources', purpose: 'review',
+  regions: [], actions: [] })
+console.log(receipt.revision, view.revision)
+```
 
-[Usage guide](docs/getting-started.md)
+`@hathq/projection-contracts/client` exposes browser-safe validation helpers.
+Node/browser hashing uses identical SHA-256 bytes; the dependency on
+`@zixcel/interaction/input` validates explicit interaction declarations.
 
-[Implementation and public interfaces](src) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
+The producer owns authorization, visible data and exact source selection. Scene
+labels and regions do not grant permissions. `ProjectionSlot` is an in-memory,
+disposable fence: it does not promise durability across restart. Use
+`@hathq/projection-runtime` for bounded execution and durable publication.
+
+## Development
+
+Run the repository workspace install, type checks and behavioral tests described
+in the root README. Public dependencies resolve from npm; no vendor archive or
+private registry is required. [License](LICENSE) · [Notices](NOTICE).

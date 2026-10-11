@@ -3,3 +3,4 @@ packages:
   - "packages/projection-contracts"
   - "packages/projection-client"
   - "packages/dom-renderer"
+linkWorkspacePackages: true
