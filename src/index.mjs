@@ -1,4 +1,4 @@
-// Hatter-owned delivery only. Crowsi owns framing/session/ACK/recovery mechanisms.
+// Caller-owned snapshot delivery. Crowsi owns framing/session/ACK/recovery mechanisms.
 import http from 'node:http'
 import {createHash,timingSafeEqual,randomUUID} from 'node:crypto'
 import {WebSocketServer} from 'ws'
@@ -6,10 +6,10 @@ import {StateSocketServer} from '@crowsi/transport-foundation/state-socket'
 import {Budget,limitsFor} from '@crowsi/transport-foundation'
 import {SessionAuthority} from '@crowsi/browser-security/access'
 import {parseOwnerOrigin,assessRequestBoundary} from '@crowsi/browser-security/boundary'
-import {validateDelivery,bounds,requirement} from '@hathq/delivery-contracts'
+import {validateDelivery,bounds,requirement} from '@zixcel/view-delivery-contracts'
 
 const fail=code=>{throw Object.assign(Error(code),{code})}
-const cookieName='hatter_delivery_session'
+const defaultCookieName='view_delivery_session'
 const headers={
  'content-security-policy':"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; object-src 'none'; frame-ancestors 'none'; form-action 'self'",
  'referrer-policy':'no-referrer','x-content-type-options':'nosniff','x-frame-options':'DENY',
@@ -39,7 +39,7 @@ async function body(request,signal){
  if(used!==size)fail('InvalidInput')
  try{return JSON.parse(new TextDecoder('utf-8',{fatal:true}).decode(data))}catch{fail('InvalidInput')}
 }
-function sessionId(request){
+function sessionId(request,cookieName){
  const cookie=request.headers.cookie??'';if(cookie.length>8192)fail('SessionRejected')
  const values=cookie.split(';').map(s=>s.trim()).filter(s=>s.startsWith(cookieName+'='))
  if(values.length!==1)fail('SessionRejected');return values[0].slice(cookieName.length+1)
@@ -63,13 +63,19 @@ function sourceFailure(error,operation,observation){
   code,requirementRef:original?.requirementRef??'delivery:server',outcomeStage:observation.stage,uncertain:observation.stage==='OUTCOME_UNCERTAIN',
   requestRef:observation.requestRef,managementRequestRef:observation.managementRequestRef??null,receiptRef:observation.receiptRef,detail:original?.detail??null}}
 }
-function safeDocument(envelope,bootstrap){
+function safeDocument(envelope,bootstrap,title){
  const serialized=encode({envelope,bootstrap}).toString().replace(/</g,'\\u003c').replace(/>/g,'\\u003e').replace(/&/g,'\\u0026')
  const styles=envelope.assets.filter(a=>a.kind==='style').map(a=>`<link rel="stylesheet" href="${a.path}">`).join('')
  const scripts=envelope.assets.filter(a=>a.kind==='script').map(a=>`<script type="module" src="${a.path}"></script>`).join('')
- return Buffer.from(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Hatter</title>${styles}</head><body><main id="app" aria-busy="true"><p role="status">Loading exact state…</p></main><script id="delivery-state" type="application/json">${serialized}</script>${scripts}</body></html>`)
+ return Buffer.from(`<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${title}</title>${styles}</head><body><main id="app" aria-busy="true"><p role="status">Loading exact state…</p></main><script id="delivery-state" type="application/json">${serialized}</script>${scripts}</body></html>`)
 }
-export function createDeliveryServer({origin,site,assets,readinessToken=null,onFailure=null,onOutcome=null}){
+export function createDeliveryServer({origin,site,assets,readinessToken=null,onFailure=null,onOutcome=null,policy}){
+ if(!policy||typeof policy.owner!=='string'||!policy.owner||policy.owner.length>128||
+  typeof policy.contract!=='string'||!policy.contract||policy.contract.length>128||typeof policy.title!=='string'||!policy.title||policy.title.length>128||/[<>&]/.test(policy.title)||
+  !Array.isArray(policy.allowedOwners)||policy.allowedOwners.length>16||policy.allowedOwners.some(owner=>typeof owner!=='string'||!owner||owner.length>128))fail('InvalidDeliveryPolicy')
+ const headerPolicy={cookieName:policy.cookieName??defaultCookieName,csrfHeader:policy.csrfHeader??'x-delivery-csrf',nonceHeader:policy.nonceHeader??'x-delivery-request-nonce',readinessHeader:policy.readinessHeader??'x-delivery-readiness'}
+ if(Object.values(headerPolicy).some(value=>typeof value!=='string'||value.length>64||!/[a-z]/.test(value)||!/^[a-z0-9_-]+$/.test(value)))fail('InvalidDeliveryPolicy')
+ const ownerPolicy=Object.freeze({owner:policy.owner,title:policy.title,contract:policy.contract,allowedOwners:Object.freeze([...policy.allowedOwners]),...headerPolicy})
  const boundary=parseOwnerOrigin(origin),authority=new SessionAuthority(),inflight=new Set(),controllers=new Set()
  const budget=new Budget(limitsFor(bounds.documentBytes,{pendingMessages:bounds.requests})),assetMap=new Map()
  for(const asset of assets){
@@ -85,11 +91,11 @@ export function createDeliveryServer({origin,site,assets,readinessToken=null,onF
   const reason=assessRequestBoundary(boundary,{method:request.method,host:request.headers.host,origin:request.headers.origin,fetchSite:request.headers['sec-fetch-site']})
   if(reason)fail(reason)
  }
- const authenticate=request=>{const id=sessionId(request);authority.authenticate(id);return id}
+ const authenticate=request=>{const id=sessionId(request,ownerPolicy.cookieName);authority.authenticate(id);return id}
  const connection=(request,response)=>{
   let current
   try{const id=authenticate(request);current={sessionId:id,...authority.authenticate(id)}}catch{current=authority.issue()}
-  response.setHeader('set-cookie',`${cookieName}=${current.sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=28800${boundary.protocol==='https:'?'; Secure':''}`)
+  response.setHeader('set-cookie',`${ownerPolicy.cookieName}=${current.sessionId}; Path=/; HttpOnly; SameSite=Strict; Max-Age=28800${boundary.protocol==='https:'?'; Secure':''}`)
   return {csrf:current.csrfToken,expiresAtUnixMs:current.expiresAt}
  }
  const hub=new StateSocketServer({authorize:peer=>{authorize(peer.request);if(peer.request.headers.origin!==origin)fail('OriginRequired');return authenticate(peer.request)},read:request=>site.live(request)})
@@ -101,7 +107,7 @@ export function createDeliveryServer({origin,site,assets,readinessToken=null,onF
   if(request.url.length>4096)fail('InvalidInput')
   const url=new URL(request.url,origin),pathname=url.pathname
   if(request.method==='GET'&&pathname==='/api/ready'){
-   const provided=Buffer.from(String(request.headers['x-hatter-readiness']??'')),expected=Buffer.from(readinessToken??'')
+   const provided=Buffer.from(String(request.headers[ownerPolicy.readinessHeader]??'')),expected=Buffer.from(readinessToken??'')
    if(!expected.length||provided.length!==expected.length||!timingSafeEqual(provided,expected))return send(response,404,{error:{code:'NotFound'}})
    observation.stage='NOT_DISPATCHED';response.writeHead(204);response.end();return // liveness only, never ProductReady
   }
@@ -117,16 +123,16 @@ export function createDeliveryServer({origin,site,assets,readinessToken=null,onF
    observation.stage='NOT_DISPATCHED'
    const csrf=connection(request,response)
    const {envelope,bootstrap}=await site.document(url,{signal,assets:[...assetMap.values()].map(a=>a.descriptor)})
-   validateDelivery(envelope)
+   validateDelivery(envelope,ownerPolicy.contract)
    if(JSON.stringify(envelope.assets)!==JSON.stringify([...assetMap.values()].map(a=>a.descriptor)))fail('InvalidAsset')
-   const document=safeDocument(envelope,{...bootstrap,...csrf})
+   const document=safeDocument(envelope,{...bootstrap,...csrf},ownerPolicy.title)
    if(document.length>bounds.documentBytes)fail('DeliveryLimitExceeded')
    response.writeHead(200,{'content-type':'text/html; charset=utf-8','content-length':document.length});response.end(document);return
   }
   authenticate(request)
   if(request.method==='GET'){observation.stage='NOT_DISPATCHED';send(response,200,await site.read(url,{signal}));return}
   if(request.method!=='POST')return send(response,405,{error:{code:'MethodNotAllowed'}})
-  authority.authorizeMutation(sessionId(request),request.headers['x-hatter-csrf'],request.headers['x-hatter-request-nonce'])
+  authority.authorizeMutation(sessionId(request,ownerPolicy.cookieName),request.headers[ownerPolicy.csrfHeader],request.headers[ownerPolicy.nonceHeader])
   const value=await body(request,signal)
   observation.stage='OUTCOME_UNCERTAIN'
   // The site was entered, not proof of physical dispatch or canonical commit.
@@ -135,7 +141,7 @@ export function createDeliveryServer({origin,site,assets,readinessToken=null,onF
    // Trusted site supplies evidence only. Ignore malformed observations; never
    // change execution branching, mint identity, or persist a competing receipt.
    if(!value||!['NOT_DISPATCHED','OWNER_REJECTED','OUTCOME_UNCERTAIN','OWNER_COMMITTED','PUBLICATION_FAILED_AFTER_COMMIT'].includes(value.stage))return
-   if(typeof value.owner!=='string'||!['hatter/control','hatter/semantic','hatter/catalog','hatter/models','hatter/projection','hatter/world'].includes(value.owner))return
+   if(typeof value.owner!=='string'||!ownerPolicy.allowedOwners.includes(value.owner))return
    if(typeof value.operation!=='string'||!/^[a-z][a-z0-9]*(?:\/[a-z][a-zA-Z0-9]*)+$/.test(value.operation))return
    if(value.receiptRef!==undefined&&value.receiptRef!==null&&!/^[a-f0-9]{64}$/.test(value.receiptRef))return
    if(['OWNER_COMMITTED','PUBLICATION_FAILED_AFTER_COMMIT'].includes(value.stage)&&!value.receiptRef)return
@@ -156,7 +162,7 @@ export function createDeliveryServer({origin,site,assets,readinessToken=null,onF
   let release;try{release=budget.reserve(0)}catch{send(response,503,{error:{code:'DeliveryQueueFull'}});return}
   const controller=new AbortController();controllers.add(controller)
   const abort=()=>controller.abort();response.once('close',abort)
-  const observation={requestRef:randomUUID(),owner:'hatter/delivery',stage:'DELIVERY_REJECTED',receiptRef:null}
+  const observation={requestRef:randomUUID(),owner:ownerPolicy.owner,stage:'DELIVERY_REJECTED',receiptRef:null}
   // Paths and query strings are caller input, not safe diagnostic labels.
   const path=request.url?.split('?')[0],operation=['/api/subjects','/api/interactions','/api/site-actions','/api/setup','/api/connection','/api/document'].includes(path)?path:'delivery/request'
   const recordFailure=error=>{

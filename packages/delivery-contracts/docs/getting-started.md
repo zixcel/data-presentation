@@ -1,4 +1,4 @@
-# Using @hathq/delivery-contracts
+# Using @zixcel/view-delivery-contracts
 
 Describe the first view, trusted assets and readiness information that a display host delivers to a client.
 

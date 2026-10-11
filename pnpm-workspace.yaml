@@ -1,4 +1,4 @@
 packages:
   - "."
   - "packages/delivery-contracts"
-  - "packages/delivery-client"
+linkWorkspacePackages: true

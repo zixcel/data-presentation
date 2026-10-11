@@ -1,6 +1,6 @@
 import type {Server} from 'node:http'
-import type {Asset,Delivery} from '@hathq/delivery-contracts'
-import type {Json} from '@hathq/projection-contracts/client'
+import type {Asset,Delivery} from '@zixcel/view-delivery-contracts'
+import type {Json} from '@zixcel/projection-contracts/client'
 
 export interface RequestContext {readonly signal:AbortSignal}
 export interface DocumentContext extends RequestContext {readonly assets:readonly Asset[]}
@@ -29,7 +29,18 @@ export interface DeliveryServer {
   listen():Promise<void>
   close():Promise<void>
 }
+export interface DeliveryPolicy {
+  readonly owner:string
+  readonly title:string
+  readonly contract:string
+  readonly allowedOwners:readonly string[]
+  readonly cookieName?:string
+  readonly csrfHeader?:string
+  readonly nonceHeader?:string
+  readonly readinessHeader?:string
+}
 export interface DeliveryServerOptions {
+  readonly policy:DeliveryPolicy
   readonly origin:string
   readonly site:DeliverySite
   readonly assets:readonly TrustedAsset[]

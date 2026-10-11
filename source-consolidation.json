@@ -56,5 +56,10 @@
       }
     }
   ],
-  "status": "Source consolidated and maintained; original Git history is preserved in source-history bundles. Registry availability is recorded separately for each released package and version."
+  "status": "Source consolidated and maintained; original Git history is preserved in source-history bundles. Registry availability is recorded separately for each released package and version.",
+  "active_source_boundary": {
+    "generic_host": ".",
+    "generic_contracts": "packages/delivery-contracts",
+    "product_client_retained": "hathq/delivery-server/packages/delivery-client"
+  }
 }

@@ -1,4 +1,4 @@
-import type {Action, Json, ProjectionIdentity, SceneProjection} from '@hathq/projection-contracts/client'
+import type {Action, Json, ProjectionIdentity, SceneProjection} from '@zixcel/projection-contracts/client'
 
 export interface Submission {
   readonly projectionKey:string
@@ -27,7 +27,7 @@ export interface Readiness {
 }
 export interface Asset {readonly path:string;readonly digest:string;readonly bytes:number;readonly kind:'script'|'style'}
 export interface Delivery {
-  readonly contract:'hatter/delivery/1'
+  readonly contract:string
   readonly site:{readonly id:string;readonly revision:string}
   readonly initial:ProjectionIdentity|null
   readonly snapshot:SceneProjection|null
@@ -41,4 +41,4 @@ export function validateSubmission(value:unknown):Submission
 export function inputAction(snapshot:SceneProjection,submission:Submission):Action
 export function requirement(value:unknown):Requirement
 export function readiness(refs:readonly string[],owners:readonly Requirement[]):Readiness
-export function validateDelivery(value:unknown):Delivery
+export function validateDelivery(value:unknown,expectedContract?:string):Delivery

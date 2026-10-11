@@ -1,4 +1,4 @@
-# @hathq/delivery-server
+# @zixcel/view-delivery
 
 Serve reviewed view snapshots and trusted release assets from a configured display host.
 
@@ -15,7 +15,7 @@ Package distribution is not activated by this documentation. Use the checked-in 
 
 ## Getting started
 
-The manifest currently requires locally supplied package archives: `@hathq/delivery-contracts`, `@crowsi/transport-foundation`, `@crowsi/browser-security`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
+The source uses registry version declarations for the generic Zixcel and Crowsi dependencies. Initial publication is pending; the migration verifier installs reviewed archives together in an isolated consumer. Product consumers retain their current released names until the new registry artifacts are verified.
 
 Use the package manager matching the checked-in lockfile and the Node.js version declared in `package.json` or the development configuration. Run from this repository:
 
@@ -29,3 +29,10 @@ pnpm test
 [Usage guide](docs/getting-started.md)
 
 [Implementation and public interfaces](src) · [Verification cases](test) · [Contributing](CONTRIBUTING.md) · [Security reporting](SECURITY.md) · [License](LICENSE) · [Attribution notices](NOTICE)
+
+## Product boundary
+
+The host requires an explicit owner, title, wire contract and allowed outcome
+owner list. Cookie and request-header names may be supplied by the product;
+defaults are generic. The Hatter browser UI remains in the product repository.
+This workspace owns only the host and delivery contracts.

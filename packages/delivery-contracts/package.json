@@ -1,5 +1,5 @@
 {
-  "name": "@hathq/delivery-contracts",
+  "name": "@zixcel/view-delivery-contracts",
   "version": "0.10.0",
   "type": "module",
   "license": "Apache-2.0",
@@ -18,7 +18,7 @@
     }
   },
   "dependencies": {
-    "@hathq/projection-contracts": "0.10.0",
+    "@zixcel/projection-contracts": "0.10.0",
     "@zixcel/interaction": "0.10.1"
   },
   "scripts": {
@@ -26,8 +26,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hathq/delivery-server.git",
+    "url": "git+https://github.com/zixcel/view-delivery.git",
     "directory": "packages/delivery-contracts"
   },
-  "types": "./src/index.d.mts"
+  "types": "./src/index.d.mts",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  }
 }

@@ -1,6 +1,6 @@
-// Hatter delivery contracts: no framework, business policy, transport or renderer.
-import {canonical,shape,text,copy,frozen} from '@hathq/projection-contracts/client'
-import {validateSnapshot} from '@hathq/projection-contracts/client'
+// Snapshot delivery contracts: no framework, business policy, transport or renderer.
+import {canonical,shape,text,copy,frozen} from '@zixcel/projection-contracts/client'
+import {validateSnapshot} from '@zixcel/projection-contracts/client'
 import {validateInputValues} from '@zixcel/interaction/input'
 export const bounds=Object.freeze({documentBytes:1048576,assets:8,assetBytes:1048576,requirements:16,requestBytes:32768,requests:16,bodyMs:5000})
 export class DeliveryError extends Error {constructor(code){super(code);this.code=code}}
@@ -42,9 +42,9 @@ export function readiness(refs,owners){
  const required=refs.map(ref=>{text(ref);const found=inventory.find(v=>v.ref===ref);if(!found)fail('UndeclaredRequirement');return found})
  return frozen({state:required.some(v=>v.state==='Unavailable')?'Unavailable':required.some(v=>v.state==='SetupRequired')?'SetupRequired':'Ready',requirements:required})
 }
-export function validateDelivery(v){
+export function validateDelivery(v,expectedContract='zixcel/view-delivery/1'){
  canonical(v,bounds.documentBytes);shape(v,['contract','site','initial','snapshot','readiness','assets','transport'])
- if(v.contract!=='hatter/delivery/1')fail('InvalidDelivery')
+ if(typeof expectedContract!=='string'||!expectedContract||expectedContract.length>128||v.contract!==expectedContract)fail('InvalidDelivery')
  shape(v.site,['id','revision']);text(v.site.id);text(v.site.revision)
  if(!/^[a-f0-9]{64}$/.test(v.site.revision))fail('InvalidDelivery')
  if(v.snapshot===null){if(v.initial!==null)fail('InitialSnapshotMismatch')}

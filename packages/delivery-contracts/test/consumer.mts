@@ -1,4 +1,4 @@
-import {validateSubmission,validateDelivery,inputAction,readiness,type Submission,type Delivery} from '@hathq/delivery-contracts'
+import {validateSubmission,validateDelivery,inputAction,readiness,type Submission,type Delivery} from '@zixcel/view-delivery-contracts'
 
 const submission:Submission=validateSubmission({})
 const delivery:Delivery=validateDelivery({})

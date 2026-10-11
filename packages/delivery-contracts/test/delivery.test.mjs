@@ -11,7 +11,7 @@ test('dependency-specific readiness; missing optional owner never blocks Subject
  assert.throws(()=>readiness(['owner:execution'],[ready,{...missing,failure:{...missing.failure,requirementRef:'other'}}]))
 })
 test('bounded initial document forbids executable site extensions and bogus snapshot identity',()=>{
- const value={contract:'hatter/delivery/1',site:{id:'site:console',revision:'a'.repeat(64)},initial:null,snapshot:null,
+ const value={contract:'zixcel/view-delivery/1',site:{id:'site:console',revision:'a'.repeat(64)},initial:null,snapshot:null,
   readiness:readiness(['owner:semantic'],[ready]),assets:[{path:'/assets/client.js',digest:'b'.repeat(64),bytes:100,kind:'script'}],transport:{path:'/api/projection-live',classes:['STATE']}}
  assert.deepEqual(validateDelivery(value),value)
  for(const patch of [{html:'<script/>'},{snapshot:{}},{initial:{key:'x',revision:'x',lineage:{}}},{assets:[{path:'https://untrusted.test/a.js',digest:'b'.repeat(64),bytes:100,kind:'script'}]},

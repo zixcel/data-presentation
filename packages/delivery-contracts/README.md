@@ -1,4 +1,4 @@
-# @hathq/delivery-contracts
+# @zixcel/view-delivery-contracts
 
 Describe the first view, trusted assets and readiness information that a display host delivers to a client.
 
@@ -15,7 +15,7 @@ Package distribution is not activated by this documentation. Use the checked-in 
 
 ## Getting started
 
-The declared dependencies are exact official npm registry versions: `@hathq/projection-contracts` 0.10.0 and `@zixcel/interaction` 0.10.1. This package supplies ESM declarations through its `types` export. Its own registry publication remains pending; validate source and candidate archives independently before publication.
+The declared dependencies are exact official npm registry versions: `@zixcel/projection-contracts` 0.10.0 and `@zixcel/interaction` 0.10.1. This package supplies ESM declarations through its `types` export. Its own registry publication remains pending; validate source and candidate archives independently before publication.
 
 Use the package manager matching the checked-in lockfile and the Node.js version declared in `package.json` or the development configuration. Run from this repository:
 

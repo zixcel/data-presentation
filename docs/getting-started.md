@@ -1,4 +1,4 @@
-# Using @hathq/delivery-server
+# Using @zixcel/view-delivery
 
 Serve reviewed view snapshots and trusted release assets from a configured display host.
 
