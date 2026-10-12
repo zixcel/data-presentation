@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/projection-contracts",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "description": "Renderer-independent bounded projection, lineage and Scene contracts",
   "type": "module",
   "license": "Apache-2.0",
@@ -13,7 +13,8 @@
     "README.md",
     "LICENSE",
     "NOTICE",
-    "LICENSE-PREVIOUS"
+    "LICENSE-PREVIOUS",
+    "README.ja.md"
   ],
   "exports": {
     ".": {

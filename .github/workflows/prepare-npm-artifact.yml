@@ -41,6 +41,12 @@ jobs:
           (cd packages/dom-renderer && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
           printf '%s\n' "$GITHUB_SHA" > outgoing/source-sha.txt
           (cd outgoing && sha256sum ./*.tgz > SHA256SUMS)
+      - name: Verify the archive consumer and runnable playground
+        run: |
+          pnpm exec playwright install --with-deps chromium
+          node scripts/verify-packed-consumer.mjs --browser
+          pnpm playground:build
+          pnpm playground:test
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
         with:
           name: reviewed-npm-packages

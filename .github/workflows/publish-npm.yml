@@ -23,6 +23,14 @@ jobs:
       - run: npm install --global --ignore-scripts --no-audit --no-fund npm@12.2.0
       - run: node --test scripts/reviewed-npm.test.mjs
       - run: node scripts/reviewed-npm.mjs prepare
+      - name: Install and verify current source packages
+        run: |
+          npm install --global --ignore-scripts --no-audit --no-fund pnpm@10.29.3
+          pnpm install --frozen-lockfile --ignore-scripts
+          pnpm -r --include-workspace-root typecheck
+          pnpm -r --include-workspace-root test
+          pnpm exec playwright install --with-deps chromium
+          node scripts/verify-packed-consumer.mjs --browser
   publish:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: verify

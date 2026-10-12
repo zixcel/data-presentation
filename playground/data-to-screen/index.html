@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Data to screen playground</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <h1>Data to screen</h1>
+  <p>A registered Node producer publishes synthetic data. The browser adopts an exact snapshot and renders through public package APIs.</p>
+  <p>No account, authorization service, production storage or provider connection is used. UI actions are demonstration descriptors.</p>
+  <nav aria-label="Demonstration scenarios">
+    <button id="advance">Adopt newer snapshot</button>
+    <button id="stale">Reject stale action</button>
+    <button id="mismatch">Reject mismatched delivery</button>
+    <button id="corrupt">Reject corrupt snapshot</button>
+  </nav>
+  <p id="status" role="status" aria-live="polite"></p>
+  <main class="grid">
+    <section><h2>1. Declared source</h2><pre id="source"></pre></section>
+    <section><h2>2. Published snapshot</h2><pre id="snapshot"></pre></section>
+    <section><h2>3. Client render plan</h2><pre id="plan"></pre></section>
+    <section><h2>4. Public DOM renderer</h2><div id="rendered"></div></section>
+  </main>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>
