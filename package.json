@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/view-delivery",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded trusted document and asset delivery; existing Crowsi STATE transport only",
@@ -18,7 +18,7 @@
     }
   },
   "dependencies": {
-    "@zixcel/view-delivery-contracts": "0.10.0",
+    "@zixcel/view-delivery-contracts": "0.10.1",
     "@crowsi/transport-foundation": "0.10.0",
     "@crowsi/browser-security": "0.10.0",
     "ws": "8.21.2",
