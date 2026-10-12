@@ -1,0 +1,8 @@
+{
+  "source_repository": "zixcel/view-delivery",
+  "source_sha": "dae082ce28892b79bfec7d8cb28f713470571f24",
+  "source_tree": "44451e662a13c044a1157a6dd6803eaeb7807d4c",
+  "history": "Git subtree import without squash; original commit ancestry retained",
+  "changes_after_import": "Move package directories, remove duplicate repository CI/publisher wrappers, update repository metadata; retain implementation exports, schema IDs, license and NOTICE.",
+  "archive_gate": "Independent consumer, canonical CI, new trusted publication and consumer reference switch; hosting remains separate."
+}

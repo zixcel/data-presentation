@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/view-delivery-contracts",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded site delivery and per-source readiness over exact Projection contracts",
@@ -18,7 +18,7 @@
     }
   },
   "dependencies": {
-    "@zixcel/projection-contracts": "0.10.0",
+    "@zixcel/projection-contracts": "0.10.3",
     "@zixcel/interaction": "0.10.1"
   },
   "scripts": {
@@ -26,8 +26,8 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zixcel/view-delivery.git",
-    "directory": "packages/delivery-contracts"
+    "url": "git+https://github.com/zixcel/data-presentation.git",
+    "directory": "packages/view-contracts"
   },
   "types": "./src/index.d.mts",
   "publishConfig": {

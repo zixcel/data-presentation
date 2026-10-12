@@ -39,6 +39,8 @@ jobs:
           (cd packages/projection-contracts && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
           (cd packages/projection-client && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
           (cd packages/dom-renderer && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
+          (cd packages/view-server && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
+          (cd packages/view-contracts && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
           printf '%s\n' "$GITHUB_SHA" > outgoing/source-sha.txt
           (cd outgoing && sha256sum ./*.tgz > SHA256SUMS)
       - name: Verify the archive consumer and runnable playground

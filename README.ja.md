@@ -1,3 +1,9 @@
+# Data Presentation
+
+表示dataの構築・公開・採用・描画・配信を一つの機能monorepoで保守します。契約を直接使うconsumerがあるため、必要なcontracts packageは独立配布を維持します。
+
+[配置と利用手順](README.md)。既存package名・wire/schema ID・独立consumer・LICENSE/NOTICE・Git履歴を維持します。新patch版は正式registry照合までは候補です。公開は検証jobで作ったimmutable archiveだけをOIDC jobへ渡し、OIDC jobで再packしません。
+
 # Projectionのbounded実行と表示
 
 [English](README.md)
