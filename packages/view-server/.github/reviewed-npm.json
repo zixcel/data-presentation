@@ -1,0 +1,19 @@
+{
+  "repository": "zixcel/view-delivery",
+  "packages": [
+    {
+      "name": "@zixcel/view-delivery-contracts",
+      "version": "0.10.1",
+      "directory": "packages/delivery-contracts",
+      "source_sha": "cd5cffd716a2b0b3698085f4008459e430c11541",
+      "sha256": "7d5688135e95d62989f0a4cbf9b9f75220fd3aa51493637e55d59e2447a36f8e"
+    },
+    {
+      "name": "@zixcel/view-delivery",
+      "version": "0.10.1",
+      "directory": ".",
+      "source_sha": "cd5cffd716a2b0b3698085f4008459e430c11541",
+      "sha256": "86ff833b17ca813c56d555e7d235b0c4d9b7d515a0edd066893d595d6ff4c67a"
+    }
+  ]
+}
