@@ -1,14 +1,27 @@
 # @zixcel/projection-runtime
 
+[日本語](README.ja.md)
+
 Execute explicitly registered projection producers in bounded Node.js workers and
 publish disposable read-only snapshots with durable fencing and exact owner leases.
 The runtime never chooses a latest source, loads request-supplied code or owns
 application authorization. Owner adapters decide visibility and retention.
 
+## Package responsibilities
+
+| Package | Owns | Does not own |
+| --- | --- | --- |
+| projection-contracts | Validated Data/Scene snapshots, exact identities and publication fences | Product authorization, durable storage or arbitrary producer code |
+| projection-runtime | Registered bounded workers and private durable snapshot publication | Product meaning or source visibility decisions |
+| projection-client | Exact snapshot adoption and presentation state | Canonical product state or permission grants |
+| dom-renderer | Bounded DOM rendering and declared interactions | Remote scripts, product commands or account credentials |
+
+The current physical names remain unchanged while their migration candidates are reviewed. [Data to screen playground](playground/data-to-screen/README.md) uses public exports and shows the stages in one runnable example. [Architecture and operations](docs/architecture-and-operations.md) explains source, distribution and rollback ownership.
+
 ## Install and use
 
 ```sh
-npm install @zixcel/projection-runtime@0.10.0
+npm install @zixcel/projection-runtime@0.10.2
 ```
 
 ```ts
@@ -69,7 +82,7 @@ local development convenience. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
 
 ## Package ownership and scope migration
 
-[保守正本と移行条件](docs/package-ownership.ja.md)。The maintained source and npm scope are owned by Zixcel. New `@zixcel` names require their first registry publication before downstream dependency migration. Existing `@hathq` releases remain historical distributions.
+[保守正本と移行条件](docs/package-ownership.ja.md)。The maintained source and npm scope are owned by Zixcel. Current `@zixcel` dependencies resolve through the official npm registry. Historical `@hathq` releases remain provenance history; new versions are adopted only after their official artifacts are verified.
 
 ## Release provenance
 

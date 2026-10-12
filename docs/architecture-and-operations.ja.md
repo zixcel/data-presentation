@@ -1,0 +1,21 @@
+# Projection packageの責務と運用
+
+[English](architecture-and-operations.md)
+
+選択済みsource dataをboundedで正確な表示snapshotへ変換するworkspaceです。rootはworker/store実行、contractsは検証/封印、clientは表示採用、rendererは導入済みDOM部品を持ちます。viewは製品権限を所有・変更しません。
+
+開発は宣言済みpnpm workspace、配布consumerは同じ公開exportsとregistry版を使います。worker/Storageは既存Linux/WSL条件、browserはbrowser-safe入口を使い、private storeやworkerを直接実行しません。
+
+## owner検証と公開
+
+frozen install、workspace型/test、playground build/browser test、test:consumerを実行します。consumerは4TGZをcheckout外に空npm設定で導入し、worker/storeとclient拒否を確認します。private管理repoに依存しません。
+
+既存publish-npm.ymlのTrusted Publisher bindingを維持し、review済みhash、source test、pack consumerを確認してOIDC公開します。複数公開はatomicではなく、既存integrityを照合して未公開分だけ再開します。公式hash/attestationとsource test成功は別の証跡です。改名/移管ではsource/trust mappingを先に対応させます。
+
+## playgroundと利用アプリ運用
+
+playground:buildは実worker/storeで2つの擬似snapshotを作り、公開client/rendererをbundleします。serveは生成assetだけをloopbackへ配信し、CrowsiのHost/Origin/Fetch-Site判定を再利用します。実account/credential/provider、任意code、製品DBには接続しません。実変更が必要なアプリは操作/authority束縛を明示して設定します。
+
+利用アプリのownerがpackage/sourceを固定し、自分のprovider workflowでbuild/preview/検証/昇格します。npm公開を配備とは扱わず、artifact/lockを独立rollbackできます。snapshotは派生状態で、保持した正確なowner sourceから再構築し、暗黙の最新版へ追従しません。
+
+通常更新にCoelaRelease、他組織private source、中央secret、無関係releaseを要求しません。可視性/retention/producerの製品上の意味はアプリが持ち、source/OS/authorityの未確認は明示します。

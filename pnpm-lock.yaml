@@ -9,12 +9,27 @@ importers:
   .:
     dependencies:
       '@zixcel/projection-contracts':
-        specifier: 0.10.1
+        specifier: 0.10.2
         version: link:packages/projection-contracts
     devDependencies:
+      '@crowsi/browser-security':
+        specifier: 0.10.0
+        version: 0.10.0
+      '@playwright/test':
+        specifier: 1.62.1
+        version: 1.62.1
       '@types/node':
         specifier: 24.12.0
         version: 24.12.0
+      '@zixcel/dom-renderer':
+        specifier: 0.10.2
+        version: link:packages/dom-renderer
+      '@zixcel/projection-client':
+        specifier: 0.10.2
+        version: link:packages/projection-client
+      esbuild:
+        specifier: 0.28.1
+        version: 0.28.1
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -25,7 +40,7 @@ importers:
         specifier: 0.10.1
         version: 0.10.1
       '@zixcel/projection-client':
-        specifier: 0.10.1
+        specifier: 0.10.2
         version: link:../projection-client
       three:
         specifier: 0.186.0
@@ -41,7 +56,7 @@ importers:
   packages/projection-client:
     dependencies:
       '@zixcel/projection-contracts':
-        specifier: 0.10.1
+        specifier: 0.10.2
         version: link:../projection-contracts
 
   packages/projection-contracts:
@@ -61,6 +76,10 @@ importers:
         version: 5.9.3
 
 packages:
+
+  '@crowsi/browser-security@0.10.0':
+    resolution: {integrity: sha512-WHHUZJHqKusAlFwf8NvOiDSO6GNkOA1y6WWyVDTFVWipF0EZ1vnU6cEz2eOehfTUuIEEiyDdkY7avXUcVr57/A==}
+    engines: {node: '>=22'}
 
   '@esbuild/aix-ppc64@0.28.1':
     resolution: {integrity: sha512-Svl7tq8k/08+p6CXPpRjQ1fKX+1odH/BQbb48fV6fj3CWHhsoIOoY87w1oHXm0qEpkIK3ZfVgp0hed3XBXzXMQ==}
@@ -264,6 +283,8 @@ packages:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
 snapshots:
+
+  '@crowsi/browser-security@0.10.0': {}
 
   '@esbuild/aix-ppc64@0.28.1':
     optional: true

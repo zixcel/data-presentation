@@ -1,11 +1,13 @@
 # @zixcel/projection-contracts
 
+[日本語](README.ja.md)
+
 Validate and seal bounded, renderer-neutral Data and Scene snapshots from explicitly
 selected owner-visible source revisions. Deterministic lineage and publication
 fences keep presentation tied to the accepted source without owning its meaning.
 
 ```sh
-npm install @zixcel/projection-contracts@0.10.0
+npm install @zixcel/projection-contracts@0.10.2
 ```
 
 ```ts

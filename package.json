@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/projection-runtime",
-  "version": "0.10.1",
+  "version": "0.10.2",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded read-only producer execution and disposable durable projection publication",
@@ -12,7 +12,10 @@
     "README.md",
     "LICENSE",
     "NOTICE",
-    "LICENSE-PREVIOUS"
+    "LICENSE-PREVIOUS",
+    "README.ja.md",
+    "docs/architecture-and-operations.md",
+    "docs/architecture-and-operations.ja.md"
   ],
   "exports": {
     ".": {
@@ -25,11 +28,15 @@
     }
   },
   "dependencies": {
-    "@zixcel/projection-contracts": "0.10.1"
+    "@zixcel/projection-contracts": "0.10.2"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",
-    "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts"
+    "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts",
+    "playground:build": "node scripts/build-playground.mjs",
+    "playground:serve": "node scripts/serve-playground.mjs",
+    "playground:test": "node test/playground-browser.mjs",
+    "test:consumer": "node scripts/verify-packed-consumer.mjs"
   },
   "repository": {
     "type": "git",
@@ -42,7 +49,12 @@
   "types": "./src/runtime.d.mts",
   "devDependencies": {
     "typescript": "5.9.3",
-    "@types/node": "24.12.0"
+    "@types/node": "24.12.0",
+    "esbuild": "0.28.1",
+    "@playwright/test": "1.62.1",
+    "@zixcel/projection-client": "0.10.2",
+    "@zixcel/dom-renderer": "0.10.2",
+    "@crowsi/browser-security": "0.10.0"
   },
   "packageManager": "pnpm@10.29.3"
 }

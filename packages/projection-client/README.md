@@ -1,5 +1,7 @@
 # @zixcel/projection-client
 
+[日本語](README.ja.md)
+
 Adopt a validated display snapshot and keep updates tied to the correct revision.
 
 ## What you can do
@@ -11,11 +13,11 @@ Adopt a validated display snapshot and keep updates tied to the correct revision
 
 The host supplies transport and trusted rendering. The client does not invent actions or canonical application state.
 
-Package distribution is not activated by this documentation. Use the checked-in source and the declared dependency versions; published availability must be verified separately.
+Use the version declared by this source and verify the official registry artifact/provenance before adopting a new release.
 
 ## Getting started
 
-The manifest currently requires locally supplied package archives: `@zixcel/projection-contracts`. These archives are excluded from Git. Obtain the exact approved dependency artifacts before installing; a fresh clone alone is not sufficient. Registry distribution remains pending.
+Dependencies use exact public npm versions. The repository workspace links the current source for development; owner CI separately installs the packed archives outside this checkout. No private registry or excluded local archive is required.
 
 Use the package manager matching the checked-in lockfile and the Node.js version declared in `package.json` or the development configuration. Run from this repository:
 

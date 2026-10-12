@@ -1,0 +1,8 @@
+    body { font: 16px system-ui; margin: 2rem auto; max-width: 70rem; padding: 0 1rem; color: #182c3a; background: #f5f8fb; }
+    button { margin: .25rem; padding: .65rem 1rem; font: inherit; border: 1px solid #516779; border-radius: .4rem; background: white; }
+    button:focus-visible { outline: 3px solid #1765a1; outline-offset: 2px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(17rem,1fr)); gap: 1rem; }
+    section { background: white; border: 1px solid #c9d6df; padding: 1rem; border-radius: .5rem; min-width: 0; }
+    pre { white-space: pre-wrap; overflow-wrap: anywhere; font-size: .8rem; }
+    #status { min-height: 2rem; padding: .75rem; background: #e6f0f7; }
+    dt { font-weight: 600; } dd { margin-bottom: .5rem; }
