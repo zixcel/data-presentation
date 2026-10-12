@@ -4,5 +4,11 @@
   "source_tree": "44451e662a13c044a1157a6dd6803eaeb7807d4c",
   "history": "Git subtree import without squash; original commit ancestry retained",
   "changes_after_import": "Move package directories, remove duplicate repository CI/publisher wrappers, update repository metadata; retain implementation exports, schema IDs, license and NOTICE.",
-  "archive_gate": "Independent consumer, canonical CI, new trusted publication and consumer reference switch; hosting remains separate."
+  "archive_gate": "Independent consumer, canonical CI, new trusted publication and consumer reference switch; hosting remains separate.",
+  "canonical_history_bundle": {
+    "path": "docs/source-history/view-delivery.bundle",
+    "sha256": "5b56e9b80eebd376c6ea045f9f4e10075a04f23e3a033b646cb3f24e423f521a",
+    "reason": "Main requires linear history and disallows merge commits. Preserve the original source commit graph in the canonical repository even after the approved PR squash merge.",
+    "includes_ignored_worktree_data": false
+  }
 }
