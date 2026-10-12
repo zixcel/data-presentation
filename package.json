@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/projection-runtime",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded read-only producer execution and disposable durable projection publication",
@@ -25,7 +25,7 @@
     }
   },
   "dependencies": {
-    "@zixcel/projection-contracts": "0.10.0"
+    "@zixcel/projection-contracts": "0.10.1"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",

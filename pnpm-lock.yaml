@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@zixcel/projection-contracts':
-        specifier: 0.10.0
+        specifier: 0.10.1
         version: link:packages/projection-contracts
     devDependencies:
       '@types/node':
@@ -25,7 +25,7 @@ importers:
         specifier: 0.10.1
         version: 0.10.1
       '@zixcel/projection-client':
-        specifier: 0.10.0
+        specifier: 0.10.1
         version: link:../projection-client
       three:
         specifier: 0.186.0
@@ -41,7 +41,7 @@ importers:
   packages/projection-client:
     dependencies:
       '@zixcel/projection-contracts':
-        specifier: 0.10.0
+        specifier: 0.10.1
         version: link:../projection-contracts
 
   packages/projection-contracts:

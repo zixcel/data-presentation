@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/projection-client",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded renderer-independent projection adoption and presentation runtime",
@@ -18,7 +18,7 @@
     }
   },
   "dependencies": {
-    "@zixcel/projection-contracts": "0.10.0"
+    "@zixcel/projection-contracts": "0.10.1"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"

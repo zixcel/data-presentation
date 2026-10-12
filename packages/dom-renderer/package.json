@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/dom-renderer",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Trusted native DOM rendering of PP RenderPlans and Zixcel owner inputs",
@@ -21,7 +21,7 @@
   "dependencies": {
     "three": "0.186.0",
     "@zixcel/interaction": "0.10.1",
-    "@zixcel/projection-client": "0.10.0"
+    "@zixcel/projection-client": "0.10.1"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs",
