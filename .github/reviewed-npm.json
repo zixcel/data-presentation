@@ -3,31 +3,31 @@
   "packages": [
     {
       "name": "@zixcel/projection-contracts",
-      "version": "0.10.0",
+      "version": "0.10.1",
       "directory": "packages/projection-contracts",
-      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
-      "sha256": "fb902ec0eb79325448722dd9676797b5ba526cad813aedd6f01533c9ece68332"
+      "source_sha": "fdc7fdf849a533575ee2ba085cd2faa63249ffb4",
+      "sha256": "5fce7d75ba33f1b0b6ea494db44ec963b4de6060a0c96c15aaf1b14609938440"
     },
     {
       "name": "@zixcel/projection-runtime",
-      "version": "0.10.0",
+      "version": "0.10.1",
       "directory": ".",
-      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
-      "sha256": "49c0fb2e1dd020ffb40ea9b2bc785abc4c50d5b3a4744336041eef4e8ccd0753"
+      "source_sha": "fdc7fdf849a533575ee2ba085cd2faa63249ffb4",
+      "sha256": "6a3b9f9ef312e1e6cf0366dafa67afe33a8c85344289ee5d2db171f92ae87cf3"
     },
     {
       "name": "@zixcel/projection-client",
-      "version": "0.10.0",
+      "version": "0.10.1",
       "directory": "packages/projection-client",
-      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
-      "sha256": "14f88d3915a17b97b3268c23381710039e1f7af9fbe3782ce074d6baca2e22c0"
+      "source_sha": "fdc7fdf849a533575ee2ba085cd2faa63249ffb4",
+      "sha256": "4e67435d95ad1c79f032c831f3b6765c0e945170284f5a30253ca19c1f001a9a"
     },
     {
       "name": "@zixcel/dom-renderer",
-      "version": "0.10.0",
+      "version": "0.10.1",
       "directory": "packages/dom-renderer",
-      "source_sha": "c8a5e4bebc56a8d726772664c92870228378de6b",
-      "sha256": "fcfdc51d6e22e6f4bc2aafd8820fe5e3a01a1d6091f10a3b4dc039dea0106175"
+      "source_sha": "fdc7fdf849a533575ee2ba085cd2faa63249ffb4",
+      "sha256": "c3597d0e595e63df2fd60b1d565b12dd4099ae3c41a283c23d6ec1ca0c076648"
     }
   ]
 }
