@@ -22,7 +22,7 @@ if(mode==='publish'){
 }
 assert.equal(execFileSync('git',['remote','get-url','origin'],{encoding:'utf8'}).trim().replace(/\.git$/, ''),`https://github.com/${review.repository}`);
 if(process.env.GITHUB_REPOSITORY)assert.equal(process.env.GITHUB_REPOSITORY,review.repository);
-const output=path.join(root,'outgoing');fs.mkdirSync(output,{recursive:true});
+const output=path.resolve(process.argv[3]??path.join(root,'outgoing'));if(mode!=='publish')fs.mkdirSync(output,{recursive:true});
 const packages=[];
 for(const item of review.packages){
  const directory=path.resolve(root,item.directory);assert.ok(directory===root||directory.startsWith(root+path.sep));
@@ -33,14 +33,24 @@ for(const item of review.packages){
  for(const section of ['dependencies','optionalDependencies','peerDependencies','devDependencies']){
   for(const [name,version] of Object.entries(manifest[section]??{}))assert.ok(!/^(?:file:|link:|workspace:|git|https?:|\.\.?\/)/.test(version),`Non-registry dependency: ${name}`);
  }
- const data=JSON.parse(execFileSync('npm',['pack','--ignore-scripts','--json','--pack-destination',output],{cwd:directory,encoding:'utf8',stdio:['ignore','pipe','pipe']}));
- const rows=Array.isArray(data)?data:Object.values(data);assert.equal(rows.length,1);
- const packed=rows[0];assert.equal(packed.name,item.name);assert.equal(packed.version,item.version);
- assert.equal(path.basename(packed.filename),packed.filename);
- for(const file of ['LICENSE','NOTICE','README.md'])assert.ok(packed.files.some(entry=>entry.path===file),`${item.name}: missing ${file}`);
- assert.ok(!packed.files.some(entry=>/^(?:test|tests|node_modules)\//.test(entry.path)));
- const archive=path.join(output,packed.filename), bytes=fs.readFileSync(archive);
+ let archive;
+ if(mode==='publish'){
+  assert.ok(/^@[a-z0-9.-]+\/[a-z0-9.-]+$/.test(item.name)&&/^\d+\.\d+\.\d+$/.test(item.version),'Invalid reviewed archive identity');
+  archive=path.join(output,item.name.slice(1).replace('/','-')+'-'+item.version+'.tgz');
+  const stat=fs.lstatSync(archive);assert.ok(stat.isFile()&&!stat.isSymbolicLink()&&stat.size<=8*1024*1024,'Regular bounded prepared archive required');
+ }else{
+  const data=JSON.parse(execFileSync('npm',['pack','--ignore-scripts','--json','--pack-destination',output],{cwd:directory,encoding:'utf8',stdio:['ignore','pipe','pipe']}));
+  const rows=Array.isArray(data)?data:Object.values(data);assert.equal(rows.length,1);
+  const packed=rows[0];assert.equal(packed.name,item.name);assert.equal(packed.version,item.version);
+  assert.equal(path.basename(packed.filename),packed.filename);
+  for(const file of ['LICENSE','NOTICE','README.md'])assert.ok(packed.files.some(entry=>entry.path===file),`${item.name}: missing ${file}`);
+  assert.ok(!packed.files.some(entry=>/^(?:test|tests|node_modules)\//.test(entry.path)));
+  archive=path.join(output,packed.filename);
+ }
+ const bytes=fs.readFileSync(archive);
  assert.equal(crypto.createHash('sha256').update(bytes).digest('hex'),item.sha256,`${item.name}: archive differs from review`);
+ const inside=JSON.parse(execFileSync('tar',['-xOzf',archive,'package/package.json'],{encoding:'utf8',maxBuffer:65536}));
+ assert.equal(inside.name,item.name);assert.equal(inside.version,item.version);assert.deepEqual(inside.repository,manifest.repository);
  packages.push({...item,archive,integrity:'sha512-'+crypto.createHash('sha512').update(bytes).digest('base64')});
 }
 console.log(`Verified ${packages.length} reviewed ${review.repository} archives`);

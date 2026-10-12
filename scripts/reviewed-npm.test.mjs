@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {spawnSync} from 'node:child_process';
+import {spawnSync,execFileSync} from 'node:child_process';
 import {test} from 'node:test';
 const valid={GITHUB_EVENT_NAME:'workflow_dispatch',GITHUB_REF:'refs/heads/main',ACTIONS_ID_TOKEN_REQUEST_URL:'https://fixture.invalid',ACTIONS_ID_TOKEN_REQUEST_TOKEN:'fixture',NODE_AUTH_TOKEN:'',NPM_TOKEN:''};
 for(const [name,override,message] of [
@@ -17,6 +17,7 @@ for(const [name,override,message] of [
 });
 
 test('an all-existing release cannot claim OIDC validation',()=>{
+ execFileSync(process.execPath,['scripts/reviewed-npm.mjs','prepare']);
  const preload=`import fs from 'node:fs';import crypto from 'node:crypto';
  const review=JSON.parse(fs.readFileSync('.github/reviewed-npm.json'));
  globalThis.fetch=async url=>{
@@ -31,4 +32,10 @@ test('an all-existing release cannot claim OIDC validation',()=>{
  assert.notEqual(result.status,0);
  assert.match(result.stderr,/No unpublished reviewed versions/);
  assert.doesNotMatch(result.stdout,/Official archive verified/);
+});
+
+test('publication refuses missing prepared archives instead of packing source',()=>{
+ const result=spawnSync(process.execPath,['scripts/reviewed-npm.mjs','publish','outgoing/missing-prepared-archives'],{env:{...process.env,...valid},encoding:'utf8',timeout:5000});
+ assert.notEqual(result.status,0);assert.match(result.stderr,/ENOENT/);
+ assert.doesNotMatch(result.stdout,/Verified|Official archive/);
 });

@@ -9,7 +9,7 @@ writeFileSync(join(root, 'global.npmrc'), '')
 const env = { ...process.env, NPM_CONFIG_USERCONFIG: join(root, 'user.npmrc'),
   NPM_CONFIG_GLOBALCONFIG: join(root, 'global.npmrc'), NPM_CONFIG_CACHE: join(root, 'cache'),
   NPM_CONFIG_REGISTRY: 'https://registry.npmjs.org', NODE_AUTH_TOKEN: '', NPM_TOKEN: '' }
-const directories = ['.', 'packages/projection-contracts', 'packages/projection-client', 'packages/dom-renderer']
+const directories = [".", "packages/projection-contracts", "packages/projection-client", "packages/dom-renderer", "packages/view-server", "packages/view-contracts"]
 function run(command, args, cwd) {
   return execFileSync(command, args, { cwd, env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
 }
@@ -35,6 +35,16 @@ try {
   cpSync(resolve('examples/data-to-screen.mjs'), join(consumer, 'example.mjs'))
   cpSync(resolve('test/consumer.mjs'), join(consumer, 'consumer.mjs'))
   run(process.execPath, ['consumer.mjs'], consumer)
+  cpSync(resolve('packages/view-contracts/test/consumer.mts'), join(consumer, 'delivery-types.mts'))
+  run(process.execPath, [join(consumer, 'node_modules/typescript/bin/tsc'), '--noEmit', '--strict',
+    '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', 'delivery-types.mts'], consumer)
+  for (const [file, name] of [['packages/view-server/test/server.test.mjs', '@zixcel/view-delivery'],
+    ['packages/view-contracts/test/delivery.test.mjs', '@zixcel/view-delivery-contracts']]) {
+    const target = join(consumer, file.split('/').at(-1))
+    writeFileSync(target, readFileSync(resolve(file), 'utf8').replace("'../src/index.mjs'", JSON.stringify(name)))
+    run(process.execPath, ['--test', target], consumer)
+  }
+
   if (process.argv.includes('--browser')) {
     mkdirSync(join(consumer, 'examples'))
     cpSync(resolve('examples/data-to-screen.mjs'), join(consumer, 'examples/data-to-screen.mjs'))
@@ -48,7 +58,7 @@ try {
     run(process.execPath, ['browser.mjs'], consumer)
     console.log('Browser playground also passed using only installed candidate archives and public dependencies')
   }
-  console.log('Four archive packages: independent public types, worker/store, client adoption, stale-action rejection and renderer imports passed')
+  console.log('Six archive packages: independent public types, worker/store, client adoption, stale-action rejection and renderer imports passed')
 } finally {
   rmSync(root, { recursive: true, force: true })
 }

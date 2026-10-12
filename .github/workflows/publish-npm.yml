@@ -12,6 +12,8 @@ jobs:
   verify:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
+    outputs:
+      artifact-id: ${{ steps.upload.outputs.artifact-id }}
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
@@ -31,6 +33,15 @@ jobs:
           pnpm -r --include-workspace-root test
           pnpm exec playwright install --with-deps chromium
           node scripts/verify-packed-consumer.mjs --browser
+      - name: Bind reviewed archives without publication identity
+        run: node scripts/reviewed-npm.mjs prepare
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        id: upload
+        with:
+          name: reviewed-npm-${{ github.sha }}-${{ github.run_attempt }}
+          path: outgoing/*.tgz
+          if-no-files-found: error
+          retention-days: 7
   publish:
     if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
     needs: verify
@@ -49,8 +60,13 @@ jobs:
           registry-url: https://registry.npmjs.org
           package-manager-cache: false
       - run: npm install --global --ignore-scripts --no-audit --no-fund npm@12.2.0
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          artifact-ids: ${{ needs.verify.outputs.artifact-id }}
+          merge-multiple: true
+          path: ${{ runner.temp }}/reviewed-npm
       - name: Publish exact reviewed archives and verify official hashes
         env:
           NODE_AUTH_TOKEN: ''
           NPM_TOKEN: ''
-        run: node scripts/reviewed-npm.mjs publish
+        run: node scripts/reviewed-npm.mjs publish "$RUNNER_TEMP/reviewed-npm"

@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/projection-client",
-  "version": "0.10.2",
+  "version": "0.10.3",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded renderer-independent projection adoption and presentation runtime",
@@ -19,14 +19,14 @@
     }
   },
   "dependencies": {
-    "@zixcel/projection-contracts": "0.10.2"
+    "@zixcel/projection-contracts": "0.10.3"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/zixcel/projection-runtime.git",
+    "url": "git+https://github.com/zixcel/data-presentation.git",
     "directory": "packages/projection-client"
   }
 }

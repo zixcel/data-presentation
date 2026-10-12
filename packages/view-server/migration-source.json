@@ -1,0 +1,8 @@
+{
+  "source_repository": "hathq/delivery-server",
+  "source_head": "6490a3ab9f0da26ff8e048ec4223f5cbabda7ea9",
+  "history": "Full Git ancestry, source-history bundles, original LICENSE/NOTICE retained.",
+  "responsibility": "Snapshot transport/HTTP boundaries; owner policy and protocol identity injected by caller",
+  "registry_publication": "pending reviewed exact archives and consumer CI",
+  "product_client_retained": "hathq/delivery-server/packages/delivery-client (Hatter-specific UI; not migrated to Zixcel)"
+}

@@ -1,0 +1,4 @@
+packages:
+  - "."
+  - "packages/delivery-contracts"
+linkWorkspacePackages: true

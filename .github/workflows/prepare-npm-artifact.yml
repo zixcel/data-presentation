@@ -14,6 +14,8 @@ jobs:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
         with:
           persist-credentials: false
+      - name: Verify preserved source history
+        run: git bundle verify docs/source-history/view-delivery.bundle
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
         with:
           node-version: '24.15.0'
@@ -39,6 +41,8 @@ jobs:
           (cd packages/projection-contracts && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
           (cd packages/projection-client && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
           (cd packages/dom-renderer && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
+          (cd packages/view-server && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
+          (cd packages/view-contracts && npm pack --ignore-scripts --json --pack-destination "$GITHUB_WORKSPACE/outgoing")
           printf '%s\n' "$GITHUB_SHA" > outgoing/source-sha.txt
           (cd outgoing && sha256sum ./*.tgz > SHA256SUMS)
       - name: Verify the archive consumer and runnable playground
