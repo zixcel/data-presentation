@@ -1,0 +1,385 @@
+{
+  "repository": "zixcel/data-presentation",
+  "purpose": "Generate, update and deliver view projections from explicitly supplied source data.",
+  "responsibility_boundary": "Products own source-of-truth storage, authentication and business actions. Projection contracts do not confer execution authority.",
+  "packages": [
+    {
+      "manifest": "package.json",
+      "package": "@zixcel/projection-runtime",
+      "ecosystem": "npm",
+      "description": "Bounded read-only producer execution and disposable durable projection publication",
+      "interfaces": {
+        "exports": {
+          ".": {
+            "types": "./src/runtime.d.mts",
+            "import": "./src/runtime.mjs"
+          },
+          "./store": {
+            "types": "./src/store.d.mts",
+            "import": "./src/store.mjs"
+          }
+        },
+        "bin": {},
+        "main": null,
+        "types": "./src/runtime.d.mts"
+      },
+      "declared_commands": {
+        "test": "node --test --test-concurrency=1 test/*.test.mjs",
+        "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts",
+        "playground:build": "node scripts/build-playground.mjs",
+        "playground:serve": "node scripts/serve-playground.mjs",
+        "playground:test": "node test/playground-browser.mjs",
+        "test:consumer": "node scripts/verify-packed-consumer.mjs"
+      }
+    },
+    {
+      "manifest": "packages/dom-renderer/package.json",
+      "package": "@zixcel/dom-renderer",
+      "ecosystem": "npm",
+      "description": "Trusted native DOM rendering of PP RenderPlans and Zixcel owner inputs",
+      "interfaces": {
+        "exports": {
+          ".": {
+            "types": "./src/index.d.mts",
+            "import": "./src/index.mjs"
+          },
+          "./style": "./src/style.css"
+        },
+        "bin": {},
+        "main": null,
+        "types": "./src/index.d.mts"
+      },
+      "declared_commands": {
+        "test": "node --test test/*.test.mjs",
+        "test:browser": "node test/world-browser.mjs"
+      }
+    },
+    {
+      "manifest": "packages/projection-client/package.json",
+      "package": "@zixcel/projection-client",
+      "ecosystem": "npm",
+      "description": "Bounded renderer-independent projection adoption and presentation runtime",
+      "interfaces": {
+        "exports": {
+          ".": {
+            "types": "./src/index.d.mts",
+            "import": "./src/index.mjs"
+          }
+        },
+        "bin": {},
+        "main": null,
+        "types": null
+      },
+      "declared_commands": {
+        "test": "node --test test/*.test.mjs"
+      }
+    },
+    {
+      "manifest": "packages/projection-contracts/package.json",
+      "package": "@zixcel/projection-contracts",
+      "ecosystem": "npm",
+      "description": "Renderer-independent bounded projection, lineage and Scene contracts",
+      "interfaces": {
+        "exports": {
+          ".": {
+            "types": "./src/index.d.mts",
+            "import": "./src/index.mjs"
+          },
+          "./client": {
+            "types": "./src/client.d.mts",
+            "import": "./src/client.mjs"
+          }
+        },
+        "bin": {},
+        "main": null,
+        "types": "./src/index.d.mts"
+      },
+      "declared_commands": {
+        "test": "node --test test/*.test.mjs",
+        "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts"
+      }
+    },
+    {
+      "manifest": "packages/view-contracts/package.json",
+      "package": "@zixcel/view-delivery-contracts",
+      "ecosystem": "npm",
+      "description": "Bounded site delivery and per-source readiness over exact Projection contracts",
+      "interfaces": {
+        "exports": {
+          ".": {
+            "types": "./src/index.d.mts",
+            "import": "./src/index.mjs"
+          }
+        },
+        "bin": {},
+        "main": null,
+        "types": "./src/index.d.mts"
+      },
+      "declared_commands": {
+        "test": "node --test test/*.test.mjs"
+      }
+    },
+    {
+      "manifest": "packages/view-server/package.json",
+      "package": "@zixcel/view-delivery",
+      "ecosystem": "npm",
+      "description": "Bounded trusted document and asset delivery; existing Crowsi STATE transport only",
+      "interfaces": {
+        "exports": {
+          ".": {
+            "types": "./src/index.d.mts",
+            "import": "./src/index.mjs"
+          }
+        },
+        "bin": {},
+        "main": null,
+        "types": "./src/index.d.mts"
+      },
+      "declared_commands": {
+        "test": "node --test test/*.test.mjs"
+      }
+    }
+  ],
+  "schema_definitions": [],
+  "test_sources": [
+    "examples/data-to-screen.mjs",
+    "packages/dom-renderer/src/frame.mjs",
+    "packages/dom-renderer/src/index.mjs",
+    "packages/dom-renderer/src/world-runtime.mjs",
+    "packages/dom-renderer/test/frame-layout.test.mjs",
+    "packages/dom-renderer/test/npc-motion.test.mjs",
+    "packages/dom-renderer/test/object-presentation.test.mjs",
+    "packages/dom-renderer/test/open-world-projection.test.mjs",
+    "packages/dom-renderer/test/spatial-patterns.test.mjs",
+    "packages/dom-renderer/test/structure-graph.test.mjs",
+    "packages/dom-renderer/test/world-browser.mjs",
+    "packages/dom-renderer/test/world-model.test.mjs",
+    "packages/projection-client/test/client.test.mjs",
+    "packages/projection-contracts/test/contracts.test.mjs",
+    "packages/projection-contracts/test/public-types.mts",
+    "packages/projection-contracts/test/temporal.test.mjs",
+    "packages/view-contracts/test/consumer.mts",
+    "packages/view-contracts/test/delivery.test.mjs",
+    "packages/view-server/src/index.mjs",
+    "packages/view-server/test/server.test.mjs",
+    "scripts/reviewed-npm.test.mjs",
+    "scripts/verify-packed-consumer.mjs",
+    "src/runtime.mjs",
+    "src/store-process.mjs",
+    "test/consumer.mjs",
+    "test/playground-browser.mjs",
+    "test/private-store.test.mjs",
+    "test/public-types.mts",
+    "test/runtime.test.mjs"
+  ],
+  "example_sources": [
+    "examples/data-to-screen.mjs",
+    "playground/data-to-screen/README.ja.md",
+    "playground/data-to-screen/README.md",
+    "playground/data-to-screen/app.mjs",
+    "playground/data-to-screen/index.html",
+    "playground/data-to-screen/style.css"
+  ],
+  "workflow_definitions": [
+    {
+      "path": ".github/workflows/oss-policy.yml",
+      "jobs": [
+        {
+          "job": "repository-policy",
+          "condition": null,
+          "runs_on": "ubuntu-latest",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify repository policy",
+              "run": "python3 .github/oss-policy-check.py",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify policy regression tests",
+              "run": "cd .github && python3 -m unittest discover -s policy-tests",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Check policy types",
+              "run": "python3 -m venv \"$RUNNER_TEMP/policy-types\"\n\"$RUNNER_TEMP/policy-types/bin/pip\" install -r .github/policy/requirements.txt\n\"$RUNNER_TEMP/policy-types/bin/mypy\" --strict .github/policy .github/oss-policy-check.py .github/policy-tests\n",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/prepare-npm-artifact.yml",
+      "jobs": [
+        {
+          "job": "npm-package",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": "Verify preserved source history",
+              "run": "git bundle verify docs/source-history/view-delivery.bundle",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "condition": null
+            },
+            {
+              "name": "Isolate public registry configuration",
+              "run": ": > \"$RUNNER_TEMP/user.npmrc\"\n: > \"$RUNNER_TEMP/global.npmrc\"\necho \"NPM_CONFIG_USERCONFIG=$RUNNER_TEMP/user.npmrc\" >> \"$GITHUB_ENV\"\necho \"NPM_CONFIG_GLOBALCONFIG=$RUNNER_TEMP/global.npmrc\" >> \"$GITHUB_ENV\"\necho \"NPM_CONFIG_REGISTRY=https://registry.npmjs.org\" >> \"$GITHUB_ENV\"\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "npm install --global --ignore-scripts --no-audit --no-fund pnpm@10.29.3",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Validate workspace and dependency graph",
+              "run": "pnpm install --frozen-lockfile --ignore-scripts\npnpm -r --include-workspace-root typecheck\npnpm -r --include-workspace-root test\npnpm audit --audit-level=low\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Pack exact source distributions without lifecycle hooks",
+              "run": "mkdir outgoing\nnpm pack --ignore-scripts --json --pack-destination \"$GITHUB_WORKSPACE/outgoing\"\n(cd packages/projection-contracts && npm pack --ignore-scripts --json --pack-destination \"$GITHUB_WORKSPACE/outgoing\")\n(cd packages/projection-client && npm pack --ignore-scripts --json --pack-destination \"$GITHUB_WORKSPACE/outgoing\")\n(cd packages/dom-renderer && npm pack --ignore-scripts --json --pack-destination \"$GITHUB_WORKSPACE/outgoing\")\n(cd packages/view-server && npm pack --ignore-scripts --json --pack-destination \"$GITHUB_WORKSPACE/outgoing\")\n(cd packages/view-contracts && npm pack --ignore-scripts --json --pack-destination \"$GITHUB_WORKSPACE/outgoing\")\nprintf '%s\\n' \"$GITHUB_SHA\" > outgoing/source-sha.txt\n(cd outgoing && sha256sum ./*.tgz > SHA256SUMS)\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Verify the archive consumer and runnable playground",
+              "run": "pnpm exec playwright install --with-deps chromium\nnode scripts/verify-packed-consumer.mjs --browser\npnpm playground:build\npnpm playground:test\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a",
+              "condition": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": ".github/workflows/publish-npm.yml",
+      "jobs": [
+        {
+          "job": "verify",
+          "condition": null,
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "npm install --global --ignore-scripts --no-audit --no-fund npm@12.2.0",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "node --test scripts/reviewed-npm.test.mjs",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "node scripts/reviewed-npm.mjs prepare",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Install and verify current source packages",
+              "run": "npm install --global --ignore-scripts --no-audit --no-fund pnpm@10.29.3\npnpm install --frozen-lockfile --ignore-scripts\npnpm -r --include-workspace-root typecheck\npnpm -r --include-workspace-root test\npnpm exec playwright install --with-deps chromium\nnode scripts/verify-packed-consumer.mjs --browser\n",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": "Bind reviewed archives without publication identity",
+              "run": "node scripts/reviewed-npm.mjs prepare",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+              "condition": null
+            }
+          ]
+        },
+        {
+          "job": "publish",
+          "condition": "github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'",
+          "runs_on": "ubuntu-24.04",
+          "steps": [
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38",
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": "npm install --global --ignore-scripts --no-audit --no-fund npm@12.2.0",
+              "uses": null,
+              "condition": null
+            },
+            {
+              "name": null,
+              "run": null,
+              "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
+              "condition": null
+            },
+            {
+              "name": "Publish exact reviewed archives and verify official hashes",
+              "run": "node scripts/reviewed-npm.mjs publish \"$RUNNER_TEMP/reviewed-npm\"",
+              "uses": null,
+              "condition": null
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "evidence_policy": "Declarations and source paths are not proof of an executed acceptance. Exact CI head and result are recorded separately. No live accounts or production acceptance is inferred."
+}
