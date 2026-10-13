@@ -41,3 +41,33 @@ Use the package scripts/owner CI above and the repository README for exact comma
 ## Acceptance record
 
 Inventory baseline source: `48448db13746ae06855c581bb15ea07468f5bcf5`. This baseline records observed files and declared interfaces, not a completed audit. Subsequent source changes are accepted at their exact commit with test evidence. Production hosting, account login, secret custody installation and data migration remain outside source-only acceptance.
+
+## Owned source and acceptance map
+
+[oss-source-map.json](oss-source-map.json) is the tracked map of package
+interfaces, declared commands, schemas, functional test sources, examples and CI
+jobs. It keeps each responsibility attached to its actual physical source owner.
+Public exports are supported only within this repository's responsibility boundary;
+a filename or schema declaration does not grant product or cloud authority.
+
+| Package | Canonical manifest | Responsibility/interface |
+| --- | --- | --- |
+| `@zixcel/projection-runtime` | [package.json](../package.json) | Bounded read-only producer execution and disposable durable projection publication |
+| `@zixcel/dom-renderer` | [packages/dom-renderer/package.json](../packages/dom-renderer/package.json) | Trusted native DOM rendering of PP RenderPlans and Zixcel owner inputs |
+| `@zixcel/projection-client` | [packages/projection-client/package.json](../packages/projection-client/package.json) | Bounded renderer-independent projection adoption and presentation runtime |
+| `@zixcel/projection-contracts` | [packages/projection-contracts/package.json](../packages/projection-contracts/package.json) | Renderer-independent bounded projection, lineage and Scene contracts |
+| `@zixcel/view-delivery-contracts` | [packages/view-contracts/package.json](../packages/view-contracts/package.json) | Bounded site delivery and per-source readiness over exact Projection contracts |
+| `@zixcel/view-delivery` | [packages/view-server/package.json](../packages/view-server/package.json) | Bounded trusted document and asset delivery; existing Crowsi STATE transport only |
+
+For source acceptance, run each applicable functional CI job with the committed
+locks from an independent checkout. Match public entrypoints to their test/example
+sources in the map; test the relevant invalid input and failure boundary as well as
+the normal path. Policy-only, skipped and credential-dependent jobs do not establish
+functional coverage. Release jobs establish artifact acceptance only when actually
+run at the reviewed commit. A source-only/example repository must not be presented
+as a complete external service or a released package.
+
+Schema definitions in the map remain owned by their canonical validator and
+consumers. An absent schema file means no separate schema file is declared; it does
+not mean the runtime interface has no validation. Do not introduce another common
+schema solely to mirror an implementation type.
