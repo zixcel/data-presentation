@@ -16,7 +16,7 @@ jobs:
           persist-credentials: false
       - name: Verify preserved source history
         run: git bundle verify docs/source-history/view-delivery.bundle
-      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1
         with:
           node-version: '24.15.0'
           package-manager-cache: false
@@ -51,7 +51,7 @@ jobs:
           node scripts/verify-packed-consumer.mjs --browser
           pnpm playground:build
           pnpm playground:test
-      - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9
         with:
           name: reviewed-npm-packages
           path: outgoing/
