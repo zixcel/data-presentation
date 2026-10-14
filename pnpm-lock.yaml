@@ -19,8 +19,8 @@ importers:
         specifier: 1.62.1
         version: 1.62.1
       '@types/node':
-        specifier: 24.12.0
-        version: 24.12.0
+        specifier: 26.6.5
+        version: 26.6.5
       '@zixcel/dom-renderer':
         specifier: 0.10.3
         version: link:packages/dom-renderer
@@ -69,8 +69,8 @@ importers:
         version: 2.0.11
     devDependencies:
       '@types/node':
-        specifier: 24.12.0
-        version: 24.12.0
+        specifier: 26.6.5
+        version: 26.6.5
       typescript:
         specifier: 5.9.3
         version: 5.9.3
@@ -93,8 +93,8 @@ importers:
         specifier: 0.10.0
         version: 0.10.0
       '@types/node':
-        specifier: 24.12.0
-        version: 24.12.0
+        specifier: 26.6.5
+        version: 26.6.5
       '@zixcel/projection-contracts':
         specifier: 0.10.3
         version: link:../projection-contracts
@@ -276,8 +276,8 @@ packages:
     engines: {node: '>=20'}
     hasBin: true
 
-  '@types/node@24.12.0':
-    resolution: {integrity: sha512-GYDxsZi3ChgmckRT9HPU0WEhKLP08ev/Yfcq2AstjrDASOYCSXeyjDsHg4v5t4jOj7cyDX3vmprafKlWIG9MXQ==}
+  '@types/node@26.6.5':
+    resolution: {integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==}
 
   '@zixcel/interaction@0.10.1':
     resolution: {integrity: sha512-irtb3FhlM2g13wWlPcroTFCXB36O7a6KS/HqWSGRY7Snys8PA9cO+qTlcdKrzwMQ+xoPHHFPbq/AMuasoTN+bg==}
@@ -313,8 +313,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  undici-types@7.16.0:
-    resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
+  undici-types@8.9.0:
+    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
 
   ws@8.21.2:
     resolution: {integrity: sha512-54dMVAo4WIe6SKy3vBgN+9bJZqqQ8IMRevAkOLQALhi49qkkQDQfWdAZ8KQlXiEabw88ARXXdUrlvtbKQX+aKw==}
@@ -416,9 +416,9 @@ snapshots:
     dependencies:
       playwright: 1.62.1
 
-  '@types/node@24.12.0':
+  '@types/node@26.6.5':
     dependencies:
-      undici-types: 7.16.0
+      undici-types: 8.9.0
 
   '@zixcel/interaction@0.10.1': {}
 
@@ -468,6 +468,6 @@ snapshots:
 
   typescript@5.9.3: {}
 
-  undici-types@7.16.0: {}
+  undici-types@8.9.0: {}
 
   ws@8.21.2: {}
