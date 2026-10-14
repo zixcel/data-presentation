@@ -7,7 +7,7 @@ selected owner-visible source revisions. Deterministic lineage and publication
 fences keep presentation tied to the accepted source without owning its meaning.
 
 ```sh
-npm install @zixcel/projection-contracts@0.10.2
+npm install @zixcel/projection-contracts
 ```
 
 ```ts
