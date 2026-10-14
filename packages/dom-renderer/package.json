@@ -20,7 +20,7 @@
     "./style": "./src/style.css"
   },
   "dependencies": {
-    "three": "0.186.0",
+    "three": "0.186.1",
     "@zixcel/interaction": "0.10.1",
     "@zixcel/projection-client": "0.10.3"
   },
@@ -29,8 +29,8 @@
     "test:browser": "node test/world-browser.mjs"
   },
   "devDependencies": {
-    "@playwright/test": "1.62.1",
-    "esbuild": "0.28.1"
+    "@playwright/test": "1.64.0",
+    "esbuild": "0.28.2"
   },
   "repository": {
     "type": "git",
