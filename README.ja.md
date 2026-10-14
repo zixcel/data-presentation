@@ -31,3 +31,6 @@ pnpm playground:serve
 runtime storeにはLinux/WSL、既存flock/setpriv、private parent directoryが必要です。任意commandを実行するOS sandboxではありません。依存は正式registry版を宣言し、開発workspace linkとTGZの独立consumerを分けます。
 
 公開はownerのpublish-npm.ymlで、review済みhash・consumer検証・OIDC provenanceを確認します。公開と実アプリ配備は別で、private管理repoや他組織secretを通常運用に要求しません。LICENSE/NOTICEを保持します。
+
+Dependency updates: [repository policy](docs/dependency-updates.md).
+Registry releases: [version tags and GitHub OIDC](docs/registry-release.md).

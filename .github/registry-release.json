@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "repository": "zixcel/data-presentation",
+  "defaultBranch": "main",
+  "requiredWorkflows": [
+    "oss-policy.yml",
+    "prepare-npm-artifact.yml"
+  ],
+  "packages": [
+    {
+      "ecosystem": "npm",
+      "manifest": "package.json",
+      "name": "@zixcel/projection-runtime",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/dom-renderer/package.json",
+      "name": "@zixcel/dom-renderer",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/projection-client/package.json",
+      "name": "@zixcel/projection-client",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/projection-contracts/package.json",
+      "name": "@zixcel/projection-contracts",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/view-contracts/package.json",
+      "name": "@zixcel/view-delivery-contracts",
+      "installDirectory": "."
+    },
+    {
+      "ecosystem": "npm",
+      "manifest": "packages/view-server/package.json",
+      "name": "@zixcel/view-delivery",
+      "installDirectory": "."
+    }
+  ]
+}
