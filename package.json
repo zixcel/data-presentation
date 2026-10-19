@@ -56,5 +56,12 @@
     "@zixcel/dom-renderer": "0.10.3",
     "@crowsi/browser-security": "0.10.0"
   },
-  "packageManager": "pnpm@10.29.3"
+  "packageManager": "pnpm@10.29.3",
+  "keywords": [
+    "data-visualization",
+    "projections",
+    "state-management",
+    "typescript",
+    "web-components"
+  ]
 }

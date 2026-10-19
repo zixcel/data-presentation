@@ -37,5 +37,11 @@
     "url": "git+https://github.com/zixcel/data-presentation.git",
     "directory": "packages/dom-renderer"
   },
-  "types": "./src/index.d.mts"
+  "types": "./src/index.d.mts",
+  "keywords": [
+    "dom",
+    "data-presentation",
+    "rendering",
+    "javascript"
+  ]
 }

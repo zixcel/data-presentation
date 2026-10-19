@@ -54,5 +54,11 @@
     "typescript": "7.0.2",
     "@types/node": "24.12.0"
   },
-  "packageManager": "pnpm@10.29.3"
+  "packageManager": "pnpm@10.29.3",
+  "keywords": [
+    "typed-contracts",
+    "schema-validation",
+    "data-presentation",
+    "javascript"
+  ]
 }
