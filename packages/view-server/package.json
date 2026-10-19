@@ -37,5 +37,11 @@
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
-  }
+  },
+  "keywords": [
+    "data-presentation",
+    "artifact-distribution",
+    "api-server",
+    "javascript"
+  ]
 }

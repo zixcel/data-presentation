@@ -28,5 +28,11 @@
     "type": "git",
     "url": "git+https://github.com/zixcel/data-presentation.git",
     "directory": "packages/projection-client"
-  }
+  },
+  "keywords": [
+    "data-presentation",
+    "projections",
+    "client",
+    "javascript"
+  ]
 }
