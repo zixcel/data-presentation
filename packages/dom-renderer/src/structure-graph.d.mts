@@ -1,16 +1,8 @@
-export function graphDocuments(documents: any, { component, query, depth, maximum }?: {
-    component?: string;
-    query?: string;
-    depth?: number;
-    maximum?: number;
+import type { GraphView } from './graph-documents.mjs';
+export { graphDocuments } from './graph-documents.mjs';
+export declare function structureGraph(document: Document, host: HTMLElement, view: GraphView, onRole: (id: string) => void, onRefresh: () => unknown, { embedded }?: {
+    embedded?: boolean | undefined;
 }): {
-    nodes: any[];
-    edges: any[];
-    truncated: boolean;
-};
-export function structureGraph(document: any, host: any, view: any, onRole: any, onRefresh: any, { embedded }?: {
-    embedded?: boolean;
-}): {
-    update(next: any): void;
+    update(next: GraphView): void;
     close(): void;
 };
