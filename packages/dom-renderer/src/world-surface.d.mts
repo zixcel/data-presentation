@@ -1,7 +1,2 @@
-export function createWorldSurface(activityPresentation?: {}): {
-    attach(host: any, options: any): {
-        world: any;
-        release(): void;
-    };
-    close(): void;
-};
+import type { ActivityPresentation, WorldSurface } from './world-api.mjs';
+export declare function createWorldSurface(activityPresentation?: ActivityPresentation): WorldSurface;

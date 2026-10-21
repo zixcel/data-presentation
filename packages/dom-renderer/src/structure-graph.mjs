@@ -1,4 +1,4 @@
-import { element } from '../src/index.mjs';
+import { element } from './dom-elements.mjs';
 import { inspectionOverview } from './inspection-overview.mjs';
 import { graphDocuments } from './graph-documents.mjs';
 export { graphDocuments } from './graph-documents.mjs';

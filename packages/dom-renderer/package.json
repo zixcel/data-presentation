@@ -25,8 +25,8 @@
     "@zixcel/projection-client": "0.10.4"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs test/*.test.mts",
-    "test:browser": "node test/world-browser.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mjs test/*.test.mts",
+    "test:browser": "node test/world-browser.mts",
     "build": "tsc -p tsconfig.build.json && node ../../scripts/emit-dom-declarations.mts",
     "typecheck": "tsc -p tsconfig.build.json --noEmit"
   },

@@ -29,15 +29,10 @@
     "test/playground-browser.mts",
     "playground/data-to-screen/app.mts",
     "playground/data-to-screen/samples.d.mts",
-    "packages/dom-renderer/test/frame-layout.test.mts",
-    "packages/dom-renderer/test/npc-motion.test.mts",
-    "packages/dom-renderer/test/object-presentation.test.mts",
-    "packages/dom-renderer/test/open-world-projection.test.mts",
     "scripts/emit-dom-declarations.mts",
-    "packages/dom-renderer/test/world-model.test.mts",
-    "packages/dom-renderer/test/graphics-resources.test.mts",
-    "packages/dom-renderer/test/spatial-patterns.test.mts",
-    "packages/dom-renderer/test/structure-graph.test.mts",
-    "packages/view-server/test/*.mts"
+    "packages/view-server/test/*.mts",
+    "packages/dom-renderer/test/*.mts",
+    "packages/dom-renderer/test/fixtures/*.mts",
+    "packages/dom-renderer/test/fixtures/*.d.mts"
   ]
 }

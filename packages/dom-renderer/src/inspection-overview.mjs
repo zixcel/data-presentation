@@ -1,5 +1,5 @@
 // Owner-projected facts only. This renderer does not classify semantic modules.
-import { element } from '../src/index.mjs';
+import { element } from './dom-elements.mjs';
 export function inspectionOverview(document, host, view, onSource, signal) {
     host.replaceChildren();
     if (!view) {

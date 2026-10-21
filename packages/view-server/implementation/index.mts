@@ -37,7 +37,7 @@ export function createDeliveryServer(options:DeliveryServerOptions):DeliveryServ
   const path=request.url?.split('?')[0],operation=['/api/subjects','/api/interactions','/api/site-actions','/api/setup','/api/connection','/api/document'].includes(path??'')?path!:'delivery/request'
   const recordFailure=(error:unknown)=>{
    const failure=sourceFailure(error,operation,observation)
-   try{onFailure?.(failure)}catch{}
+   try{Promise.resolve(onFailure?.(failure)).catch(()=>{})}catch{}
    return failure
   }
   // Preserve the finite HTTP observer deadline, but send a truthful outcome
@@ -57,7 +57,7 @@ export function createDeliveryServer(options:DeliveryServerOptions):DeliveryServ
    if(!response.headersSent&&!response.destroyed)send(response,400,{error:failure})
    else if(!response.writableEnded&&!response.destroyed)response.destroy()
   }).finally(()=>{
-   try{onOutcome?.({...observation,operation:observation.operation??operation,httpStatus:response.headersSent?response.statusCode:null})}catch{}
+   try{Promise.resolve(onOutcome?.({...observation,operation:observation.operation??operation,httpStatus:response.headersSent?response.statusCode:null})).catch(()=>{})}catch{}
    clearTimeout(timer);response.off('close',abort);release();controllers.delete(controller);inflight.delete(work)
   });inflight.add(work)
  })
