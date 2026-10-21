@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmit": true,
+    "allowImportingTsExtensions": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2023",
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "scripts/verify-packed-consumer.mts",
+    "test/typescript-migration.test.mts",
+    "packages/view-contracts/test/*.mts",
+    "packages/projection-client/test/*.mts"
+  ]
+}

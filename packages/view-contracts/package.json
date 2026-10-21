@@ -22,7 +22,9 @@
     "@zixcel/interaction": "0.10.1"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs"
+    "test": "node --test test/*.test.mts",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
   },
   "repository": {
     "type": "git",

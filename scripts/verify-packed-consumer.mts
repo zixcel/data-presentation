@@ -3,6 +3,9 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writ
 import { tmpdir } from 'node:os'
 import { join, resolve } from 'node:path'
 import { execFileSync } from 'node:child_process'
+function record(value: unknown): Record<string, unknown> {
+  assert.ok(value !== null && typeof value === 'object' && !Array.isArray(value)); return value as Record<string, unknown>
+}
 const root = mkdtempSync(join(tmpdir(), 'projection-consumer-'))
 writeFileSync(join(root, 'user.npmrc'), '')
 writeFileSync(join(root, 'global.npmrc'), '')
@@ -10,20 +13,22 @@ const env = { ...process.env, NPM_CONFIG_USERCONFIG: join(root, 'user.npmrc'),
   NPM_CONFIG_GLOBALCONFIG: join(root, 'global.npmrc'), NPM_CONFIG_CACHE: join(root, 'cache'),
   NPM_CONFIG_REGISTRY: 'https://registry.npmjs.org', NODE_AUTH_TOKEN: '', NPM_TOKEN: '' }
 const directories = [".", "packages/projection-contracts", "packages/projection-client", "packages/dom-renderer", "packages/view-server", "packages/view-contracts"]
-function run(command, args, cwd) {
-  return execFileSync(command, args, { cwd, env, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] })
+function run(command: string, args: string[], cwd: string) {
+  return execFileSync(command, args, { cwd, env, encoding: 'utf8', timeout: 90000, maxBuffer: 4 * 1024 * 1024, stdio: ['ignore', 'pipe', 'pipe'] })
 }
 try {
   for (const directory of directories) {
-    const result = JSON.parse(run('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', root], resolve(directory)))
-    const item = (Array.isArray(result) ? result : Object.values(result))[0]
-    assert.equal(item.filename, item.filename.split('/').at(-1))
+    const result: unknown = JSON.parse(run('npm', ['pack', '--ignore-scripts', '--json', '--pack-destination', root], resolve(directory)))
+    const item=record((Array.isArray(result) ? result : Object.values(record(result)))[0])
+    assert.equal(typeof item.filename, 'string'); const filename=item.filename as string
+    assert.equal(filename, filename.split('/').at(-1))
   }
   const consumer = join(root, 'consumer')
   mkdirSync(consumer)
   writeFileSync(join(consumer, 'package.json'), JSON.stringify({ private: true, type: 'module' }))
   writeFileSync(join(consumer, '.npmrc'), 'registry=https://registry.npmjs.org/\n')
-  const tools = JSON.parse(readFileSync(resolve('package.json'), 'utf8')).devDependencies
+  const tools = record(record(JSON.parse(readFileSync(resolve('package.json'), 'utf8'))).devDependencies)
+  for(const key of ['typescript','@types/node','esbuild','@playwright/test','@crowsi/browser-security'])assert.equal(typeof tools[key], 'string')
   run('npm', ['install', '--ignore-scripts', '--no-audit', '--no-fund',
     ...readdirSync(root).filter(name => name.endsWith('.tgz')).map(name => join(root, name)),
     `typescript@${tools.typescript}`, `@types/node@${tools['@types/node']}`,
@@ -39,8 +44,8 @@ try {
   run(process.execPath, [join(consumer, 'node_modules/typescript/bin/tsc'), '--noEmit', '--strict',
     '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', 'delivery-types.mts'], consumer)
   for (const [file, name] of [['packages/view-server/test/server.test.mjs', '@zixcel/view-delivery'],
-    ['packages/view-contracts/test/delivery.test.mjs', '@zixcel/view-delivery-contracts']]) {
-    const target = join(consumer, file.split('/').at(-1))
+    ['packages/view-contracts/test/delivery.test.mts', '@zixcel/view-delivery-contracts']]) {
+    const target = join(consumer, file.split('/').at(-1)!)
     writeFileSync(target, readFileSync(resolve(file), 'utf8').replace("'../src/index.mjs'", JSON.stringify(name)))
     run(process.execPath, ['--test', target], consumer)
   }
