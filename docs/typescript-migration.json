@@ -1,7 +1,11 @@
 {
   "generated": [
     "packages/view-contracts/src/index.mjs",
-    "packages/view-contracts/src/types.mjs"
+    "packages/view-contracts/src/types.mjs",
+    "packages/projection-client/src/index.mjs",
+    "packages/projection-client/src/render-plan.mjs",
+    "packages/projection-client/src/state.mjs",
+    "packages/projection-client/src/types.mjs"
   ],
   "pendingMigration": [
     "examples/data-to-screen.mjs",
@@ -31,8 +35,6 @@
     "packages/dom-renderer/test/structure-graph.test.mjs",
     "packages/dom-renderer/test/world-browser.mjs",
     "packages/dom-renderer/test/world-model.test.mjs",
-    "packages/projection-client/src/index.mjs",
-    "packages/projection-client/test/client.test.mjs",
     "packages/projection-contracts/src/client.mjs",
     "packages/projection-contracts/src/contract.mjs",
     "packages/projection-contracts/src/hash-browser.mjs",

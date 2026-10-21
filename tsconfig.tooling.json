@@ -13,6 +13,7 @@
   "include": [
     "scripts/verify-packed-consumer.mts",
     "test/typescript-migration.test.mts",
-    "packages/view-contracts/test/*.mts"
+    "packages/view-contracts/test/*.mts",
+    "packages/projection-client/test/*.mts"
   ]
 }

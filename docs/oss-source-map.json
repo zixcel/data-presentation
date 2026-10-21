@@ -154,7 +154,7 @@
     "packages/dom-renderer/test/structure-graph.test.mjs",
     "packages/dom-renderer/test/world-browser.mjs",
     "packages/dom-renderer/test/world-model.test.mjs",
-    "packages/projection-client/test/client.test.mjs",
+    "packages/projection-client/test/client.test.mts",
     "packages/projection-contracts/test/contracts.test.mjs",
     "packages/projection-contracts/test/public-types.mts",
     "packages/projection-contracts/test/temporal.test.mjs",

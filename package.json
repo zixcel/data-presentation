@@ -37,7 +37,7 @@
     "playground:serve": "node scripts/serve-playground.mjs",
     "playground:test": "node test/playground-browser.mjs",
     "test:consumer": "node scripts/verify-packed-consumer.mts",
-    "check:typescript": "pnpm --filter @zixcel/view-delivery-contracts build && tsc -p tsconfig.tooling.json && node --test test/typescript-migration.test.mts"
+    "check:typescript": "pnpm -r --include-workspace-root --if-present run build && tsc -p tsconfig.tooling.json && node --test test/typescript-migration.test.mts"
   },
   "repository": {
     "type": "git",

@@ -14,7 +14,7 @@ test('no unclassified JavaScript can be introduced during the tracked migration'
  check(paths);assert.throws(()=>check([...paths,'src/untyped-new.mjs']))
 })
 test('migrated implementation and verifier use strict types without unchecked escapes',()=>{
- for(const file of ['packages/view-contracts/implementation/index.mts','packages/view-contracts/implementation/types.mts','scripts/verify-packed-consumer.mts']){
+ for(const file of ['packages/view-contracts/implementation/index.mts','packages/view-contracts/implementation/types.mts','scripts/verify-packed-consumer.mts','packages/projection-client/implementation/index.mts','packages/projection-client/implementation/state.mts','packages/projection-client/implementation/render-plan.mts']){
   const source=readFileSync(file,'utf8');assert.ok(!/@ts-(?:nocheck|ignore)/.test(source))
   assert.ok(!/\bany\b/.test(source),file)
  }
