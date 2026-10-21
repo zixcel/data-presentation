@@ -44,9 +44,11 @@ try {
   run(process.execPath, [join(consumer, 'node_modules/typescript/bin/tsc'), '--noEmit', '--strict',
     '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', 'delivery-types.mts'], consumer)
   for (const [file, name] of [['packages/view-server/test/server.test.mjs', '@zixcel/view-delivery'],
-    ['packages/view-contracts/test/delivery.test.mts', '@zixcel/view-delivery-contracts']]) {
+    ['packages/view-contracts/test/delivery.test.mts', '@zixcel/view-delivery-contracts'],
+    ['test/cleanup.test.mts', '@zixcel/projection-runtime']]) {
     const target = join(consumer, file.split('/').at(-1)!)
-    writeFileSync(target, readFileSync(resolve(file), 'utf8').replace("'../src/index.mjs'", JSON.stringify(name)))
+    writeFileSync(target, readFileSync(resolve(file), 'utf8').replace("'../src/index.mjs'", JSON.stringify(name)).replace("'../src/runtime.mjs'", JSON.stringify('@zixcel/projection-runtime')).replace("'../src/store.mjs'", JSON.stringify('@zixcel/projection-runtime/store')))
+    if(file==='test/cleanup.test.mts')run(process.execPath,[join(consumer,'node_modules/typescript/bin/tsc'),'--noEmit','--strict','--module','NodeNext','--moduleResolution','NodeNext','--target','ES2023','--types','node',target],consumer)
     run(process.execPath, ['--test', target], consumer)
   }
 
