@@ -29,7 +29,7 @@
         "playground:build": "node scripts/build-playground.mjs",
         "playground:serve": "node scripts/serve-playground.mjs",
         "playground:test": "node test/playground-browser.mjs",
-        "test:consumer": "node scripts/verify-packed-consumer.mjs"
+        "test:consumer": "node scripts/verify-packed-consumer.mts"
       }
     },
     {
@@ -159,11 +159,10 @@
     "packages/projection-contracts/test/public-types.mts",
     "packages/projection-contracts/test/temporal.test.mjs",
     "packages/view-contracts/test/consumer.mts",
-    "packages/view-contracts/test/delivery.test.mjs",
+    "packages/view-contracts/test/delivery.test.mts",
     "packages/view-server/src/index.mjs",
     "packages/view-server/test/server.test.mjs",
-    "scripts/reviewed-npm.test.mjs",
-    "scripts/verify-packed-consumer.mjs",
+    "scripts/verify-packed-consumer.mts",
     "src/runtime.mjs",
     "src/store-process.mjs",
     "test/consumer.mjs",
@@ -269,7 +268,7 @@
             },
             {
               "name": "Verify the archive consumer and runnable playground",
-              "run": "pnpm exec playwright install --with-deps chromium\nnode scripts/verify-packed-consumer.mjs --browser\npnpm playground:build\npnpm playground:test\n",
+              "run": "pnpm exec playwright install --with-deps chromium\nnode scripts/verify-packed-consumer.mts --browser\npnpm playground:build\npnpm playground:test\n",
               "uses": null,
               "condition": null
             },
@@ -310,26 +309,8 @@
               "condition": null
             },
             {
-              "name": null,
-              "run": "node --test scripts/reviewed-npm.test.mjs",
-              "uses": null,
-              "condition": null
-            },
-            {
-              "name": null,
-              "run": "node scripts/reviewed-npm.mjs prepare",
-              "uses": null,
-              "condition": null
-            },
-            {
               "name": "Install and verify current source packages",
-              "run": "npm install --global --ignore-scripts --no-audit --no-fund pnpm@10.29.3\npnpm install --frozen-lockfile --ignore-scripts\npnpm -r --include-workspace-root typecheck\npnpm -r --include-workspace-root test\npnpm exec playwright install --with-deps chromium\nnode scripts/verify-packed-consumer.mjs --browser\n",
-              "uses": null,
-              "condition": null
-            },
-            {
-              "name": "Bind reviewed archives without publication identity",
-              "run": "node scripts/reviewed-npm.mjs prepare",
+              "run": "npm install --global --ignore-scripts --no-audit --no-fund pnpm@10.29.3\npnpm install --frozen-lockfile --ignore-scripts\npnpm -r --include-workspace-root typecheck\npnpm -r --include-workspace-root test\npnpm exec playwright install --with-deps chromium\nnode scripts/verify-packed-consumer.mts --browser\n",
               "uses": null,
               "condition": null
             },
@@ -368,12 +349,6 @@
               "name": null,
               "run": null,
               "uses": "actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093",
-              "condition": null
-            },
-            {
-              "name": "Publish exact reviewed archives and verify official hashes",
-              "run": "node scripts/reviewed-npm.mjs publish \"$RUNNER_TEMP/reviewed-npm\"",
-              "uses": null,
               "condition": null
             }
           ]
