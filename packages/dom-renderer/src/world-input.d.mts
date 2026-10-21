@@ -1,3 +1,3 @@
+export declare const keyDirection: (code: string) => string | undefined;
 /** @param {Document} document */
-export function worldControlGuide(document: Document): HTMLElement;
-export function keyDirection(code: any): any;
+export declare function worldControlGuide(document: Document): HTMLElement;

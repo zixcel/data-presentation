@@ -1,1 +1,1 @@
-export function reconcileChildren(parent: any, children: any): void;
+export declare function reconcileChildren(parent: Node, children: Iterable<Node>): void;
