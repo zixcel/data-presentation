@@ -1,3 +1,6 @@
+import type {RuntimeLimits,SourceAdapter,SourceReader,ProjectionStore} from '../src/types/runtime.mjs'
+import type {ExactSource,ProjectionRequest,Snapshot,SourceRef} from '@zixcel/projection-contracts'
+import {errorCode} from '../src/common.mjs'
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import fs from 'node:fs'
@@ -8,10 +11,10 @@ import {once} from 'node:events'
 import {canonical,produce,adoptSnapshot} from '@zixcel/projection-contracts'
 import {FileProjectionStore} from '../src/store.mjs'
 import {ProducerRegistry,ProjectionRuntime,ExactSourceReader} from '../src/runtime.mjs'
-const code=expected=>e=>e.code===expected
+const code=(expected:string)=>(e:unknown)=>errorCode(e)===expected
 
 test('durable publication hints survive atomic replacement and release watcher/timer on disposal',async()=>{
-  const f=fixture();let hints=0,observed
+  const f=fixture();let hints=0,observed:Snapshot|null|undefined
   const stop=f.store.watch(()=>{hints++;observed=f.store.read('test')})
   try{
     const p=await f.runtime.submit(f.request,{accessRef:'local-owner',id:'watch-publication'})
@@ -48,7 +51,7 @@ test('simultaneous exact readers share the lock while all image mutations remain
 test('transient producer definitions release capacity without accepting stale identities',()=>{
   const registry=new ProducerRegistry()
   for(let n=0;n<32;n++){
-    const definition={id:'transient',kind:'data',configuration:{n}},identity=registry.register(definition)
+    const definition={id:'transient',kind:'data' as const,configuration:{n}},identity=registry.register(definition)
     assert.throws(()=>registry.unregister({...identity,configuration:'old'}),code('ProjectionProducerUnavailable'))
     assert.deepEqual(registry.exact(identity).identity,identity)
     registry.unregister(identity)
@@ -81,16 +84,16 @@ test('attempt lock rejects another process, kernel releases after death, and ret
 })
 
 test('owner-neutral acquisition orders all leases before reads, drains partial/lost responses and retries every cleanup owner',async()=>{
-  const calls=[],held=new Set(),controller=new AbortController()
+  const calls:string[]=[],held=new Set<string>(),controller=new AbortController()
   let failure=false,cleanupFailure=false
-  const adapter=owner=>({
+  const adapter=(owner:string):SourceAdapter=>({
     async acquire(ref,{holder}){calls.push('acquire:'+owner);held.add(owner+holder);if(failure&&owner==='B')throw Object.assign(Error('lost'),{code:'SourceUnavailable'});return 'lease:'+ref.ref},
     async read(ref){calls.push('read:'+owner);return {source:ref,items:[],relations:[],unresolved:[],truncated:false}},
     async release(lease,holder){assert.equal(lease,'lease:one');calls.push('release-exact:'+owner);held.delete(owner+holder)},
     async releaseHolder(holder){calls.push('release:'+owner);held.delete(owner+holder);if(cleanupFailure&&owner==='A')throw Object.assign(Error('busy'),{code:'ProjectionStoreBusy'})},
   })
   const reader=new ExactSourceReader(new Map([['B',adapter('B')],['A',adapter('A')]]))
-  const sources=['B','A'].map(owner=>({owner,ref:'one',revision:'exact',kind:'control'}))
+  const sources:SourceRef[]=['B','A'].map(owner=>({owner,ref:'one',revision:'exact',kind:'control'}))
   const options={accessRef:'visible',holder:'job',until:Date.now()+60000,deadline:Date.now()+5000,signal:controller.signal}
   const result=await reader.acquireExact(sources,options)
   assert.deepEqual(calls,['acquire:A','acquire:B','read:A','read:B']);assert.equal(result.leaseRefs.length,2)
@@ -108,7 +111,7 @@ test('owner-neutral acquisition orders all leases before reads, drains partial/l
 
 test('whole-job deadline cancels source acquisition, waits for owner drain and releases partial holds',async()=>{
   const f=fixture();let drained=false,releaseBeforeDrain=false,publishes=0
-  const reader={
+  const reader:SourceReader={
     async acquireExact(refs,{holder,signal,deadline}){
       assert.ok(Number.isSafeInteger(deadline));f.holds.set(holder,deadline)
       await new Promise((resolve,reject)=>{
@@ -121,7 +124,7 @@ test('whole-job deadline cancels source acquisition, waits for owner drain and r
     },
     async release(refs,holder){releaseBeforeDrain||=!drained;await f.reader.release(refs,holder)},
   }
-  const store=new Proxy(f.store,{get(t,k){if(k==='publish')return (...args)=>{publishes++;return t.publish(...args)};return typeof t[k]==='function'?t[k].bind(t):t[k]}})
+  const store=overridePublication(f.store,(...args)=>{publishes++;return f.store.publish(...args)})
   // Real fsync must finish before this case exercises the acquisition boundary.
   // The separate 1 ms case below covers expiry during earlier phases.
   const runtime=new ProjectionRuntime({store,registry:f.registry,reader,limits:{executionMs:5000}})
@@ -132,14 +135,14 @@ test('whole-job deadline cancels source acquisition, waits for owner drain and r
     assert.equal(runtime.inspect().active,0);assert.equal(f.store.read('test'),null)
   }finally{await runtime.close();await f.runtime.close();fs.rmSync(f.parent,{recursive:true})}
 })
-function fixture(limits={}){
+function fixture(limits:Partial<RuntimeLimits>={}){
   const parent=fs.mkdtempSync(path.join(os.tmpdir(),'pp1-test-')),directory=path.join(parent,'derived'),store=FileProjectionStore.create(directory,limits)
   const registry=new ProducerRegistry(),identity=registry.register({id:'neutral',kind:'data'})
-  const ref={owner:'source-owner',ref:'exact-source',revision:'opaque/1',kind:'application'}
-  const source={source:ref,items:[{id:'one',semanticRef:null,group:{kind:'structural',ref:'/not-meaning'},value:'original',evidence:['evidence:1'],provenance:['source:1'],resolutionRefs:[],visibility:'visible'}],relations:[],unresolved:[],truncated:false}
-  const request={key:'test',producer:identity,sources:[ref],focus:'subject',purpose:'review',visibilityRef:'owner-local',limits:{}}
-  const holds=new Map(),sources=new Map([[canonical(ref),source]])
-  const reader={async acquireExact(refs,{accessRef,holder,until,signal}){
+  const ref:SourceRef={owner:'source-owner',ref:'exact-source',revision:'opaque/1',kind:'application'}
+  const source:ExactSource={source:ref,items:[{id:'one',semanticRef:null,group:{kind:'structural',ref:'/not-meaning'},value:'original',evidence:['evidence:1'],provenance:['source:1'],resolutionRefs:[],visibility:'visible'}],relations:[],unresolved:[],truncated:false}
+  const request:ProjectionRequest={key:'test',producer:identity,sources:[ref],focus:'subject',purpose:'review',visibilityRef:'owner-local',limits:{}}
+  const holds=new Map<string,number>(),sources=new Map([[canonical(ref),source]])
+  const reader:SourceReader={async acquireExact(refs,{accessRef,holder,until,signal}){
     assert.equal(accessRef,'local-owner');assert.equal(signal.aborted,false)
     const selected=refs.map(r=>{const s=sources.get(canonical(r));if(!s)throw Object.assign(new Error('SourceNotRetained'),{code:'SourceNotRetained'});return s})
     holds.set(holder,until);return {sources:selected,leaseRefs:[holder]}
@@ -162,7 +165,7 @@ test('durable deterministic publication, receipt replay, bounded retention, exac
     assert.equal(adoptSnapshot(first.snapshot,{key:'test',revision:first.snapshot.revision}).revision,first.snapshot.revision)
     const saved=fs.readFileSync(path.join(f.directory,'projection.json'));fs.writeFileSync(path.join(f.directory,'projection.json'),'corrupt')
     assert.throws(()=>f.store.read('test'),code('ProjectionStoreCorrupt'));fs.writeFileSync(path.join(f.directory,'projection.json'),saved)
-    for(let n=2;n<=5;n++){const s=structuredClone(f.source);s.source.revision='opaque/'+n;s.items[0].value='value/'+n;f.sources.set(canonical(s.source),s);await f.runtime.submit({...f.request,sources:[s.source]},{accessRef:'local-owner',id:'job/'+n})}
+    for(let n=2;n<=5;n++){const s:ExactSource={...f.source,source:{...f.source.source,revision:'opaque/'+n},items:[{...f.source.items[0],value:'value/'+n}]};f.sources.set(canonical(s.source),s);await f.runtime.submit({...f.request,sources:[s.source]},{accessRef:'local-owner',id:'job/'+n})}
     assert.equal(f.store.inspect().keys[0].snapshots,2);assert.equal(f.store.inspect().repairs.length,0)
     assert.equal(canonical(f.source),before)
     assert.throws(()=>new FileProjectionStore(path.join(f.parent,'missing')).read('test'),code('ProjectionUnavailable'));assert.equal(fs.existsSync(path.join(f.parent,'missing')),false)
@@ -170,26 +173,26 @@ test('durable deterministic publication, receipt replay, bounded retention, exac
 })
 test('failed publish durable repair, lost response original receipt, old repair cannot regress newer head and source disappearance never follows latest',async()=>{
   const f=fixture();let fail=true
-  const store=new Proxy(f.store,{get(target,key){if(key==='publish')return (...args)=>{if(fail){fail=false;throw Object.assign(new Error('fixture'),{code:'ProjectionUnavailable'})}return target.publish(...args)};return typeof target[key]==='function'?target[key].bind(target):target[key]}})
+  const store=overridePublication(f.store,(...args)=>{if(fail){fail=false;throw Object.assign(new Error('fixture'),{code:'ProjectionUnavailable'})}return f.store.publish(...args)})
   const runtime=new ProjectionRuntime({store,registry:f.registry,reader:f.reader})
   try{
     await assert.rejects(runtime.submit(f.request,{accessRef:'local-owner',id:'repair'}),code('ProjectionUnavailable'))
-    assert.equal(f.store.read('test'),null);assert.equal(f.store.repair('repair').attempts,1);assert.equal(f.holds.size,1)
-    const next=structuredClone(f.source);next.source.revision='new';next.items[0].value='new';f.sources.set(canonical(next.source),next)
+    assert.equal(f.store.read('test'),null);assert.equal(f.store.repair('repair')!.attempts,1);assert.equal(f.holds.size,1)
+    const next:ExactSource={...f.source,source:{...f.source.source,revision:'new'},items:[{...f.source.items[0],value:'new'}]};f.sources.set(canonical(next.source),next)
     const p2=await runtime.submit({...f.request,sources:[next.source]},{accessRef:'local-owner',id:'new'})
     await assert.rejects(runtime.retry('repair'),code('StaleProjectionPublication'));assert.deepEqual(f.store.read('test'),p2.snapshot);assert.equal(f.holds.size,0)
     fail=true;await assert.rejects(runtime.submit(f.request,{accessRef:'local-owner',id:'disappear'}),code('ProjectionUnavailable'))
     f.sources.delete(canonical(f.ref));await assert.rejects(runtime.retry('disappear'),code('SourceNotRetained'));assert.equal(f.store.repair('disappear'),null);assert.equal(f.holds.size,0)
     f.sources.set(canonical(f.ref),f.source)
     // Fail after underlying durable publication, not before it.
-    let lose=true;const lost=new Proxy(f.store,{get(t,k){if(k==='publish')return (...a)=>{const r=t.publish(...a);if(lose){lose=false;throw Object.assign(new Error('lost'),{code:'ProjectionUnavailable'})}return r};return typeof t[k]==='function'?t[k].bind(t):t[k]}})
+    let lose=true;const lost=overridePublication(f.store,(...a)=>{const r=f.store.publish(...a);if(lose){lose=false;throw Object.assign(new Error('lost'),{code:'ProjectionUnavailable'})}return r})
     const recovering=new ProjectionRuntime({store:lost,registry:f.registry,reader:f.reader})
     try{await assert.rejects(recovering.submit(f.request,{accessRef:'local-owner',id:'lost'}),code('ProjectionUnavailable'));const head=f.store.inspect().keys[0];const retry=await recovering.retry('lost');assert.equal(retry.receipt.publication,head.fence);assert.equal(f.holds.size,0)}finally{await recovering.close()}
   }finally{await runtime.close();await f.runtime.close();fs.rmSync(f.parent,{recursive:true})}
 })
 test('bounded queue, cancelled and timed-out workers publish nothing; oversized/invalid outputs and immutable producer identity reject',async()=>{
-  const f=fixture({concurrent:1,queued:1});let release
-  const gate=new Promise(r=>{release=r}),reader={...f.reader,async acquireExact(...a){await gate;return f.reader.acquireExact(...a)}}
+  const f=fixture({concurrent:1,queued:1});let release:()=>void=()=>{}
+  const gate=new Promise<void>(r=>{release=r}),reader:SourceReader={...f.reader,async acquireExact(...a:Parameters<SourceReader['acquireExact']>){await gate;return f.reader.acquireExact(...a)}}
   const r=new ProjectionRuntime({store:f.store,registry:f.registry,reader,limits:{concurrent:1,queued:1,executionMs:1}})
   try{
     const first=r.submit(f.request,{accessRef:'local-owner',id:'timeout'});const timeout=assert.rejects(first,code('ProjectionExecutionTimeout'))
@@ -198,8 +201,14 @@ test('bounded queue, cancelled and timed-out workers publish nothing; oversized/
     c.abort();release();await Promise.all([timeout,cancelled]);assert.equal(f.store.read('test'),null);assert.equal(r.inspect().active,0)
     await r.expire('timeout');assert.equal(f.holds.size,0)
     assert.throws(()=>r.submit({...f.request,producer:{...f.identity,configuration:'substituted'}},{accessRef:'local-owner'}),code('ProjectionProducerUnavailable'))
-    const source=structuredClone(f.source);source.items[0].value='x'.repeat(530000);f.sources.set(canonical(f.ref),source)
+    const source:ExactSource={...f.source,items:[{...f.source.items[0],value:'x'.repeat(530000)}]};f.sources.set(canonical(f.ref),source)
     await assert.rejects(f.runtime.submit(f.request,{accessRef:'local-owner',id:'oversize'}),code('ProjectionLimitExceeded'));assert.equal(f.store.read('test'),null)
     await f.runtime.expire('oversize');assert.equal(f.holds.size,0)
   }finally{release();await r.close();await f.runtime.close();fs.rmSync(f.parent,{recursive:true})}
 })
+
+function overridePublication(store:FileProjectionStore,publish:ProjectionStore['publish']):ProjectionStore {
+ return {publish,inspect:store.inspect.bind(store),withAttempt:store.withAttempt.bind(store),
+  begin:store.begin.bind(store),read:store.read.bind(store),pending:store.pending.bind(store),
+  repair:store.repair.bind(store),finish:store.finish.bind(store)}
+}

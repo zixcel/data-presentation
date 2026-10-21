@@ -1,8 +1,8 @@
 import {build,stop} from 'esbuild'
 import {fileURLToPath} from 'node:url'
 const root=fileURLToPath(new URL('../',import.meta.url))
-const entries=['runtime','producer-worker','common','private-files','exact-sources']
-const external=[...entries,'store','store-process'].map(name=>`./${name}.mjs`)
+const entries=['runtime','producer-worker','common','private-files','exact-sources','store','store-process']
+const external=entries.map(name=>`./${name}.mjs`)
 try{for(const name of entries){
  const result=await build({absWorkingDir:root,entryPoints:[`implementation/${name}.mts`],outfile:`src/${name}.mjs`,
   metafile:true,bundle:true,format:'esm',platform:'node',target:'es2023',packages:'external',
