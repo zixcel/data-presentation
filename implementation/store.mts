@@ -1,3 +1,4 @@
+import {canonical} from '@zixcel/projection-contracts'
 // Linux projection-local adapter. Kernel flock, not PID/TTL lock stealing.
 // Generic runtime depends only on this adapter's method contract.
 import fs from 'node:fs'
@@ -30,6 +31,8 @@ export class FileProjectionStore implements ProjectionStore {
     check(deadline===null||Number.isSafeInteger(deadline),'InvalidProjection')
     const remaining=deadline===null?10000:deadline-Date.now()
     check(remaining>0,'ProjectionExecutionTimeout')
+    // Bound and decode-safe serialize before process/lock IO; never invoke caller hooks.
+    const serialized=canonical(input)
     const lock=path.join(this.#directory,'lock')
     try{privateDirectory(this.#directory);privateFile(fs.lstatSync(lock))}
     catch(e){if(errorCode(e)==='ENOENT')fail('ProjectionUnavailable');throw e}
@@ -42,7 +45,7 @@ export class FileProjectionStore implements ProjectionStore {
     // ownership remains nonblocking below; this never retries an effect or CAS.
     const waitSeconds=String(Math.min(250,remaining)/1000)
     try{result=spawnSync('/usr/bin/setpriv',['--pdeathsig','SIGKILL','--','/usr/bin/flock',mode,'--timeout',waitSeconds,'--no-fork','--conflict-exit-code','73','/proc/self/fd/3',process.execPath,helper,this.#directory,operation,String(process.pid)],
-      {input:JSON.stringify(input),stdio:['pipe','pipe','pipe',fd],maxBuffer:13*1024*1024,timeout:Math.min(10000,remaining),killSignal:'SIGKILL'})}
+      {input:serialized,stdio:['pipe','pipe','pipe',fd],maxBuffer:13*1024*1024,timeout:Math.min(10000,remaining),killSignal:'SIGKILL'})}
     finally{fs.closeSync(fd)}
     if(result.status===73)fail('ProjectionStoreBusy')
     if(errorCode(result.error)==='ETIMEDOUT'&&deadline!==null)fail('ProjectionExecutionTimeout')
