@@ -102,4 +102,3 @@ export class ClientProjectionRuntime {
   inspect(){return {keys:this.#cache.size,snapshots:[...this.#cache.values()].reduce((n,v)=>n+v.length,0),closed:this.#closed}}
   close(){this.#closed=true;this.#cache.clear();this.#presentation=frozen(empty())}
 }
-

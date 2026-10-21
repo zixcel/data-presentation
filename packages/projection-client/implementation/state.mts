@@ -15,4 +15,3 @@ export function rebase(previous: PresentationState,snapshot: SceneProjection): P
     activeRegion:regions.has(previous.activeRegion??'')?previous.activeRegion:null,inspector:ids.has(previous.inspector??'')?previous.inspector:null,
     timeCursor:snapshot.data.temporal?.items.some(item=>item.itemId===previous.timeCursor)?previous.timeCursor:null})
 }
-
