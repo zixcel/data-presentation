@@ -1,8 +1,14 @@
-export function frameLayout(width: any, height: any, kind: any, anchor?: any): {
+export interface AnchorBounds {
+    left: number;
+    right: number;
+    top: number;
+    bottom: number;
+}
+export declare function frameLayout(width: number, height: number, kind: string, anchor?: AnchorBounds | null): {
     mode: string;
     world: {
-        width: any;
-        height: any;
+        width: number;
+        height: number;
     };
     panel: {
         x: number;

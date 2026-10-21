@@ -4,7 +4,7 @@ import {objectPresentation,spacingPresets} from '../src/object-presentation.mjs'
 import {layoutWorld} from '../src/world-model.mjs'
 import {worldGeometry} from '../src/world-gpu.mjs'
 test('typed forms, explicit distance presets and exact relations do not infer meaning or activity from names',()=>{
- for(const [scalars,type]of [[[1,2],'number'],[[false,true],'boolean'],[['a','b'],'text'],[['a',2],'record'],[[],'record']]){assert.equal(objectPresentation({scalars}).form,'book');assert.equal(objectPresentation({scalars}).dataType,type)}
+ for(const [scalars,type]of ([[[1,2],'number'],[[false,true],'boolean'],[['a','b'],'text'],[['a',2],'record'],[[],'record']] as const)){assert.equal(objectPresentation({scalars}).form,'book');assert.equal(objectPresentation({scalars}).dataType,type)}
  assert.equal(objectPresentation({title:'Person running local inference',id:'person:running'}).form,'book')
  assert.equal(objectPresentation({unresolved:true,scalars:[1]}).needsReview,true)
  const objects=[{id:'a',kind:'character'},{id:'b',kind:'character'},{id:'text',kind:'record',anchor:'a',scalars:['text']},{id:'n',kind:'record',anchor:'b',scalars:[42]}],relations=[{id:'exact',from:'text',to:'n'}]

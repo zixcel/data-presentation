@@ -10,8 +10,8 @@ test('World and Map preserve one exact owner reference and never create capabili
  ]
  const map=mapProjection(sources,{selected:'entity:system',marked:'entity:organization'})
  assert.deepEqual(map.items.map(item=>item.id),sources.map(item=>item.id))
- assert.equal(map.items.find(item=>item.id==='entity:system').selected,true)
- assert.equal(map.items.find(item=>item.id==='entity:organization').marked,true)
+ assert.equal(map.items.find(item=>item.id==='entity:system')!.selected,true)
+ assert.equal(map.items.find(item=>item.id==='entity:organization')!.marked,true)
  assert(map.items.every(item=>!('action' in item)&&!('capability' in item)))
  const near=visibleProjection(sources,{x:0,z:0,radius:12,limit:2,marked:'entity:system'})
  assert.deepEqual(near.items.map(item=>item.id),['role:person','entity:organization'])

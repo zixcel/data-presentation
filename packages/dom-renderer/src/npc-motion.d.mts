@@ -1,4 +1,4 @@
-export function npcMotion(id: any, milliseconds: any, state?: string): {
+export declare function npcMotion(id: string, milliseconds: number, state?: string): {
     x: number;
     y: number;
     swing: number;

@@ -6,7 +6,7 @@ import {layoutWorld} from '../src/world-model.mjs'
 
 test('each NPC has bounded, independent presentation motion without changing semantic location',()=>{
  const model=layoutWorld([{id:'role:one',kind:'character'},{id:'role:two',kind:'character'}],[],'garden')
- const original=structuredClone(model),ranges=[],geometry=worldGeometry(model,ranges)
+ const original=structuredClone(model),ranges:{id:string;start:number;end:number}[]=[],geometry=worldGeometry(model,ranges)
  assert.deepEqual(ranges.map(r=>r.id),['role:one','role:two'])
  for(const range of ranges)assert(range.start>=0&&range.end>range.start&&range.end<=geometry.length/9)
  const one=npcMotion('role:one',1000),two=npcMotion('role:two',1000),active=npcMotion('role:one',1000,'AwaitingResult')
