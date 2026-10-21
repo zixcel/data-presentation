@@ -50,13 +50,14 @@
   },
   "types": "./src/runtime.d.mts",
   "devDependencies": {
-    "typescript": "7.0.2",
-    "@types/node": "24.12.0",
-    "esbuild": "0.28.2",
+    "@crowsi/browser-security": "0.10.0",
     "@playwright/test": "1.64.1",
-    "@zixcel/projection-client": "0.10.4",
+    "@types/node": "24.12.0",
+    "@types/three": "0.186.0",
     "@zixcel/dom-renderer": "0.10.4",
-    "@crowsi/browser-security": "0.10.0"
+    "@zixcel/projection-client": "0.10.4",
+    "esbuild": "0.28.2",
+    "typescript": "7.0.2"
   },
   "packageManager": "pnpm@10.29.3",
   "keywords": [

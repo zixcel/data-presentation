@@ -33,6 +33,8 @@
     "packages/dom-renderer/test/npc-motion.test.mts",
     "packages/dom-renderer/test/object-presentation.test.mts",
     "packages/dom-renderer/test/open-world-projection.test.mts",
-    "scripts/emit-dom-declarations.mts"
+    "scripts/emit-dom-declarations.mts",
+    "packages/dom-renderer/test/world-model.test.mts",
+    "packages/dom-renderer/test/graphics-resources.test.mts"
   ]
 }

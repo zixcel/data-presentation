@@ -28,7 +28,12 @@
     "packages/dom-renderer/src/world-input.mjs",
     "packages/dom-renderer/src/reconcile.mjs",
     "packages/dom-renderer/src/book-reader.mjs",
-    "packages/dom-renderer/src/inspection-overview.mjs"
+    "packages/dom-renderer/src/inspection-overview.mjs",
+    "packages/dom-renderer/src/world-model.mjs",
+    "packages/dom-renderer/src/world-gpu.mjs",
+    "packages/dom-renderer/src/world-types.mjs",
+    "packages/dom-renderer/src/graphics-disposal.mjs",
+    "packages/dom-renderer/src/geometry-policy.mjs"
   ],
   "pendingMigration": [
     "packages/dom-renderer/src/frame.mjs",
@@ -36,14 +41,11 @@
     "packages/dom-renderer/src/spatial-patterns.mjs",
     "packages/dom-renderer/src/spatial.mjs",
     "packages/dom-renderer/src/structure-graph.mjs",
-    "packages/dom-renderer/src/world-gpu.mjs",
-    "packages/dom-renderer/src/world-model.mjs",
     "packages/dom-renderer/src/world-runtime.mjs",
     "packages/dom-renderer/src/world-surface.mjs",
     "packages/dom-renderer/test/spatial-patterns.test.mjs",
     "packages/dom-renderer/test/structure-graph.test.mjs",
     "packages/dom-renderer/test/world-browser.mjs",
-    "packages/dom-renderer/test/world-model.test.mjs",
     "packages/view-server/src/index.mjs",
     "packages/view-server/test/server.test.mjs"
   ],
@@ -53,14 +55,11 @@
     "packages/dom-renderer/src/spatial-patterns.mjs": "a0e1bd7198e5954946a4f700677a4ac006892c0cc7e31af3a7323e6f78b287eb",
     "packages/dom-renderer/src/spatial.mjs": "03dde724f4bb933ed4d044b69ad895bc4dff9bc20247ced84125aa2b1440a1e3",
     "packages/dom-renderer/src/structure-graph.mjs": "3fcb7388c13e1374997297a2d9e34fa59555d277b079ad5119d697b895f39046",
-    "packages/dom-renderer/src/world-gpu.mjs": "5df31f9c27344dcfbf67b82ce3060634044512d0fede955d040297977845e70e",
-    "packages/dom-renderer/src/world-model.mjs": "cec979bfd4dac28024e68f20b5254771c7dfb5dbec125bc2808a9b4ceb73ec90",
     "packages/dom-renderer/src/world-runtime.mjs": "804bcd87d2e3ae64aedfddc4db978bc860e3cb0177bb23eea16e357cf89098ce",
     "packages/dom-renderer/src/world-surface.mjs": "ff55cc88ef512b2b2bb5ef38c1c6313254b0d53709c33918ca2c8c033a09290d",
     "packages/dom-renderer/test/spatial-patterns.test.mjs": "a69fd4b2364da290b95f365fb521f4f7d5f777295fc77e03a925a0756edeb8ac",
     "packages/dom-renderer/test/structure-graph.test.mjs": "2f779ee3d322f89215296a0e2609c4be18a5895da67452014b5a20b1c2e41e71",
     "packages/dom-renderer/test/world-browser.mjs": "40a18cb3bc1fb5080044d06c637299e369746ac4e152e222380d3771ed1e84aa",
-    "packages/dom-renderer/test/world-model.test.mjs": "8bc33759370805a3f633a6a1b3da289eb76742eb8174815665a8f5f7e7a3294f",
     "packages/view-server/src/index.mjs": "d0187f916dbfe88aefc5020d4f8d3e61c862629ae800dd3a88dfbd491dae487b",
     "packages/view-server/test/server.test.mjs": "17fade51260defc84d65cf6adfed0d1ca1fbd8af199f660af9ff7a4aba5d77f4"
   }
