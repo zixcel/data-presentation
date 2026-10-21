@@ -44,13 +44,13 @@ try {
   cpSync(resolve('packages/view-contracts/test/consumer.mts'), join(consumer, 'delivery-types.mts'))
   run(process.execPath, [join(consumer, 'node_modules/typescript/bin/tsc'), '--noEmit', '--strict',
     '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', 'delivery-types.mts'], consumer)
-  for (const [file, name] of [['packages/view-server/test/server.test.mjs', '@zixcel/view-delivery'],
+  for (const [file, name] of [['packages/view-server/test/server-fixture.mts', '@zixcel/view-delivery'], ['packages/view-server/test/server-lifecycle.test.mts', '@zixcel/view-delivery'], ['packages/view-server/test/server-socket.test.mts', '@zixcel/view-delivery'], ['packages/view-server/test/server.test.mts', '@zixcel/view-delivery'],
     ['packages/view-contracts/test/delivery.test.mts', '@zixcel/view-delivery-contracts'],
     ['test/cleanup.test.mts', '@zixcel/projection-runtime']]) {
     const target = join(consumer, file.split('/').at(-1)!)
-    writeFileSync(target, readFileSync(resolve(file), 'utf8').replace("'../src/index.mjs'", JSON.stringify(name)).replace("'../src/runtime.mjs'", JSON.stringify('@zixcel/projection-runtime')).replace("'../src/store.mjs'", JSON.stringify('@zixcel/projection-runtime/store')))
+    writeFileSync(target, readFileSync(resolve(file), 'utf8').replaceAll("'../src/index.mjs'", JSON.stringify(name)).replace("'../src/runtime.mjs'", JSON.stringify('@zixcel/projection-runtime')).replace("'../src/store.mjs'", JSON.stringify('@zixcel/projection-runtime/store')))
     if(file==='test/cleanup.test.mts')run(process.execPath,[join(consumer,'node_modules/typescript/bin/tsc'),'--noEmit','--strict','--module','NodeNext','--moduleResolution','NodeNext','--target','ES2023','--types','node',target],consumer)
-    run(process.execPath, ['--test', target], consumer)
+    if(!file.endsWith('server-fixture.mts'))run(process.execPath, ['--test', target], consumer)
   }
 
   if (process.argv.includes('--browser')) {

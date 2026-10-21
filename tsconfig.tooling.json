@@ -37,6 +37,7 @@
     "packages/dom-renderer/test/world-model.test.mts",
     "packages/dom-renderer/test/graphics-resources.test.mts",
     "packages/dom-renderer/test/spatial-patterns.test.mts",
-    "packages/dom-renderer/test/structure-graph.test.mts"
+    "packages/dom-renderer/test/structure-graph.test.mts",
+    "packages/view-server/test/*.mts"
   ]
 }
