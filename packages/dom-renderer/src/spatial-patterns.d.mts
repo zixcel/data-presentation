@@ -1,29 +1,24 @@
-export function spatialPattern(objects: any, relations?: any[], options?: {}): {
-    objects: any;
-    relations: any[];
-    groups: any[];
-    state: {
-        pattern: any;
-        groupBy: any;
-        group: any;
-        page: number;
-    };
-    total: any;
-    pages: number;
-    label: string;
-} | {
-    objects: any[];
-    relations: any[];
-    groups: any[];
-    state: {
-        pattern: any;
-        groupBy: any;
-        group: any;
-        page: number;
-    };
+import type { WorldObject, WorldRelation } from './world-types.mjs';
+export interface SpatialState {
+    pattern: string;
+    groupBy: string;
+    group: string | null;
+    page: number;
+}
+export interface SpatialGroup extends WorldObject {
+    kind: 'group';
+    title: string;
+    memberIds: string[];
+}
+export interface SpatialView {
+    objects: WorldObject[];
+    relations: WorldRelation[];
+    groups: SpatialGroup[];
+    state: SpatialState;
     total: number;
     pages: number;
-    label: any;
-};
-export const spatialPatterns: readonly string[][];
-export const spatialGroupings: readonly string[][];
+    label: string;
+}
+export declare const spatialPatterns: readonly string[][];
+export declare const spatialGroupings: readonly string[][];
+export declare function spatialPattern(objects: WorldObject[], relations?: WorldRelation[], options?: Partial<SpatialState>): SpatialView;

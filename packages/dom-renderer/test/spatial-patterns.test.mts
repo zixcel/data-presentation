@@ -45,13 +45,13 @@ test('one exact target supports ground and grouped space without creating semant
 
 test('bounded pages cover every source exactly; disappeared groups reset without retaining stale members',()=>{
  const objects=Array.from({length:512},(_,i)=>({id:'r:'+i,kind:'record',group:{kind:'structural',ref:'g:'+i}}))
- const seen=[]
+ const seen:string[]=[]
  for(let page=0;page<22;page++)seen.push(...spatialPattern(objects,[],{pattern:'constellation',page}).objects.flatMap(i=>i.memberIds??[]))
  assert.deepEqual(seen,objects.map(i=>i.id));assert.equal(new Set(seen).size,512)
  const group=spatialPattern(objects,[],{pattern:'constellation'}).groups[0].id
  const removed=spatialPattern(objects.slice(1),[],{pattern:'constellation',group})
  assert.equal(removed.state.group,null);assert(!removed.objects.some(i=>i.memberIds?.includes('r:0')))
- const oneGroup=objects.map(i=>({...i,group:{kind:'structural',ref:'same'}})),overview=spatialPattern(oneGroup,[],{pattern:'constellation'}),members=[]
+ const oneGroup=objects.map(i=>({...i,group:{kind:'structural',ref:'same'}})),overview=spatialPattern(oneGroup,[],{pattern:'constellation'}),members:string[]=[]
  for(let page=0;page<22;page++)members.push(...spatialPattern(oneGroup,[],{pattern:'constellation',group:overview.groups[0].id,page}).objects.map(i=>i.id))
  assert.deepEqual(members,objects.map(i=>i.id))
  assert.throws(()=>spatialPattern([...objects,objects[0]],[],{pattern:'constellation'}),/Capacity/)

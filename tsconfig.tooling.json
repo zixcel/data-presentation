@@ -35,6 +35,7 @@
     "packages/dom-renderer/test/open-world-projection.test.mts",
     "scripts/emit-dom-declarations.mts",
     "packages/dom-renderer/test/world-model.test.mts",
-    "packages/dom-renderer/test/graphics-resources.test.mts"
+    "packages/dom-renderer/test/graphics-resources.test.mts",
+    "packages/dom-renderer/test/spatial-patterns.test.mts"
   ]
 }
