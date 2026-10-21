@@ -32,3 +32,20 @@ test('array-like impostors, malformed snapshots and invalid receipts are rejecte
  corrupted(state=>{state.keys=[{...key,receipts:[{key:'other',expected:'old',publication:'new',revision:'revision',jobId:'job'}]}]})
  corrupted(state=>{state.keys=[key,key]})
 })
+
+test('parent serialization refuses getters, hooks, cycles and oversize before helper IO',()=>{
+ const parent=fs.mkdtempSync(path.join(os.tmpdir(),'projection-admission-'))
+ try{
+  const directory=path.join(parent,'cache'),store=FileProjectionStore.create(directory)
+  const image=fs.readFileSync(path.join(directory,'projection.json'))
+  let invoked=0
+  const getter=Object.defineProperty({},'value',{enumerable:true,get(){invoked++;return 'unsafe'}})
+  const hook={toJSON(){invoked++;return 'unsafe'}}
+  const cycle:Record<string,unknown>={};cycle.self=cycle
+  for(const value of [getter,hook,cycle,'x'.repeat(2*1024*1024)]){
+   assert.throws(()=>Reflect.apply(store.read,store,['test',value]),error=>['InvalidProjection','ProjectionLimitExceeded'].includes(errorCode(error)??''))
+  }
+  assert.equal(invoked,0)
+  assert.deepEqual(fs.readFileSync(path.join(directory,'projection.json')),image)
+ }finally{fs.rmSync(parent,{recursive:true})}
+})

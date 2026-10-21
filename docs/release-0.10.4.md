@@ -9,6 +9,8 @@ Safety corrections include rejection of array serialization hooks and disabled
 budgets, bounded cycle-safe traversal, retention of repairs on falsy cleanup errors,
 queue drain after synchronous adapter errors, and complete retained-image validation.
 A valid digest cannot bypass schema, collection, receipt or retention validation.
+Parent-to-helper serialization also enforces the contract byte/traversal ceiling
+before lock/process IO and refuses caller getters, serializers and cycles.
 
 All six owner packages use 0.10.4 so independent archive consumers exercise one
 explicit dependency graph. External runtime dependencies are unchanged. Publish

@@ -1,6 +1,7 @@
 // Generated from canonical TypeScript; do not edit.
 
 // implementation/store.mts
+import { canonical } from "@zixcel/projection-contracts";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -33,6 +34,7 @@ var FileProjectionStore = class _FileProjectionStore {
     check(deadline === null || Number.isSafeInteger(deadline), "InvalidProjection");
     const remaining = deadline === null ? 1e4 : deadline - Date.now();
     check(remaining > 0, "ProjectionExecutionTimeout");
+    const serialized = canonical(input);
     const lock = path.join(this.#directory, "lock");
     try {
       privateDirectory(this.#directory);
@@ -55,7 +57,7 @@ var FileProjectionStore = class _FileProjectionStore {
       result = spawnSync(
         "/usr/bin/setpriv",
         ["--pdeathsig", "SIGKILL", "--", "/usr/bin/flock", mode, "--timeout", waitSeconds, "--no-fork", "--conflict-exit-code", "73", "/proc/self/fd/3", process.execPath, helper, this.#directory, operation, String(process.pid)],
-        { input: JSON.stringify(input), stdio: ["pipe", "pipe", "pipe", fd], maxBuffer: 13 * 1024 * 1024, timeout: Math.min(1e4, remaining), killSignal: "SIGKILL" }
+        { input: serialized, stdio: ["pipe", "pipe", "pipe", fd], maxBuffer: 13 * 1024 * 1024, timeout: Math.min(1e4, remaining), killSignal: "SIGKILL" }
       );
     } finally {
       fs.closeSync(fd);
