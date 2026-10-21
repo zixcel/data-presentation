@@ -1,18 +1,20 @@
+import type {OutgoingHttpHeaders} from 'node:http'
+import type {Browser} from '@playwright/test'
 import assert from 'node:assert/strict'
 import { chromium } from '@playwright/test'
 import { spawn } from 'node:child_process'
 import { once } from 'node:events'
 import { request } from 'node:http'
-function status(url, headers = {}) {
-  return new Promise((resolve, reject) => {
+function status(url:string, headers:OutgoingHttpHeaders = {}):Promise<number|undefined> {
+  return new Promise<number|undefined>((resolve, reject) => {
     const req = request(url, { headers }, response => { response.resume(); resolve(response.statusCode) })
     req.on('error', reject)
     req.end()
   })
 }
-const server = spawn(process.execPath, ['scripts/serve-playground.mjs'], {
+const server = spawn(process.execPath, ['scripts/serve-playground.mts'], {
   stdio: ['ignore', 'pipe', 'pipe'], env: { ...process.env, PLAYGROUND_PORT: '0' } })
-let browser
+let browser:Browser|undefined
 try {
   const [ready] = await once(server.stdout, 'data')
   const url = ready.toString().match(/http:\/\/127\.0\.0\.1:\d+/)?.[0]
@@ -24,19 +26,19 @@ try {
   browser = await chromium.launch({ headless: true })
   for (const width of [1280, 390]) {
     const page = await browser.newPage({ viewport: { width, height: 900 } })
-    const errors = []
+    const errors:string[] = []
     page.on('pageerror', error => errors.push(error.message))
     await page.goto(url)
     await page.locator('#rendered').getByText('Synthetic counter', { exact: false }).waitFor()
     await page.locator('#advance').click()
-    assert.match(await page.locator('#status').textContent(), /counter is 2/)
+    assert.match(await page.locator('#status').textContent()??'', /counter is 2/)
     await page.locator('#stale').click()
-    assert.match(await page.locator('#status').textContent(), /StaleSceneAction/)
+    assert.match(await page.locator('#status').textContent()??'', /StaleSceneAction/)
     await page.locator('#mismatch').click()
-    assert.match(await page.locator('#status').textContent(), /HydrationProjectionMismatch/)
+    assert.match(await page.locator('#status').textContent()??'', /HydrationProjectionMismatch/)
     await page.locator('#corrupt').click()
-    assert.match(await page.locator('#status').textContent(), /Rejected:/)
-    assert.match(await page.locator('#rendered').textContent(), /2/)
+    assert.match(await page.locator('#status').textContent()??'', /Rejected:/)
+    assert.match(await page.locator('#rendered').textContent()??'', /2/)
     assert.equal(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), true)
     assert.deepEqual(errors, [])
     await page.close()

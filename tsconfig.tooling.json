@@ -21,6 +21,13 @@
     "test/cleanup.test.mts",
     "test/runtime.test.mts",
     "test/private-store.test.mts",
-    "test/store-corruption.test.mts"
+    "test/store-corruption.test.mts",
+    "examples/data-to-screen.mts",
+    "test/consumer.mts",
+    "scripts/build-playground.mts",
+    "scripts/serve-playground.mts",
+    "test/playground-browser.mts",
+    "playground/data-to-screen/app.mts",
+    "playground/data-to-screen/samples.d.mts"
   ]
 }
