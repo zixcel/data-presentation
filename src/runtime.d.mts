@@ -1,28 +1,34 @@
-import type { ProducerIdentity, ProjectionRequest, Snapshot } from '@zixcel/projection-contracts';
-import type { RuntimeLimits, ProjectionStore, SourceAdapter, SourceReadOptions, SourceReader, ProducerConfiguration, SubmissionOptions, StoreReceipt, StoreInspection } from './types/runtime.mjs';
+import { recovery, type ProjectionRequest } from '@zixcel/projection-contracts';
+import { ProducerRegistry } from './registry.mjs';
+import type { ProjectionStore, SourceReader, RuntimeLimits, SubmissionOptions } from './types/runtime.mjs';
+import type { JobResult } from './types/jobs.mjs';
+export { ProducerRegistry };
+export { ExactSourceReader } from './exact-sources.mjs';
 export type * from './types/runtime.mjs';
-/** Register installed built-in producers; requests cannot supply executable code. */
-export class ProducerRegistry {
-  register(definition: { id: string; kind: 'data' | 'scene'; configuration?: ProducerConfiguration }): ProducerIdentity;
-  exact(identity: ProducerIdentity): Readonly<{ identity: ProducerIdentity; kind: 'data' | 'scene'; configuration: ProducerConfiguration }>;
-  unregister(identity: ProducerIdentity): void;
-  readonly artifactDigest: string;
-}
-export class ExactSourceReader implements SourceReader {
-  constructor(owners: Map<string, SourceAdapter>);
-  acquireExact(refs: readonly import('@zixcel/projection-contracts').SourceRef[], options: SourceReadOptions): ReturnType<SourceReader['acquireExact']>;
-  release(leaseRefs: readonly string[], holder: string): Promise<void>;
-}
-/** Bounded isolated execution with explicit source ownership and publication fencing. */
-export class ProjectionRuntime {
-  constructor(options: { store: ProjectionStore; registry: ProducerRegistry; reader: SourceReader; limits?: Partial<RuntimeLimits> });
-  inspect(): { active: number; queued: number; closed: boolean; limits: Readonly<RuntimeLimits>; store: StoreInspection };
-  submit(request: ProjectionRequest, options: SubmissionOptions): Promise<{ snapshot: Snapshot; receipt: StoreReceipt }>;
-  retry(id: string, options?: Omit<SubmissionOptions, 'accessRef' | 'id'>): ReturnType<ProjectionRuntime['submit']>;
-  expire(id: string): Promise<void>;
-  recoverState(input: { key: string; revision?: string | null }):
-    { kind: 'RecoveryUnavailable'; reason: string } |
-    { kind: 'NoChange'; revision: string } |
-    { kind: 'Snapshot'; revision: string; payload: Uint8Array };
-  close(): Promise<void>;
+export declare class ProjectionRuntime {
+    #private;
+    constructor({ store, registry, reader, limits }: {
+        store: ProjectionStore;
+        registry: ProducerRegistry;
+        reader: SourceReader;
+        limits?: Partial<RuntimeLimits>;
+    });
+    inspect(): {
+        active: number;
+        queued: number;
+        closed: boolean;
+        limits: Readonly<RuntimeLimits>;
+        store: import("./types/runtime.mjs").StoreInspection;
+    };
+    submit(input: ProjectionRequest, options: SubmissionOptions): Promise<JobResult>;
+    retry(id: string, options?: Omit<SubmissionOptions, 'accessRef' | 'id'>): Promise<JobResult>;
+    expire(id: string): Promise<void>;
+    recoverState({ key, revision }: {
+        key: string;
+        revision?: string | null;
+    }): ReturnType<typeof recovery> | {
+        kind: 'RecoveryUnavailable';
+        reason: string;
+    };
+    close(): Promise<void>;
 }

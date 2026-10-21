@@ -1,0 +1,11 @@
+import { type BinaryLike } from 'node:crypto';
+import type { RuntimeLimits } from './types/runtime.mjs';
+export declare function fail(code: string): never;
+export declare const hash: (bytes: BinaryLike) => string;
+export declare const clone: <T>(value: T) => T;
+export declare function check(ok: unknown, code?: string): asserts ok;
+export declare function shape(value: unknown, keys: readonly string[]): asserts value is Record<string, unknown>;
+export declare function token(value: unknown): string;
+export declare function errorCode(value: unknown): string | undefined;
+export declare const ceilings: Readonly<RuntimeLimits>;
+export declare function bounds(input?: unknown): Readonly<RuntimeLimits>;

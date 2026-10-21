@@ -16,6 +16,8 @@
     "packages/view-contracts/test/*.mts",
     "packages/projection-client/test/*.mts",
     "scripts/build-projection-contracts.mts",
-    "packages/projection-contracts/test/*.mts"
+    "packages/projection-contracts/test/*.mts",
+    "scripts/build-projection-runtime.mts",
+    "test/cleanup.test.mts"
   ]
 }

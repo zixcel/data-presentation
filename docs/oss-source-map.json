@@ -24,7 +24,7 @@
         "types": "./src/runtime.d.mts"
       },
       "declared_commands": {
-        "test": "node --test --test-concurrency=1 test/*.test.mjs",
+        "test": "node --test --test-concurrency=1 test/*.test.mjs test/*.test.mts",
         "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts",
         "playground:build": "node scripts/build-playground.mjs",
         "playground:serve": "node scripts/serve-playground.mjs",
@@ -172,7 +172,8 @@
     "test/runtime.test.mjs",
     "packages/projection-contracts/test/boundaries.test.mts",
     "packages/projection-contracts/test/fixture.mts",
-    "packages/projection-contracts/test/wire-inputs.mts"
+    "packages/projection-contracts/test/wire-inputs.mts",
+    "test/cleanup.test.mts"
   ],
   "example_sources": [
     "examples/data-to-screen.mjs",

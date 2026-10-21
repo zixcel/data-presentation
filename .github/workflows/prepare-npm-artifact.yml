@@ -32,7 +32,7 @@ jobs:
         run: |
           pnpm install --frozen-lockfile --ignore-scripts
           pnpm run check:typescript
-          git diff --exit-code -- packages/view-contracts/src packages/projection-client/src packages/projection-contracts/src
+          git diff --exit-code -- src packages/view-contracts/src packages/projection-client/src packages/projection-contracts/src
           pnpm -r --include-workspace-root typecheck
           pnpm -r --include-workspace-root test
           pnpm audit --audit-level=low
