@@ -37,9 +37,10 @@ try {
   cpSync(resolve('test/public-types.mts'), join(consumer, 'types.mts'))
   run(process.execPath, [join(consumer, 'node_modules/typescript/bin/tsc'), '--noEmit', '--strict',
     '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', 'types.mts'], consumer)
-  cpSync(resolve('examples/data-to-screen.mjs'), join(consumer, 'example.mjs'))
-  cpSync(resolve('test/consumer.mjs'), join(consumer, 'consumer.mjs'))
-  run(process.execPath, ['consumer.mjs'], consumer)
+  cpSync(resolve('examples/data-to-screen.mts'), join(consumer, 'example.mts'))
+  writeFileSync(join(consumer,'consumer.mts'),readFileSync(resolve('test/consumer.mts'),'utf8').replace('../examples/data-to-screen.mts','./example.mts'))
+  run(process.execPath,[join(consumer,'node_modules/typescript/bin/tsc'),'--noEmit','--strict','--allowImportingTsExtensions','--module','NodeNext','--moduleResolution','NodeNext','--target','ES2023','--types','node','consumer.mts'],consumer)
+  run(process.execPath, ['consumer.mts'], consumer)
   cpSync(resolve('packages/view-contracts/test/consumer.mts'), join(consumer, 'delivery-types.mts'))
   run(process.execPath, [join(consumer, 'node_modules/typescript/bin/tsc'), '--noEmit', '--strict',
     '--module', 'NodeNext', '--moduleResolution', 'NodeNext', '--target', 'ES2022', 'delivery-types.mts'], consumer)
@@ -54,15 +55,15 @@ try {
 
   if (process.argv.includes('--browser')) {
     mkdirSync(join(consumer, 'examples'))
-    cpSync(resolve('examples/data-to-screen.mjs'), join(consumer, 'examples/data-to-screen.mjs'))
+    cpSync(resolve('examples/data-to-screen.mts'), join(consumer, 'examples/data-to-screen.mts'))
     cpSync(resolve('playground'), join(consumer, 'playground'), { recursive: true })
     mkdirSync(join(consumer, 'scripts'))
-    for (const script of ['build-playground.mjs', 'serve-playground.mjs']) {
+    for (const script of ['build-playground.mts', 'serve-playground.mts']) {
       cpSync(resolve('scripts', script), join(consumer, 'scripts', script))
     }
-    run(process.execPath, ['scripts/build-playground.mjs'], consumer)
-    cpSync(resolve('test/playground-browser.mjs'), join(consumer, 'browser.mjs'))
-    run(process.execPath, ['browser.mjs'], consumer)
+    run(process.execPath, ['scripts/build-playground.mts'], consumer)
+    cpSync(resolve('test/playground-browser.mts'), join(consumer, 'browser.mts'))
+    run(process.execPath, ['browser.mts'], consumer)
     console.log('Browser playground also passed using only installed candidate archives and public dependencies')
   }
   console.log('Six archive packages: independent public types, worker/store, client adoption, stale-action rejection and renderer imports passed')

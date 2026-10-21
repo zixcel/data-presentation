@@ -1,3 +1,5 @@
+import type {SourceReader} from '@zixcel/projection-runtime'
+import type {ExactSource} from '@zixcel/projection-contracts'
 import assert from 'node:assert/strict'
 import { chmodSync, mkdtempSync, rmSync } from 'node:fs'
 import { tmpdir } from 'node:os'
@@ -12,8 +14,8 @@ export async function sampleSnapshots() {
   const store = FileProjectionStore.create(join(parent, 'snapshots'))
   const registry = new ProducerRegistry()
   const producer = registry.register({ id: 'synthetic-data', kind: 'data' })
-  let source
-  const reader = {
+  let source:ExactSource
+  const reader:SourceReader = {
     async acquireExact(refs, { accessRef, holder }) {
       assert.equal(accessRef, 'synthetic-owner-access')
       assert.deepEqual(refs, [source.source])
@@ -34,6 +36,7 @@ export async function sampleSnapshots() {
         focus: 'counter', purpose: 'demonstration', visibilityRef: 'synthetic-owner-visible', limits: {} },
       { accessRef: 'synthetic-owner-access', id: `sample-${count}` })
       assert.deepEqual(store.read('demo-data'), result.snapshot)
+      assert.ok(result.snapshot.kind==='Data')
       const view = scene(result.snapshot, { key: 'demo-scene', focus: 'counter', purpose: 'demonstration',
         regions: [{ id: 'main', role: 'Primary', itemIds: ['counter'] }],
         actions: [{ id: 'inspect', targetOwner: 'playground', commandRef: 'synthetic-inspect',

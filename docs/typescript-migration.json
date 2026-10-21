@@ -22,7 +22,6 @@
     "src/store-process.mjs"
   ],
   "pendingMigration": [
-    "examples/data-to-screen.mjs",
     "packages/dom-renderer/src/book-reader.mjs",
     "packages/dom-renderer/src/frame-layout.mjs",
     "packages/dom-renderer/src/frame.mjs",
@@ -50,15 +49,9 @@
     "packages/dom-renderer/test/world-browser.mjs",
     "packages/dom-renderer/test/world-model.test.mjs",
     "packages/view-server/src/index.mjs",
-    "packages/view-server/test/server.test.mjs",
-    "playground/data-to-screen/app.mjs",
-    "scripts/build-playground.mjs",
-    "scripts/serve-playground.mjs",
-    "test/consumer.mjs",
-    "test/playground-browser.mjs"
+    "packages/view-server/test/server.test.mjs"
   ],
   "pendingSha256": {
-    "examples/data-to-screen.mjs": "9d38207f9294702faa69fbf8c505cccc729723624fcf8532e8c264ccfc153d10",
     "packages/dom-renderer/src/book-reader.mjs": "adf9c308baab13677b434db01305432913d02c702eee3ea6985a5905ed6d8b09",
     "packages/dom-renderer/src/frame-layout.mjs": "93b6b9a3a791cb57e85075af041f8a372d9688bea744d1a9bcc0719959d0ab78",
     "packages/dom-renderer/src/frame.mjs": "3ef259deab35740745a62f150ab698a8851ea853b2c172f0e654084e31e04784",
@@ -86,11 +79,6 @@
     "packages/dom-renderer/test/world-browser.mjs": "40a18cb3bc1fb5080044d06c637299e369746ac4e152e222380d3771ed1e84aa",
     "packages/dom-renderer/test/world-model.test.mjs": "8bc33759370805a3f633a6a1b3da289eb76742eb8174815665a8f5f7e7a3294f",
     "packages/view-server/src/index.mjs": "d0187f916dbfe88aefc5020d4f8d3e61c862629ae800dd3a88dfbd491dae487b",
-    "packages/view-server/test/server.test.mjs": "17fade51260defc84d65cf6adfed0d1ca1fbd8af199f660af9ff7a4aba5d77f4",
-    "playground/data-to-screen/app.mjs": "02a514651acb441d84539f0f8809fd9d4c94aa49165fa9dd5d303b2e8624b51f",
-    "scripts/build-playground.mjs": "d32f2b102cae59c40761bd8f3bb5bd6c1da30caf5fd1eb3e552f12510e920870",
-    "scripts/serve-playground.mjs": "868d71d9926f9b8b8232c6be3015594e403f42a0d15dd2a8ee56c83c15defa80",
-    "test/consumer.mjs": "1efe94c7776eee19d82056b541fed88307d63f5ee54483c08884d18caa8b66c5",
-    "test/playground-browser.mjs": "a1c18abb6586b35e2309ed0fd4079dffe898f29e9f7cb3e7ec167bc946491bf0"
+    "packages/view-server/test/server.test.mjs": "17fade51260defc84d65cf6adfed0d1ca1fbd8af199f660af9ff7a4aba5d77f4"
   }
 }
