@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/view-delivery",
-  "version": "0.10.2",
+  "version": "0.10.4",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded trusted document and asset delivery; existing Crowsi STATE transport only",
@@ -18,12 +18,12 @@
     }
   },
   "dependencies": {
-    "@zixcel/view-delivery-contracts": "0.10.2",
+    "@zixcel/view-delivery-contracts": "0.10.4",
     "@crowsi/transport-foundation": "0.10.0",
     "@crowsi/browser-security": "0.10.0",
     "ws": "8.22.0",
     "@types/node": "24.12.0",
-    "@zixcel/projection-contracts": "0.10.3"
+    "@zixcel/projection-contracts": "0.10.4"
   },
   "scripts": {
     "test": "node --test test/*.test.mjs"

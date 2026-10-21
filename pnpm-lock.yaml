@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@zixcel/projection-contracts':
-        specifier: 0.10.3
+        specifier: 0.10.4
         version: link:packages/projection-contracts
     devDependencies:
       '@crowsi/browser-security':
@@ -22,10 +22,10 @@ importers:
         specifier: 24.12.0
         version: 24.12.0
       '@zixcel/dom-renderer':
-        specifier: 0.10.3
+        specifier: 0.10.4
         version: link:packages/dom-renderer
       '@zixcel/projection-client':
-        specifier: 0.10.3
+        specifier: 0.10.4
         version: link:packages/projection-client
       esbuild:
         specifier: 0.28.2
@@ -40,7 +40,7 @@ importers:
         specifier: 0.10.1
         version: 0.10.1
       '@zixcel/projection-client':
-        specifier: 0.10.3
+        specifier: 0.10.4
         version: link:../projection-client
       three:
         specifier: 0.186.1
@@ -56,7 +56,7 @@ importers:
   packages/projection-client:
     dependencies:
       '@zixcel/projection-contracts':
-        specifier: 0.10.3
+        specifier: 0.10.4
         version: link:../projection-contracts
 
   packages/projection-contracts:
@@ -81,7 +81,7 @@ importers:
         specifier: 0.10.1
         version: 0.10.1
       '@zixcel/projection-contracts':
-        specifier: 0.10.3
+        specifier: 0.10.4
         version: link:../projection-contracts
 
   packages/view-server:
@@ -96,10 +96,10 @@ importers:
         specifier: 24.12.0
         version: 24.12.0
       '@zixcel/projection-contracts':
-        specifier: 0.10.3
+        specifier: 0.10.4
         version: link:../projection-contracts
       '@zixcel/view-delivery-contracts':
-        specifier: 0.10.2
+        specifier: 0.10.4
         version: link:../view-contracts
       ws:
         specifier: 8.22.0
