@@ -1,0 +1,12 @@
+import type { Camera } from '@zixcel/projection-client';
+import type { WorldOptions, WorldSnapshot } from './world-api.mjs';
+import type { WorldContext } from './world-context.mjs';
+export declare function onKeyWorld(ctx: WorldContext, event: KeyboardEvent): void;
+export declare function snapshotWorld(ctx: WorldContext): WorldSnapshot;
+export declare function parkWorld(ctx: WorldContext): void;
+export declare function mountWorld(ctx: WorldContext, nextHost: HTMLElement, options: WorldOptions): void;
+export declare function closeWorld(ctx: WorldContext): void;
+export declare function activityWorld(ctx: WorldContext, value: unknown): void;
+export declare function applyWorld(ctx: WorldContext, value: Camera): void;
+export declare function changeWorld(ctx: WorldContext, action: string): void;
+export declare function pauseWorld(ctx: WorldContext, value: boolean): void;

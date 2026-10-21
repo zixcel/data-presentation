@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/dom-renderer",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Trusted native DOM rendering of PP RenderPlans and Zixcel owner inputs",
@@ -25,8 +25,8 @@
     "@zixcel/projection-client": "0.10.4"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs test/*.test.mts",
-    "test:browser": "node test/world-browser.mjs",
+    "test": "node --test --test-concurrency=1 test/*.test.mts",
+    "test:browser": "node test/world-browser.mts",
     "build": "tsc -p tsconfig.build.json && node ../../scripts/emit-dom-declarations.mts",
     "typecheck": "tsc -p tsconfig.build.json --noEmit"
   },
@@ -44,6 +44,6 @@
     "dom",
     "data-presentation",
     "rendering",
-    "javascript"
+    "typescript"
   ]
 }

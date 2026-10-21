@@ -53,7 +53,7 @@ export function createDeliveryServer(options) {
         const recordFailure = (error) => {
             const failure = sourceFailure(error, operation, observation);
             try {
-                onFailure?.(failure);
+                Promise.resolve(onFailure?.(failure)).catch(() => { });
             }
             catch { }
             return failure;
@@ -78,7 +78,7 @@ export function createDeliveryServer(options) {
                 response.destroy();
         }).finally(() => {
             try {
-                onOutcome?.({ ...observation, operation: observation.operation ?? operation, httpStatus: response.headersSent ? response.statusCode : null });
+                Promise.resolve(onOutcome?.({ ...observation, operation: observation.operation ?? operation, httpStatus: response.headersSent ? response.statusCode : null })).catch(() => { });
             }
             catch { }
             clearTimeout(timer);

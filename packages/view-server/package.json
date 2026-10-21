@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/view-delivery",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded trusted document and asset delivery; existing Crowsi STATE transport only",
@@ -44,7 +44,7 @@
     "data-presentation",
     "artifact-distribution",
     "api-server",
-    "javascript"
+    "typescript"
   ],
   "devDependencies": {
     "typescript": "7.0.2"

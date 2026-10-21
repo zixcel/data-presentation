@@ -1,4 +1,4 @@
-import {element} from '../src/index.mjs'
+import {element} from './dom-elements.mjs'
 import {inspectionOverview} from './inspection-overview.mjs'
 import {graphDocuments} from './graph-documents.mjs'
 import type {GraphNode,GraphView} from './graph-documents.mjs'

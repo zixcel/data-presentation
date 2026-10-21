@@ -6,7 +6,7 @@ export interface InspectionOverview {
  readonly modules:readonly {readonly id:string;readonly version:string;readonly terms:number;readonly expressions:number;readonly dependencies:readonly string[]}[];
 }
 // Owner-projected facts only. This renderer does not classify semantic modules.
-import {element} from '../src/index.mjs'
+import {element} from './dom-elements.mjs'
 export function inspectionOverview(document:Document,host:HTMLElement,view:InspectionOverview|null,onSource:(id:string)=>void,signal:AbortSignal){
  host.replaceChildren()
  if(!view){host.append(element(document,'p','Responsibility overview is unavailable.'));return}
