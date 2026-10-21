@@ -34,16 +34,16 @@
     "packages/dom-renderer/src/world-types.mjs",
     "packages/dom-renderer/src/graphics-disposal.mjs",
     "packages/dom-renderer/src/geometry-policy.mjs",
-    "packages/dom-renderer/src/spatial-patterns.mjs"
+    "packages/dom-renderer/src/spatial-patterns.mjs",
+    "packages/dom-renderer/src/structure-graph.mjs",
+    "packages/dom-renderer/src/graph-documents.mjs"
   ],
   "pendingMigration": [
     "packages/dom-renderer/src/frame.mjs",
     "packages/dom-renderer/src/index.mjs",
     "packages/dom-renderer/src/spatial.mjs",
-    "packages/dom-renderer/src/structure-graph.mjs",
     "packages/dom-renderer/src/world-runtime.mjs",
     "packages/dom-renderer/src/world-surface.mjs",
-    "packages/dom-renderer/test/structure-graph.test.mjs",
     "packages/dom-renderer/test/world-browser.mjs",
     "packages/view-server/src/index.mjs",
     "packages/view-server/test/server.test.mjs"
@@ -52,10 +52,8 @@
     "packages/dom-renderer/src/frame.mjs": "3ef259deab35740745a62f150ab698a8851ea853b2c172f0e654084e31e04784",
     "packages/dom-renderer/src/index.mjs": "ef31ff56e46c7adb039cb8973fab169d6e6eec3b3be4f11c4b38137678df8de8",
     "packages/dom-renderer/src/spatial.mjs": "03dde724f4bb933ed4d044b69ad895bc4dff9bc20247ced84125aa2b1440a1e3",
-    "packages/dom-renderer/src/structure-graph.mjs": "3fcb7388c13e1374997297a2d9e34fa59555d277b079ad5119d697b895f39046",
     "packages/dom-renderer/src/world-runtime.mjs": "804bcd87d2e3ae64aedfddc4db978bc860e3cb0177bb23eea16e357cf89098ce",
     "packages/dom-renderer/src/world-surface.mjs": "ff55cc88ef512b2b2bb5ef38c1c6313254b0d53709c33918ca2c8c033a09290d",
-    "packages/dom-renderer/test/structure-graph.test.mjs": "2f779ee3d322f89215296a0e2609c4be18a5895da67452014b5a20b1c2e41e71",
     "packages/dom-renderer/test/world-browser.mjs": "40a18cb3bc1fb5080044d06c637299e369746ac4e152e222380d3771ed1e84aa",
     "packages/view-server/src/index.mjs": "d0187f916dbfe88aefc5020d4f8d3e61c862629ae800dd3a88dfbd491dae487b",
     "packages/view-server/test/server.test.mjs": "17fade51260defc84d65cf6adfed0d1ca1fbd8af199f660af9ff7a4aba5d77f4"

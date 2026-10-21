@@ -8,5 +8,9 @@ test('exact paths, component/query filters, bounded depth and explicit truncatio
  const filtered=graphDocuments(documents,{component:'memory'});assert(filtered.nodes.every(n=>n.document.id==='memory'))
  assert.equal(graphDocuments(documents,{query:'exact',depth:6}).nodes.length,1)
  assert.equal(graphDocuments(documents,{maximum:2}).truncated,true);assert.equal(graphDocuments(documents,{depth:1}).truncated,true)
- assert(graph.edges.every(e=>!('meaning' in e)));assert.deepEqual(documents[0].value['a/b'],{'~id':'exact'})
+ assert(graph.edges.every(e=>!('meaning' in e)));assert.deepEqual((documents[0].value as {'a/b':unknown})['a/b'],{'~id':'exact'})
+})
+
+test('graph node budget rejects nonfinite, fractional and unbounded admission',()=>{
+ for(const maximum of [NaN,Infinity,0,-1,.5,257])assert.throws(()=>graphDocuments([],{maximum}),/GraphInputInvalid/)
 })
