@@ -4,7 +4,7 @@ export {renderPlan}
 import {check,empty,sceneSnapshot,targets,rebase,projectionIdentity} from './state.mjs'
 export {projectionIdentity}
 import type {SceneProjection} from '@zixcel/projection-contracts/client'
-import type {PresentationState,PresentationChange,AdoptionContext,ActionHandle} from './types.mjs'
+import type {PresentationState,PresentationChange,AdoptionContext} from './types.mjs'
 export type * from './types.mjs'
 
 
@@ -93,11 +93,11 @@ export class ClientProjectionRuntime {
   }
   intent(value: unknown){
     this.#open();shape(value,['projectionKey','projectionRevision','sceneId','actionId'])
-    const handle=value as ActionHandle
+    const handle=value
     const p=this.projection
     check(p&&handle.projectionKey===p.key&&handle.sceneId===p.key&&handle.projectionRevision===p.revision,'StaleSceneAction')
     const action=p.data.actions.find(a=>a.id===handle.actionId);check(action,'StaleSceneAction')
-    return frozen({...copy(handle),ownerCommandDescriptor:action})
+    return frozen({projectionKey:p.key,projectionRevision:p.revision,sceneId:p.key,actionId:action.id,ownerCommandDescriptor:action})
   }
   inspect(){return {keys:this.#cache.size,snapshots:[...this.#cache.values()].reduce((n,v)=>n+v.length,0),closed:this.#closed}}
   close(){this.#closed=true;this.#cache.clear();this.#presentation=frozen(empty())}

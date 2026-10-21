@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noEmitOnError": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2023",
+    "rootDir": "implementation",
+    "outDir": "src",
+    "newLine": "lf",
+    "paths": {
+      "#hash": [
+        "./implementation/hash-node.mts"
+      ]
+    },
+    "lib": [
+      "ES2024",
+      "DOM"
+    ],
+    "types": [
+      "node"
+    ]
+  },
+  "include": [
+    "implementation/**/*.mts"
+  ]
+}

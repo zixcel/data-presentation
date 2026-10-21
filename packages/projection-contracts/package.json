@@ -37,8 +37,9 @@
     "@zixcel/interaction": "0.10.1"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs",
-    "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts"
+    "test": "node --test test/*.test.mts",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit && tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts",
+    "build": "tsc -p tsconfig.build.json && node ../../scripts/build-projection-contracts.mts"
   },
   "repository": {
     "type": "git",
