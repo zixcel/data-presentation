@@ -1,0 +1,719 @@
+{
+  "input": {
+    "sources": [
+      {
+        "source": {
+          "owner": "semantic-owner",
+          "ref": "subject-snapshot",
+          "revision": "z-revision",
+          "kind": "semantic"
+        },
+        "items": [
+          {
+            "id": "one",
+            "semanticRef": "exact-adopted-relation",
+            "group": {
+              "kind": "semantic",
+              "ref": "exact-adopted-relation"
+            },
+            "value": {
+              "at": "2026-09-16T09:00:00.000Z",
+              "label": "Synthetic public note"
+            },
+            "evidence": [
+              "evidence:one"
+            ],
+            "provenance": [
+              "provenance:one"
+            ],
+            "resolutionRefs": [],
+            "visibility": "visible"
+          },
+          {
+            "id": "two",
+            "semanticRef": "exact-adopted-relation",
+            "group": {
+              "kind": "semantic",
+              "ref": "exact-adopted-relation"
+            },
+            "value": "B",
+            "evidence": [
+              "evidence:two"
+            ],
+            "provenance": [
+              "provenance:two"
+            ],
+            "resolutionRefs": [],
+            "visibility": "visible"
+          }
+        ],
+        "relations": [
+          {
+            "id": "conflict-link",
+            "from": "one",
+            "to": "two",
+            "relationRef": "owner-explicit-conflict"
+          }
+        ],
+        "unresolved": [
+          {
+            "id": "unknown",
+            "reason": "NeedsResolution",
+            "evidence": [
+              "unresolved-evidence"
+            ],
+            "contextRefs": [
+              "owner-context"
+            ],
+            "actionRefs": [
+              "owner-resolve"
+            ]
+          }
+        ],
+        "truncated": false
+      },
+      {
+        "source": {
+          "owner": "control-owner",
+          "ref": "control-snapshot",
+          "revision": "a-seven",
+          "kind": "control"
+        },
+        "items": [
+          {
+            "id": "status",
+            "semanticRef": null,
+            "group": {
+              "kind": "structural",
+              "ref": "/source/group"
+            },
+            "value": "not-authorized",
+            "evidence": [
+              "evidence:status"
+            ],
+            "provenance": [
+              "provenance:status"
+            ],
+            "resolutionRefs": [],
+            "visibility": "visible"
+          }
+        ],
+        "relations": [],
+        "unresolved": [],
+        "truncated": false
+      }
+    ],
+    "request": {
+      "key": "subject-view",
+      "producer": {
+        "id": "neutral-projector",
+        "version": "0.10.0",
+        "contract": "closed-contract",
+        "configuration": "configuration-A"
+      },
+      "sources": [
+        {
+          "owner": "semantic-owner",
+          "ref": "subject-snapshot",
+          "revision": "z-revision",
+          "kind": "semantic"
+        },
+        {
+          "owner": "control-owner",
+          "ref": "control-snapshot",
+          "revision": "a-seven",
+          "kind": "control"
+        }
+      ],
+      "focus": "person",
+      "purpose": "review",
+      "visibilityRef": "owner-visibility-decision",
+      "limits": {}
+    },
+    "config": {
+      "key": "scene",
+      "focus": "person",
+      "purpose": "review",
+      "regions": [
+        {
+          "id": "main",
+          "role": "Primary",
+          "itemIds": [
+            "one",
+            "two"
+          ]
+        },
+        {
+          "id": "resolve",
+          "role": "Resolution",
+          "itemIds": [
+            "unknown"
+          ]
+        }
+      ],
+      "actions": [
+        {
+          "id": "resolve",
+          "targetOwner": "semantic-owner",
+          "commandRef": "owner-resolve",
+          "contextRefs": [
+            "unknown"
+          ],
+          "sourceRefs": [
+            {
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision",
+              "kind": "semantic"
+            }
+          ],
+          "label": "Resolve"
+        }
+      ],
+      "temporal": {
+        "label": "Declared time",
+        "items": [
+          {
+            "itemId": "one",
+            "valuePath": [
+              "at"
+            ],
+            "format": "utcInstant"
+          }
+        ]
+      },
+      "presentation": [
+        {
+          "itemId": "one",
+          "titlePath": [
+            "label"
+          ],
+          "summaryPath": [
+            "label"
+          ],
+          "symbol": "clock",
+          "fields": [
+            {
+              "label": "When",
+              "valuePath": [
+                "at"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "data": {
+    "contract": "projection/0.10.0",
+    "kind": "Data",
+    "key": "subject-view",
+    "lineage": {
+      "sources": [
+        {
+          "kind": "control",
+          "owner": "control-owner",
+          "ref": "control-snapshot",
+          "revision": "a-seven"
+        },
+        {
+          "kind": "semantic",
+          "owner": "semantic-owner",
+          "ref": "subject-snapshot",
+          "revision": "z-revision"
+        }
+      ],
+      "producer": {
+        "configuration": "configuration-A",
+        "contract": "closed-contract",
+        "id": "neutral-projector",
+        "version": "0.10.0"
+      },
+      "request": {
+        "focus": "person",
+        "key": "subject-view",
+        "limits": {
+          "sources": 8,
+          "items": 256,
+          "relations": 512,
+          "provenance": 512,
+          "unresolved": 64,
+          "regions": 16,
+          "actions": 64,
+          "snapshotBytes": 524288
+        },
+        "producer": {
+          "configuration": "configuration-A",
+          "contract": "closed-contract",
+          "id": "neutral-projector",
+          "version": "0.10.0"
+        },
+        "purpose": "review",
+        "sources": [
+          {
+            "kind": "control",
+            "owner": "control-owner",
+            "ref": "control-snapshot",
+            "revision": "a-seven"
+          },
+          {
+            "kind": "semantic",
+            "owner": "semantic-owner",
+            "ref": "subject-snapshot",
+            "revision": "z-revision"
+          }
+        ],
+        "visibilityRef": "owner-visibility-decision"
+      }
+    },
+    "data": {
+      "items": [
+        {
+          "evidence": [
+            "evidence:one"
+          ],
+          "group": {
+            "kind": "semantic",
+            "ref": "exact-adopted-relation"
+          },
+          "id": "one",
+          "provenance": [
+            "provenance:one"
+          ],
+          "resolutionRefs": [],
+          "semanticRef": "exact-adopted-relation",
+          "value": {
+            "at": "2026-09-16T09:00:00.000Z",
+            "label": "Synthetic public note"
+          },
+          "visibility": "visible",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ]
+        },
+        {
+          "evidence": [
+            "evidence:status"
+          ],
+          "group": {
+            "kind": "structural",
+            "ref": "/source/group"
+          },
+          "id": "status",
+          "provenance": [
+            "provenance:status"
+          ],
+          "resolutionRefs": [],
+          "semanticRef": null,
+          "value": "not-authorized",
+          "visibility": "visible",
+          "sourceRefs": [
+            {
+              "kind": "control",
+              "owner": "control-owner",
+              "ref": "control-snapshot",
+              "revision": "a-seven"
+            }
+          ]
+        },
+        {
+          "evidence": [
+            "evidence:two"
+          ],
+          "group": {
+            "kind": "semantic",
+            "ref": "exact-adopted-relation"
+          },
+          "id": "two",
+          "provenance": [
+            "provenance:two"
+          ],
+          "resolutionRefs": [],
+          "semanticRef": "exact-adopted-relation",
+          "value": "B",
+          "visibility": "visible",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ]
+        }
+      ],
+      "relations": [
+        {
+          "from": "one",
+          "id": "conflict-link",
+          "relationRef": "owner-explicit-conflict",
+          "to": "two",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ]
+        }
+      ],
+      "unresolved": [
+        {
+          "actionRefs": [
+            "owner-resolve"
+          ],
+          "contextRefs": [
+            "owner-context"
+          ],
+          "evidence": [
+            "unresolved-evidence"
+          ],
+          "id": "unknown",
+          "reason": "NeedsResolution",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ]
+        }
+      ],
+      "truncated": false,
+      "omittedByPolicy": 0
+    },
+    "revision": "pp:5a2e516a35912211552fb7e14fb1ac00761ac5acb0af21f7f03e3278f8a5e3ff"
+  },
+  "scene": {
+    "contract": "projection/0.10.0",
+    "kind": "Scene",
+    "key": "scene",
+    "lineage": {
+      "producer": {
+        "configuration": "configuration-A",
+        "contract": "closed-contract",
+        "id": "neutral-projector",
+        "version": "0.10.0"
+      },
+      "request": {
+        "focus": "person",
+        "key": "subject-view",
+        "limits": {
+          "actions": 64,
+          "items": 256,
+          "provenance": 512,
+          "regions": 16,
+          "relations": 512,
+          "snapshotBytes": 524288,
+          "sources": 8,
+          "unresolved": 64
+        },
+        "producer": {
+          "configuration": "configuration-A",
+          "contract": "closed-contract",
+          "id": "neutral-projector",
+          "version": "0.10.0"
+        },
+        "purpose": "review",
+        "sources": [
+          {
+            "kind": "control",
+            "owner": "control-owner",
+            "ref": "control-snapshot",
+            "revision": "a-seven"
+          },
+          {
+            "kind": "semantic",
+            "owner": "semantic-owner",
+            "ref": "subject-snapshot",
+            "revision": "z-revision"
+          }
+        ],
+        "visibilityRef": "owner-visibility-decision"
+      },
+      "sources": [
+        {
+          "kind": "control",
+          "owner": "control-owner",
+          "ref": "control-snapshot",
+          "revision": "a-seven"
+        },
+        {
+          "kind": "semantic",
+          "owner": "semantic-owner",
+          "ref": "subject-snapshot",
+          "revision": "z-revision"
+        }
+      ],
+      "dataProjection": {
+        "key": "subject-view",
+        "revision": "pp:5a2e516a35912211552fb7e14fb1ac00761ac5acb0af21f7f03e3278f8a5e3ff"
+      },
+      "sceneConfiguration": {
+        "actions": [
+          {
+            "commandRef": "owner-resolve",
+            "contextRefs": [
+              "unknown"
+            ],
+            "id": "resolve",
+            "label": "Resolve",
+            "sourceRefs": [
+              {
+                "kind": "semantic",
+                "owner": "semantic-owner",
+                "ref": "subject-snapshot",
+                "revision": "z-revision"
+              }
+            ],
+            "targetOwner": "semantic-owner"
+          }
+        ],
+        "focus": "person",
+        "key": "scene",
+        "presentation": [
+          {
+            "fields": [
+              {
+                "label": "When",
+                "valuePath": [
+                  "at"
+                ]
+              }
+            ],
+            "itemId": "one",
+            "summaryPath": [
+              "label"
+            ],
+            "symbol": "clock",
+            "titlePath": [
+              "label"
+            ]
+          }
+        ],
+        "purpose": "review",
+        "regions": [
+          {
+            "id": "main",
+            "itemIds": [
+              "one",
+              "two"
+            ],
+            "role": "Primary"
+          },
+          {
+            "id": "resolve",
+            "itemIds": [
+              "unknown"
+            ],
+            "role": "Resolution"
+          }
+        ],
+        "temporal": {
+          "items": [
+            {
+              "format": "utcInstant",
+              "itemId": "one",
+              "valuePath": [
+                "at"
+              ]
+            }
+          ],
+          "label": "Declared time"
+        }
+      }
+    },
+    "data": {
+      "items": [
+        {
+          "evidence": [
+            "evidence:one"
+          ],
+          "group": {
+            "kind": "semantic",
+            "ref": "exact-adopted-relation"
+          },
+          "id": "one",
+          "provenance": [
+            "provenance:one"
+          ],
+          "resolutionRefs": [],
+          "semanticRef": "exact-adopted-relation",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ],
+          "value": {
+            "at": "2026-09-16T09:00:00.000Z",
+            "label": "Synthetic public note"
+          },
+          "visibility": "visible"
+        },
+        {
+          "evidence": [
+            "evidence:status"
+          ],
+          "group": {
+            "kind": "structural",
+            "ref": "/source/group"
+          },
+          "id": "status",
+          "provenance": [
+            "provenance:status"
+          ],
+          "resolutionRefs": [],
+          "semanticRef": null,
+          "sourceRefs": [
+            {
+              "kind": "control",
+              "owner": "control-owner",
+              "ref": "control-snapshot",
+              "revision": "a-seven"
+            }
+          ],
+          "value": "not-authorized",
+          "visibility": "visible"
+        },
+        {
+          "evidence": [
+            "evidence:two"
+          ],
+          "group": {
+            "kind": "semantic",
+            "ref": "exact-adopted-relation"
+          },
+          "id": "two",
+          "provenance": [
+            "provenance:two"
+          ],
+          "resolutionRefs": [],
+          "semanticRef": "exact-adopted-relation",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ],
+          "value": "B",
+          "visibility": "visible"
+        }
+      ],
+      "omittedByPolicy": 0,
+      "relations": [
+        {
+          "from": "one",
+          "id": "conflict-link",
+          "relationRef": "owner-explicit-conflict",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ],
+          "to": "two"
+        }
+      ],
+      "truncated": false,
+      "unresolved": [
+        {
+          "actionRefs": [
+            "owner-resolve"
+          ],
+          "contextRefs": [
+            "owner-context"
+          ],
+          "evidence": [
+            "unresolved-evidence"
+          ],
+          "id": "unknown",
+          "reason": "NeedsResolution",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ]
+        }
+      ],
+      "focus": "person",
+      "purpose": "review",
+      "regions": [
+        {
+          "id": "main",
+          "itemIds": [
+            "one",
+            "two"
+          ],
+          "role": "Primary"
+        },
+        {
+          "id": "resolve",
+          "itemIds": [
+            "unknown"
+          ],
+          "role": "Resolution"
+        }
+      ],
+      "actions": [
+        {
+          "commandRef": "owner-resolve",
+          "contextRefs": [
+            "unknown"
+          ],
+          "id": "resolve",
+          "label": "Resolve",
+          "sourceRefs": [
+            {
+              "kind": "semantic",
+              "owner": "semantic-owner",
+              "ref": "subject-snapshot",
+              "revision": "z-revision"
+            }
+          ],
+          "targetOwner": "semantic-owner"
+        }
+      ],
+      "temporal": {
+        "label": "Declared time",
+        "items": [
+          {
+            "itemId": "one",
+            "at": "2026-09-16T09:00:00.000Z"
+          }
+        ]
+      },
+      "presentation": [
+        {
+          "itemId": "one",
+          "title": "Synthetic public note",
+          "summary": "Synthetic public note",
+          "fields": [
+            {
+              "label": "When",
+              "value": "2026-09-16T09:00:00.000Z"
+            }
+          ],
+          "symbol": "clock"
+        }
+      ]
+    },
+    "revision": "pp:e1b0338d2ab22fdab7f6fe38d7ffc174c97ef8bde0dfeb9f43e3ef1f58502e19"
+  }
+}

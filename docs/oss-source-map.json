@@ -95,7 +95,7 @@
         "types": "./src/index.d.mts"
       },
       "declared_commands": {
-        "test": "node --test test/*.test.mjs",
+        "test": "node --test test/*.test.mts",
         "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts"
       }
     },
@@ -155,9 +155,9 @@
     "packages/dom-renderer/test/world-browser.mjs",
     "packages/dom-renderer/test/world-model.test.mjs",
     "packages/projection-client/test/client.test.mts",
-    "packages/projection-contracts/test/contracts.test.mjs",
+    "packages/projection-contracts/test/contracts.test.mts",
     "packages/projection-contracts/test/public-types.mts",
-    "packages/projection-contracts/test/temporal.test.mjs",
+    "packages/projection-contracts/test/temporal.test.mts",
     "packages/view-contracts/test/consumer.mts",
     "packages/view-contracts/test/delivery.test.mts",
     "packages/view-server/src/index.mjs",
@@ -169,7 +169,10 @@
     "test/playground-browser.mjs",
     "test/private-store.test.mjs",
     "test/public-types.mts",
-    "test/runtime.test.mjs"
+    "test/runtime.test.mjs",
+    "packages/projection-contracts/test/boundaries.test.mts",
+    "packages/projection-contracts/test/fixture.mts",
+    "packages/projection-contracts/test/wire-inputs.mts"
   ],
   "example_sources": [
     "examples/data-to-screen.mjs",
