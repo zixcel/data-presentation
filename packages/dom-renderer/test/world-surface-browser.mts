@@ -46,7 +46,7 @@ export async function checkSurface(input:BrowserCase){
   assert.equal(await page.locator('[data-world-id=guide]').evaluate(n=>getComputedStyle(n,'::before').animationName),'none','a reservation never animates as proven model progress')
   await page.locator('.world-nearby summary').click();const oldPosition=await page.locator('[data-world-id=guide]').getAttribute('data-position')
   await page.getByLabel('Object spacing',{exact:true}).selectOption('spacious');assert.notEqual(await page.locator('[data-world-id=guide]').getAttribute('data-position'),oldPosition)
-  await page.evaluate(()=>window.surface.attach(document.getElementById('stage')!,{...window.activityOptions,activity:{available:false}}))
+  await page.evaluate(()=>{window.lease=window.surface.attach(document.getElementById('stage')!,{...window.activityOptions,activity:{available:false}});window.world=window.lease.world})
   await expect(page.locator('.world-engine summary')).toHaveText('Host activity unavailable')
   await expect(page.locator('[data-world-id=guide]')).toHaveAttribute('data-activity','Unavailable')
   await checkParkedView(input)

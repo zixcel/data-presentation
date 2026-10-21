@@ -19,7 +19,7 @@ export async function checkParkedView({page}:BrowserCase){
  const before=await page.evaluate(()=>{
   const wrapper=document.querySelector<HTMLElement>('.mind-world');if(!wrapper)throw Error('Missing active world')
   window.parkedWrap=wrapper;const frames=wrapper.dataset.frames
-  window.lease.release();window.dispatchEvent(new PageTransitionEvent('pageshow'));return frames
+  window.lease.release();if(wrapper.isConnected)throw Error('Current view lease did not park its DOM');window.dispatchEvent(new PageTransitionEvent('pageshow'));return frames
  })
  await page.waitForTimeout(350)
  assert.equal(await page.evaluate(()=>window.parkedWrap.dataset.frames),before,'parked views cannot resume their render loop on page restore')
