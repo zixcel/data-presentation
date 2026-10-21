@@ -31,7 +31,7 @@
     "@zixcel/projection-contracts": "0.10.3"
   },
   "scripts": {
-    "test": "node --test --test-concurrency=1 test/*.test.mjs test/*.test.mts",
+    "test": "node --test --test-concurrency=1 test/*.test.mts",
     "typecheck": "tsc --noEmit --strict --module NodeNext --moduleResolution NodeNext --target ES2022 test/public-types.mts",
     "playground:build": "node scripts/build-playground.mjs",
     "playground:serve": "node scripts/serve-playground.mjs",
