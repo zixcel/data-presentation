@@ -25,8 +25,10 @@
     "@zixcel/projection-client": "0.10.4"
   },
   "scripts": {
-    "test": "node --test test/*.test.mjs",
-    "test:browser": "node test/world-browser.mjs"
+    "test": "node --test test/*.test.mjs test/*.test.mts",
+    "test:browser": "node test/world-browser.mjs",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.build.json --noEmit"
   },
   "devDependencies": {
     "@playwright/test": "1.64.1",

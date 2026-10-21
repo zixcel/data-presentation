@@ -1,13 +1,20 @@
-export function objectPresentation(item: any): {
-    form: any;
-    dataType?: undefined;
-    needsReview?: undefined;
-} | {
-    form: string;
-    dataType: any;
-    needsReview: boolean;
-};
-export const spacingPresets: Readonly<{
+export type ObjectForm = 'person' | 'organization' | 'system' | 'shelf' | 'book';
+export type ObjectTint = 'dark' | 'accent' | 'light' | 'face' | 'warning';
+export type ObjectPart = readonly [number, number, number, number, number, number, ObjectTint];
+export interface PresentationInput {
+    id?: string;
+    title?: string;
+    form?: string;
+    kind?: string;
+    scalars?: readonly unknown[];
+    unresolved?: unknown;
+}
+export interface ObjectPresentation {
+    form: ObjectForm;
+    dataType?: 'text' | 'number' | 'boolean' | 'record';
+    needsReview?: boolean;
+}
+export declare const spacingPresets: Readonly<{
     compact: {
         person: number;
         group: number;
@@ -24,14 +31,14 @@ export const spacingPresets: Readonly<{
         member: number;
     };
 }>;
-export const objectForms: Readonly<{
+export declare const objectForms: Readonly<{
     person: "Person";
     organization: "Organization";
     system: "System";
     shelf: "Bookshelf";
     book: "Book";
 }>;
-export const libraryLayout: Readonly<{
+export declare const libraryLayout: Readonly<{
     columns: 6;
     rows: 4;
     slotWidth: 0.46;
@@ -39,17 +46,6 @@ export const libraryLayout: Readonly<{
     baseY: 0.32;
     frontZ: 0.32;
 }>;
-export const objectBounds: Readonly<{
-    person: number[];
-    organization: number[];
-    system: number[];
-    shelf: number[];
-    book: number[];
-}>;
-export const objectTemplates: Readonly<{
-    person: (string | number)[][];
-    organization: (string | number)[][];
-    system: (string | number)[][];
-    shelf: (string | number)[][];
-    book: (string | number)[][];
-}>;
+export declare const objectBounds: Readonly<Record<ObjectForm, readonly [number, number, number]>>;
+export declare const objectTemplates: Readonly<Record<ObjectForm, readonly ObjectPart[]>>;
+export declare function objectPresentation(item: PresentationInput): ObjectPresentation;

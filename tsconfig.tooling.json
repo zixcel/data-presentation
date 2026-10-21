@@ -28,6 +28,10 @@
     "scripts/serve-playground.mts",
     "test/playground-browser.mts",
     "playground/data-to-screen/app.mts",
-    "playground/data-to-screen/samples.d.mts"
+    "playground/data-to-screen/samples.d.mts",
+    "packages/dom-renderer/test/frame-layout.test.mts",
+    "packages/dom-renderer/test/npc-motion.test.mts",
+    "packages/dom-renderer/test/object-presentation.test.mts",
+    "packages/dom-renderer/test/open-world-projection.test.mts"
   ]
 }
