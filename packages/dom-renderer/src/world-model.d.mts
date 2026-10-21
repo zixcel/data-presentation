@@ -1,43 +1,6 @@
-export function layoutWorld(objects: any, relations?: any[], pattern?: string, spacing?: string): {
-    pattern?: string;
-    items: any[];
-    relations: any[];
-};
-export function initialPose(): {
-    x: number;
-    y: number;
-    z: number;
-    yaw: number;
-    pitch: number;
-};
-export function fitPose(items: any, aspect?: number): {
-    x: any;
-    y: any;
-    z: any;
-    yaw: number;
-    pitch: number;
-    focus: {
-        x: any;
-        y: any;
-        z: any;
-    };
-};
-export function movePose(pose: any, forward: any, side: any, seconds: any, vertical?: number): any;
-export function lookPose(pose: any, dx: any, dy: any): any;
-export function viewCamera(pose: any, aspect: any, zoom?: number, camera?: any): any;
-export function cameraMatrix(pose: any, aspect: any, zoom?: number): any;
-export function screenPoint(matrix: any, x: any, y: any, z: any, width: any, height: any): {
-    x: number;
-    y: number;
-    depth: number;
-    visible: boolean;
-};
-export function renderSize(width: any, height: any, dpr: any): {
-    width: number;
-    height: number;
-};
-export function pickWorld(items: any, pose: any, x: any, y: any, width: any, height: any, zoom?: number): any;
-export const worldLimits: Readonly<{
+import type { Pose, WorldObject, WorldRelation, WorldModel } from './world-types.mjs';
+import { PerspectiveCamera } from 'three';
+export declare const worldLimits: Readonly<{
     objects: 512;
     relations: 512;
     pixels: 1440000;
@@ -46,4 +9,30 @@ export const worldLimits: Readonly<{
     instances: 8192;
     radius: 28;
 }>;
-export function clamp(value: any, min: any, max: any): number;
+export declare const clamp: (value: number, min: number, max: number) => number;
+export declare function layoutWorld<T extends WorldObject>(objects: readonly T[], relations?: readonly WorldRelation[], pattern?: string, spacing?: string): WorldModel<T>;
+export declare function initialPose(): Pose;
+export declare function fitPose(items: readonly {
+    x: number;
+    y?: number;
+    z: number;
+}[], aspect?: number): Pose;
+export declare function movePose(pose: Pose, forward: number, side: number, seconds: number, vertical?: number): Pose;
+export declare function lookPose(pose: Pose, dx: number, dy: number): Pose;
+export declare function viewCamera(pose: Pose, aspect: number, zoom?: number, camera?: PerspectiveCamera): PerspectiveCamera;
+export declare function cameraMatrix(pose: Pose, aspect: number, zoom?: number): import("three").Matrix4Tuple;
+export declare function screenPoint(matrix: readonly number[], x: number, y: number, z: number, width: number, height: number): {
+    x: number;
+    y: number;
+    depth: number;
+    visible: boolean;
+} | null;
+export declare function renderSize(width: number, height: number, dpr: number): {
+    width: number;
+    height: number;
+};
+export declare function pickWorld(items: readonly (WorldObject & {
+    x: number;
+    y?: number;
+    z: number;
+})[], pose: Pose, x: number, y: number, width: number, height: number, zoom?: number): string | null;
