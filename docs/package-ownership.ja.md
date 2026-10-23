@@ -1,9 +1,18 @@
 # パッケージの保守正本
 
-Projection runtime / contracts / client / DOM rendererの実装・型・テスト・配布設定は`zixcel/projection-runtime`を保守正本とする。npm名は`@zixcel`に統一する。package.jsonのrepository.urlと子パッケージのrepository.directoryは、このソース配置に一致させる。
+汎用Projection・配信機能の正本は `zixcel/data-presentation` です。npm名と現行の配置は各 `package.json`、公開対象と手順は `.github/registry-release.json` と公開workflowで定義します。
 
-Projectionは状態・通信契約・client・描画の依存グラフを一つのworkspaceで検証する。Structured Surfaceはデータ契約とHTML/Markdown adapterを一つのworkspaceで検証する。両workspaceは責務とrelease検証を分け、ソースの重複コピーは作らない。copyright・LICENSE・NOTICE・既存の移管履歴は保持する。
+| 配置 | 公開パッケージ | 責務 |
+| --- | --- | --- |
+| ルート | @zixcel/projection-runtime | 制限付きproducer実行・snapshotの永続化 |
+| packages/projection-contracts | @zixcel/projection-contracts | 汎用の状態・入力契約 |
+| packages/projection-client | @zixcel/projection-client | 状態の採用・RenderPlan生成 |
+| packages/dom-renderer | @zixcel/dom-renderer | 汎用DOM描画 |
+| packages/view-contracts | @zixcel/view-delivery-contracts | 文書配信・受付の汎用契約 |
+| packages/view-server | @zixcel/view-delivery | 制限付きHTTP配信・owner結果の通知 |
 
-新名は0.10.0から公開する。既存の`@hathq`配布物は歴史的な配布物として保持し、新名の公式配布物を照合してから利用側の依存・import・lockfileを切り替える。未公開の新名を通常の利用側CIに指定しない。旧名の非推奨案内は後継の公開後に行う。
+`hathq/delivery-server` は現役のHatter用アダプターです。サーバーとwire契約はこの汎用基盤へ委譲し、Hatter固有のowner許可・表示・画面操作を保持します。`@hathq/delivery-*` を一括して旧版扱いしたり、汎用パッケージへ機械的に置換したりしません。
 
-反映前にfrozen install・既存テスト・型検証と、7件の実TGZによる独立Node/NodeNext/browser consumerを検証する。配布時の内部依存もregistry版指定とし、workspace内だけで成立するfile/link参照を配布しない。Trusted Publisherは各新名にこの正本リポジトリの公開workflowを登録する。
+`zixcel/document-processing` は文書構造とHTML/Markdownアダプターを担当します。Projection・配信とは責務とrelease検証を分け、実装を重複コピーしません。著作権・LICENSE・NOTICEと固定SHAの移管来歴を保持します。
+
+内部依存も公開時はregistry版を指定します。workspaceのlinkで試験が通ったことだけで公開済みとは扱いません。独立した実TGZ consumer・型・ブラウザー検証を行い、公開後の配布物・来歴を照合してから利用側の固定版とlockfileを更新します。版番号・ファイル数は固定せず、現行manifestと配布物から取得します。
