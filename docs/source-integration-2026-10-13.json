@@ -2,13 +2,9 @@
   "source_repository": "zixcel/view-delivery",
   "source_sha": "dae082ce28892b79bfec7d8cb28f713470571f24",
   "source_tree": "44451e662a13c044a1157a6dd6803eaeb7807d4c",
-  "history": "Git subtree import without squash; original commit ancestry retained",
+  "history": "Fixed original SHA/tree record only. Embedded Git bundles and history-restoration requirements are retired; normal current-repository Git history is unchanged.",
   "changes_after_import": "Move package directories, remove duplicate repository CI/publisher wrappers, update repository metadata; retain implementation exports, schema IDs, license and NOTICE.",
-  "archive_gate": "Independent consumer, canonical CI, new trusted publication and consumer reference switch; hosting remains separate.",
-  "canonical_history_bundle": {
-    "path": "docs/source-history/view-delivery.bundle",
-    "sha256": "5b56e9b80eebd376c6ea045f9f4e10075a04f23e3a033b646cb3f24e423f521a",
-    "reason": "Main requires linear history and disallows merge commits. Preserve the original source commit graph in the canonical repository even after the approved PR squash merge.",
-    "includes_ignored_worktree_data": false
-  }
+  "archive_gate": "Reviewed current owner source, exact package artifacts, normal publication gates and independent consumer verification. Historical Git restoration is not a release prerequisite.",
+  "retired_archive_sha256": "5b56e9b80eebd376c6ea045f9f4e10075a04f23e3a033b646cb3f24e423f521a",
+  "owner_repository": "zixcel/data-presentation"
 }
