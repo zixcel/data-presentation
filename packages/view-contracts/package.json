@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/view-delivery-contracts",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded site delivery and per-source readiness over exact Projection contracts",
@@ -18,7 +18,7 @@
     }
   },
   "dependencies": {
-    "@zixcel/projection-contracts": "0.10.4",
+    "@zixcel/projection-contracts": "0.10.5",
     "@zixcel/interaction": "0.10.1"
   },
   "scripts": {

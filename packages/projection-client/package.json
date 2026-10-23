@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/projection-client",
-  "version": "0.10.4",
+  "version": "0.10.5",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Bounded renderer-independent projection adoption and presentation runtime",
@@ -19,7 +19,7 @@
     }
   },
   "dependencies": {
-    "@zixcel/projection-contracts": "0.10.4"
+    "@zixcel/projection-contracts": "0.10.5"
   },
   "scripts": {
     "test": "node --test test/*.test.mts",
