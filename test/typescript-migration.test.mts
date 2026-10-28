@@ -59,4 +59,5 @@ test('all emitted JavaScript is classified and all owner build configurations st
 test('source guard distinguishes unchecked types from legitimate DOM attribute text',()=>{
  for(const source of ['let value: any','const value = item as any','type Items = Promise<any>'])assert.equal(hasUncheckedToken(source),true)
  for(const source of ["input.step='any'",'const label="any"','// any is not a type here\nconst count:number=1'])assert.equal(hasUncheckedToken(source),false)
+ assert.throws(()=>hasUncheckedToken('const pattern = /^#(?:a|b)/.test(x)'),/scanner did not advance/)
 })

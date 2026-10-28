@@ -5,7 +5,7 @@ import {readFile} from 'node:fs/promises'
 import {build,stop} from 'esbuild'
 import {chromium} from '@playwright/test'
 import type {Browser} from '@playwright/test'
-import {compactThreeShaders} from '../tooling/compact-shaders.mjs'
+import {compactThreeShaders} from '../src/compact-shaders.mjs'
 export async function withWorldBrowser(run:(browser:Browser,url:string)=>Promise<void>):Promise<void>{
  let browser:Browser|undefined,server:ReturnType<typeof createServer>|undefined,failed=false,primary:unknown
  try{

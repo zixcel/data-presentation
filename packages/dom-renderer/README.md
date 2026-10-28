@@ -45,7 +45,7 @@ Use a supported Node.js security release for Node-based build, delivery and cons
 Official advisory: https://nodejs.org/en/blog/vulnerability/october-2026-security-releases
 # Build-time shader compaction
 
-Browser bundles may opt in to `@zixcel/dom-renderer/tooling/compact-shaders`, an
+Browser bundles may opt in to `@zixcel/dom-renderer/build/compact-shaders`, an
 esbuild plugin that removes whitespace from the reviewed Three.js 0.186.1 shader
 chunks while checking their token sequence and preprocessor boundaries. It refuses
 any other upstream file until reviewed. It does not modify the installed source,

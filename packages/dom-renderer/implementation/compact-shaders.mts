@@ -4,16 +4,16 @@ import { readFile } from 'node:fs/promises'
 
 const reviewedSha256 = '9052042d676cb0fdc1ddfefe193053f34b7ac0513a616fdac4535d49987812ea'
 const tokens = /[A-Za-z_]\w*|(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+-]?\d+)?|(?:\+\+|--|\+=|-=|\*=|\/=|==|!=|<=|>=|&&|\|\||<<|>>|\^=|&=|\|=)|[^\s]/g
-const sequence = input => JSON.stringify(input.match(tokens))
+const sequence = (input: string): string => JSON.stringify(input.match(tokens))
 
-function compactChunk(input) {
+function compactChunk(input: string): string {
   if (input.includes('"') || input.includes('/*') || input.split('\n').some(line => line.trim().endsWith('\\'))) {
     throw new Error('Unreviewed shader syntax')
   }
   const directives = input.split('\n').filter(line => line.trimStart().startsWith('#')).map(line => sequence(line))
   const lines = input.split('\n').map(line => {
     const initial = line.trim()
-    if (/^#(?:include|pragma|define)/.test(initial) || initial.includes('//')) return initial
+    if (['#include', '#pragma', '#define'].some(prefix => initial.startsWith(prefix)) || initial.includes('//')) return initial
     const spaced = initial.replace(/[ \t]*([(){},;\[\]])[ \t]*/g, '$1').replace(/[ \t]{2,}/g, ' ')
     const compact = spaced.replace(/[ \t]*([=+\-*/<>?:!&|])[ \t]*/g, '$1')
     return sequence(initial) === sequence(compact) ? compact : initial
@@ -33,7 +33,7 @@ function compactChunk(input) {
 }
 
 /** Fail closed unless the exact reviewed upstream source is present. */
-export function compactThreeShaderSource(source) {
+export function compactThreeShaderSource(source: string): string {
   if (createHash('sha256').update(source).digest('hex') !== reviewedSha256) throw new Error('Unreviewed Three.js shader source')
   let chunks = 0
   const result = source.replace(/(var ([A-Za-z0-9_]+) = ")((?:[^"\\]|\\.)*)(";)/g, (all, start, name, encoded, end) => {
@@ -47,9 +47,9 @@ export function compactThreeShaderSource(source) {
 
 /** esbuild plugin for browser builds. Does not alter source files or runtime APIs. */
 export function compactThreeShaders() {
-  return { name: 'zixcel-reviewed-three-shaders', setup(build) {
+  return { name: 'zixcel-reviewed-three-shaders', setup(build: { onLoad(options: { filter: RegExp }, callback: (args: { path: string }) => Promise<{ contents: string; loader: 'js' }>): void }) {
     build.onLoad({ filter: /[\\/]three[\\/]build[\\/]three\.module\.js$/ }, async args => ({
-      contents: compactThreeShaderSource(await readFile(args.path, 'utf8')), loader: 'js',
+      contents: compactThreeShaderSource(await readFile(args.path, 'utf8')), loader: 'js' as const,
     }))
   } }
 }
