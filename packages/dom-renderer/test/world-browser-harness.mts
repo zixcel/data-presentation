@@ -5,11 +5,12 @@ import {readFile} from 'node:fs/promises'
 import {build,stop} from 'esbuild'
 import {chromium} from '@playwright/test'
 import type {Browser} from '@playwright/test'
+import {compactThreeShaders} from '../tooling/compact-shaders.mjs'
 export async function withWorldBrowser(run:(browser:Browser,url:string)=>Promise<void>):Promise<void>{
  let browser:Browser|undefined,server:ReturnType<typeof createServer>|undefined,failed=false,primary:unknown
  try{
   const root=new URL('../',import.meta.url).pathname
-  const bundle=await build({entryPoints:[new URL('./fixtures/world-app.mts',import.meta.url).pathname],bundle:true,format:'esm',write:false,logLevel:'silent'})
+  const bundle=await build({entryPoints:[new URL('./fixtures/world-app.mts',import.meta.url).pathname],bundle:true,format:'esm',write:false,logLevel:'silent',plugins:[compactThreeShaders()]})
   assert.deepEqual(bundle.warnings,[]);assert.equal(bundle.outputFiles.length,1)
   const css=await readFile(root+'src/style.css','utf8')
   server=createServer((request,response)=>{response.setHeader('content-type',request.url==='/app.js'?'text/javascript':request.url==='/style.css'?'text/css':'text/html');response.end(request.url==='/app.js'?bundle.outputFiles[0].text:request.url==='/style.css'?css:'<!doctype html><html lang="en"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="stylesheet" href="/style.css"><title>Thinking garden · isolated renderer test</title><main id="stage" class="delivery-shell"></main><script type="module" src="/app.js"></script></html>')})
