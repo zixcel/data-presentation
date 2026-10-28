@@ -28,7 +28,7 @@ importers:
         specifier: 8.18.2
         version: 8.18.2
       '@zixcel/dom-renderer':
-        specifier: 0.10.6
+        specifier: 0.10.7
         version: link:packages/dom-renderer
       '@zixcel/projection-client':
         specifier: 0.10.5

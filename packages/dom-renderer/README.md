@@ -43,3 +43,10 @@ Current releases use GitHub Actions OIDC trusted publishing from `zixcel/data-pr
 Use a supported Node.js security release for Node-based build, delivery and consumer processes: at least 22.23.4, 24.22.1 or 26.12.1. The renderer runs in the browser and does not bundle Node. Updating an npm library does not update the caller's Node executable. The October 21, 2026 security fixes include TLS, DNS, HTTP and Brotli handling; operator-managed runtimes must be updated independently. GitHub Actions pins select the shell/build runtime, not the GitHub-managed runtime of JavaScript Actions.
 
 Official advisory: https://nodejs.org/en/blog/vulnerability/october-2026-security-releases
+# Build-time shader compaction
+
+Browser bundles may opt in to `@zixcel/dom-renderer/build/compact-shaders`, an
+esbuild plugin that removes whitespace from the reviewed Three.js 0.186.1 shader
+chunks while checking their token sequence and preprocessor boundaries. It refuses
+any other upstream file until reviewed. It does not modify the installed source,
+runtime API, graphics features or Three.js license notices.

@@ -1,5 +1,6 @@
 {
   "generated": [
+    "packages/dom-renderer/src/compact-shaders.mjs",
     "packages/view-contracts/src/index.mjs",
     "packages/view-contracts/src/types.mjs",
     "packages/projection-client/src/index.mjs",

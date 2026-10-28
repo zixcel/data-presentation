@@ -1,6 +1,6 @@
 {
   "name": "@zixcel/dom-renderer",
-  "version": "0.10.6",
+  "version": "0.10.7",
   "type": "module",
   "license": "Apache-2.0",
   "description": "Trusted native DOM rendering of PP RenderPlans and Zixcel owner inputs",
@@ -17,7 +17,11 @@
       "types": "./src/index.d.mts",
       "import": "./src/index.mjs"
     },
-    "./style": "./src/style.css"
+    "./style": "./src/style.css",
+    "./build/compact-shaders": {
+      "types": "./src/compact-shaders.d.mts",
+      "import": "./src/compact-shaders.mjs"
+    }
   },
   "dependencies": {
     "three": "0.186.1",
