@@ -23,7 +23,7 @@
   "dependencies": {
     "@crowsi/browser-security": "0.10.0",
     "@crowsi/transport-foundation": "0.10.0",
-    "@types/node": "24.12.0",
+    "@types/node": "26.6.6",
     "@zixcel/projection-contracts": "0.10.5",
     "@zixcel/view-delivery-contracts": "0.10.5",
     "ws": "8.22.0"
