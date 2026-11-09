@@ -24,7 +24,7 @@
     }
   },
   "dependencies": {
-    "three": "0.186.1",
+    "three": "0.187.0",
     "@zixcel/interaction": "0.10.1",
     "@zixcel/projection-client": "0.10.5"
   },
@@ -35,7 +35,7 @@
     "typecheck": "tsc -p tsconfig.build.json --noEmit"
   },
   "devDependencies": {
-    "@playwright/test": "1.64.1",
+    "@playwright/test": "1.65.0",
     "esbuild": "0.28.2"
   },
   "repository": {
